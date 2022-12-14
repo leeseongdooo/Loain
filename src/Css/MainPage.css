@@ -1,0 +1,15 @@
+h1 {
+  color: red;
+}
+
+button {
+  display: block;
+}
+
+a {
+  cursor: pointer;
+  color: black;
+  text-decoration: none;
+  display: block;
+  margin: 5px 0px;
+}
