@@ -8,7 +8,6 @@
   background-color: white;
 
   .QuickMatchParent {
-    background-color: rgb(207, 204, 204);
     width: 100%;
     min-height: 330px;
     padding: 10px;
@@ -19,14 +18,15 @@
     .QuickMatchChild {
       box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.175);
       background-color: white;
-      border: 1px solid black;
+      border: 1px solid green;
       display: flex;
       padding: 10px;
       width: 80%;
       height: 300px;
 
-      ul {
+      .SelectRaid {
         margin-right: 10px;
+        border-right: 1px solid black;
         li {
           cursor: pointer;
           display: flex;
@@ -55,9 +55,59 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid black;
+        justify-content: flex-start;
+
+        // 레이드 이름
+        .SelectRaidBoss {
+          li {
+            width: 70px;
+            margin: 0px 5px;
+            border-radius: 10px;
+            border: 1px solid #999999;
+            padding: 10px;
+            list-style: none;
+            font-weight: 700;
+            float: left;
+            transition: 0.3s;
+            cursor: pointer;
+          }
+
+          li:first-child {
+            margin-left: 10px;
+          }
+
+          // 레이드 마다 hover시 색상 다르게
+
+          .Valtan:hover {
+            background-color: black;
+            color: white;
+          }
+
+          .BiaKis:hover {
+            background-color: rgb(244, 107, 130);
+            color: white;
+          }
+
+          .Kukeu:hover {
+            background-color: rgb(210, 44, 44);
+            color: white;
+          }
+
+          .Ave:hover {
+            background-color: rgb(132, 83, 182);
+            color: white;
+          }
+
+          .Iliy:hover {
+            background-color: rgb(48, 118, 48);
+            color: white;
+          }
+
+          .Kman:hover {
+            background-color: rgb(33, 33, 151);
+            color: white;
+          }
+        }
 
         .MatchCard {
           display: flex;
@@ -66,7 +116,7 @@
           margin: 10px;
           border: 1px solid rgba(168, 168, 168, 0.382);
           border-radius: 10px;
-          min-width: 350px;
+          min-width: 330px;
           max-width: 450px;
           height: 130px;
           padding: 10px;

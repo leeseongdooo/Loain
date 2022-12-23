@@ -17,7 +17,6 @@ function MatchCard({}) {
 
       <div className="Middle">
         <p>레이드 : </p>
-
         <p>모집현황 : </p>
       </div>
 
@@ -74,18 +73,18 @@ function MainPage() {
           </ul>
 
           <div className="MatchBox">
+            <ul className="SelectRaidBoss">
+              <li className="Valtan">발탄</li>
+              <li className="BiaKis">비아키스</li>
+              <li className="Kukeu">쿠크세이튼</li>
+              <li className="Ave">아브렐슈드</li>
+              <li className="Iliy">일리아칸</li>
+              <li className="Kman">카멘</li>
+            </ul>
             <MatchCard />
           </div>
         </div>
       </div>
-
-      <button
-        onClick={() => {
-          console.log("오른쪽으로 이동");
-        }}
-      >
-        슬라이드
-      </button>
     </div>
   );
 }
