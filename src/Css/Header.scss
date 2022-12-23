@@ -1,6 +1,6 @@
 // 헤더에서 가장 큰 부모요소.
 .HeaderParent {
-  position: fixed;
+  position: relative;
   background-color: white;
   width: calc(100% - 80px);
   padding: 0px 40px;
@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 
   // 부모요소안에 있는 모든 a태그에게 적용될 css 입니다.
   a {
