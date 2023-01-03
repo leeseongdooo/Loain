@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.LoginBigBox {
+  height: calc(100vh - 82px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .LoginBox {
+    display: flex;
+    box-shadow: 5px 0px 8px rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
+    width: 80%;
+
+    height: 500px;
+
+    .WriteArea {
+      width: 30%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .TitleText {
+        margin-bottom: 30px;
+        font-size: 40px;
+      }
+
+      .InnerBox {
+        width: 90%;
+        input {
+          border: 1px solid black;
+          border-radius: 10px;
+          width: 290px;
+          height: 20px;
+          padding: 8px 10px;
+          margin-bottom: 10px;
+        }
+
+        p {
+          width: 300px;
+          font-weight: bold;
+          text-align: left;
+          font-size: 14px;
+          margin-bottom: 5px;
+        }
+
+        .ButtonBox {
+          width: 100%;
+          display: flex;
+          align-items: center;
+
+          a {
+            width: 50%;
+          }
+
+          button {
+            border-radius: 10px;
+            width: calc(50% - 10px);
+            margin-right: 10px;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+          }
+
+          .SignInBtn {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .ImageArea {
+      transition: 0.3s;
+      width: 70%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}

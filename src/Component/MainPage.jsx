@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import "../Css/MainPage.scss";
+import Header from "./Header";
 
 function MatchCard({}) {
   return (

@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { BiSearchAlt2 } from "react-icons/bi";
 import "../Css/Header.scss";
 
 function Header() {
   return (
     <header className="HeaderParent">
-      <a href="" className="LogoFont">
+      <Link to="/" className="LogoFont">
         LOAIN
-      </a>
+      </Link>
 
       <div className="SearchBox">
         <BiSearchAlt2 id="SearchIcon" />
@@ -15,8 +16,8 @@ function Header() {
       </div>
 
       <div className="utility">
-        <a href="">로그인</a>
-        <a href="">회원가입</a>
+        <Link to="/Login">로그인</Link>
+        <Link to="/Signin">회원가입</Link>
       </div>
     </header>
   );
