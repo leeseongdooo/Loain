@@ -17,7 +17,6 @@ function Header() {
 
       <div className="utility">
         <Link to="/Login">로그인</Link>
-        <Link to="/Signin">회원가입</Link>
       </div>
     </header>
   );

@@ -7,6 +7,7 @@ function SigninMode({ mode, setMode }) {
   const [userId, setUserId] = useState("");
   const [userPwd, setUserPwd] = useState("");
   const [checkPwd, setCheckPwd] = useState(""); // 비밀번호 체크용
+  const [NickName, setNickName] = useState("");
 
   const [IdresCheck, setIdresCheck] = useState(false); // 아이디 정규식 통과되면 true를 저장하고 아니면 false를 저장.
   const [PwdresCheck, setPwdresCheck] = useState(false); // 비밀번호 정규식 통과되면 true를 저장하고 아니면 false를 저장.
@@ -49,9 +50,19 @@ function SigninMode({ mode, setMode }) {
         }
       >
         {IdresCheck
-          ? "멋진 닉네임이네요!"
+          ? "멋진 아이디네요!"
           : "영문자와 숫자를 포함하여 최소 8자로 해주세요!"}
       </span>
+
+      <p>닉네임</p>
+      <input
+        type="text"
+        placeholder="닉네임을 입력해주세요."
+        className="SignInMode"
+        onChange={(e) => {
+          setNickName(e.target.value);
+        }}
+      />
 
       <p>비밀번호</p>
       <input
@@ -107,23 +118,103 @@ function SigninMode({ mode, setMode }) {
         >
           뒤로가기
         </button>
-        <button onClick={() => {}}>회원가입하기</button>
+        <button
+          onClick={() => {
+            if (
+              IdresCheck === true &&
+              PwdresCheck === true &&
+              userPwd === checkPwd
+            ) {
+              window.localStorage.setItem("userId", userId);
+              window.localStorage.setItem("userNickName", NickName);
+              window.localStorage.setItem("userPwd", userPwd);
+              setMode("Login");
+            } else {
+              alert("회원가입 실패");
+            }
+          }}
+        >
+          회원가입하기
+        </button>
       </div>
     </div>
   );
 }
 
 function LoginMode({ mode, setMode }) {
+  const testId = window.localStorage.getItem("userId");
+  const testPwd = window.localStorage.getItem("userPwd");
+
+  const [LoginId, setLoginId] = useState("");
+  const [LoginPwd, setLoginPwd] = useState();
+  const [LoginState, setLoginState] = useState();
+  const [FailText, setFailText] = useState("");
+
+  useEffect(() => {
+    console.log("로그인 아이디 : " + LoginId);
+    console.log("로그인 비밀번호 : " + LoginPwd);
+  }, [LoginId, LoginPwd]);
+
   return (
     <div>
       <p>아이디</p>
-      <input type="text" className="LoginMode" />
+      <input
+        type="text"
+        className="LoginMode"
+        onChange={(e) => {
+          setLoginId(e.target.value);
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            if (LoginId.length === 0) {
+              setFailText("아이디를 입력하세요");
+            } else if (LoginId === testId && testPwd === LoginPwd) {
+              setFailText("");
+              alert("성공");
+            } else {
+              setFailText("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+            }
+          }
+        }}
+      />
 
       <p>비밀번호</p>
-      <input type="password" className="LoginMode" />
+      <input
+        type="password"
+        className="LoginMode"
+        onChange={(e) => {
+          setLoginPwd(e.target.value);
+        }}
+        onKeyPress={(e) => {
+          if (e.key === "Enter") {
+            if (LoginId.length === 0) {
+              setFailText("아이디를 입력하세요");
+            } else if (LoginId === testId && testPwd === LoginPwd) {
+              setFailText("");
+              alert("성공");
+            } else {
+              setFailText("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+            }
+          }
+        }}
+      />
+      <span
+        className="LoginWrong"
+        style={LoginState ? { display: "none" } : { display: "block" }}
+      >
+        {FailText}
+      </span>
 
       <div className="ButtonBox">
-        <button>로그인하기</button>
+        <button
+          onClick={(e) => {
+            if (e.keycode === 13) {
+              console.log("A");
+            }
+          }}
+        >
+          로그인하기
+        </button>
         <button
           className="SignInBtn"
           onClick={() => {
