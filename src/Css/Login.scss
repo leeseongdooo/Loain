@@ -14,7 +14,6 @@
     box-shadow: 5px 0px 8px rgba(0, 0, 0, 0.3);
     justify-content: space-between;
     width: 80%;
-
     height: 500px;
 
     .WriteArea {
@@ -25,6 +24,12 @@
       align-items: center;
       justify-content: center;
 
+      .Back {
+        width: 100%;
+        font-size: 32px;
+        border: 1px solid black;
+      }
+
       .TitleText {
         margin-bottom: 30px;
         font-size: 40px;
@@ -32,12 +37,20 @@
 
       .InnerBox {
         width: 90%;
+
         input {
           border: 1px solid black;
           border-radius: 10px;
           width: 290px;
           height: 20px;
           padding: 8px 10px;
+        }
+
+        .LoginMode {
+          margin-bottom: 10px;
+        }
+
+        .SignInMode {
           margin-bottom: 10px;
         }
 
@@ -46,7 +59,7 @@
           font-weight: bold;
           text-align: left;
           font-size: 14px;
-          margin-bottom: 5px;
+          margin: 0px 5px;
         }
 
         .ButtonBox {
@@ -67,11 +80,17 @@
             cursor: pointer;
             font-weight: bold;
           }
-
-          .SignInBtn {
-            width: 100%;
-          }
         }
+      }
+
+      span {
+        color: red;
+        display: none;
+        margin-left: 5px;
+        text-align: left;
+        font-size: 12px;
+        width: 100%;
+        margin-bottom: 5px;
       }
     }
 
