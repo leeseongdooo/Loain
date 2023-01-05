@@ -8,22 +8,17 @@ function SigninMode({ mode, setMode }) {
   const [userPwd, setUserPwd] = useState("");
   const [checkPwd, setCheckPwd] = useState(""); // 비밀번호 체크용
 
-  const Idres = /^[a-z]+[a-z0-9]{5,19}$/g;
+  const [IdresCheck, setIdresCheck] = useState(false); // 아이디 정규식 통과되면 true를 저장하고 아니면 false를 저장.
+  const [PwdresCheck, setPwdresCheck] = useState(false); // 비밀번호 정규식 통과되면 true를 저장하고 아니면 false를 저장.
 
-  const Pwdres =
-    "^(?=.*[A-Za-z])(?=.*d)(?=.*[$@$!%*#?&])[A-Za-zd$@$!%*#?&]{8,}$";
+  const Idres = /^[a-z0-9]+[a-z0-9]{7,19}$/g;
+  const Pwdres = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#])[\da-zA-Z!@#]{8,}$/;
 
-  let resCheck = false;
-
-  let TestCheck = (userId2) => {
-    return Idres.test(userId2);
-  };
   useEffect(() => {
-    console.log("아이디 : " + userId);
-    console.log("비밀번호 : " + userPwd);
+    // 아이디 정규식 검사.
+    setIdresCheck(Idres.test(userId));
 
-    if (userPwd.length >= 8) {
-    }
+    setPwdresCheck(Pwdres.test(userPwd)); // 특수문자와 대문자를 포함한 비밀번호 정규식.
 
     // 첫번째 비밀번호칸과 비밀번호 재입력칸 일치하는지 확인
     if (userPwd === checkPwd && userPwd.length > 0) {
@@ -42,15 +37,20 @@ function SigninMode({ mode, setMode }) {
         className="SignInMode"
         onChange={(e) => {
           setUserId(e.target.value);
-          TestCheck(userId);
-          console.log("아이디 정규식 : " + TestCheck(userId));
         }}
       />
       <span
-        style={TestCheck(userId) ? { display: "block" } : { display: "none" }}
+        style={
+          IdresCheck
+            ? { display: "block", color: "green" }
+            : userId.length > 0
+            ? { display: "block", color: "red" }
+            : { display: "none" }
+        }
       >
-        {/* {TestCheck(userId) ? "아이디 입력 완료" : "최소 82자 이상"} */}
-        ddd
+        {IdresCheck
+          ? "멋진 닉네임이네요!"
+          : "영문자와 숫자를 포함하여 최소 8자로 해주세요!"}
       </span>
 
       <p>비밀번호</p>
@@ -62,7 +62,19 @@ function SigninMode({ mode, setMode }) {
           setUserPwd(e.target.value);
         }}
       />
-      <span>최소 8자 이상</span>
+      <span
+        style={
+          PwdresCheck
+            ? { display: "block", color: "green" }
+            : userPwd.length > 0
+            ? { display: "block", color: "red" }
+            : { display: "none" }
+        }
+      >
+        {PwdresCheck
+          ? "안전한 비밀번호 입니다."
+          : "대소문자와 특수문자를 포함하여 8자인 비밀번호로 작성해주세요."}
+      </span>
 
       <p>비밀번호 재확인</p>
       <input
@@ -95,7 +107,7 @@ function SigninMode({ mode, setMode }) {
         >
           뒤로가기
         </button>
-        <button>회원가입하기</button>
+        <button onClick={() => {}}>회원가입하기</button>
       </div>
     </div>
   );
@@ -119,7 +131,7 @@ function LoginMode({ mode, setMode }) {
           }}
         >
           회원가입
-        </button>{" "}
+        </button>
       </div>
     </div>
   );
