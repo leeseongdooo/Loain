@@ -24,6 +24,7 @@
 
   // 공격대를 검색하는 div에 대한 Css입니다.
   .SearchBox {
+    margin-left: 10%;
     width: 50%;
     height: 40px;
     border: 2px solid purple;
@@ -48,8 +49,58 @@
   }
 
   .utility {
+    width: 13%;
     a {
       margin: 0px 10px;
+    }
+
+    .NoLogin {
+
+    }
+
+    .YesLogin {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      .UserMiniProfile {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background-color: rgb(241, 241, 241);
+        padding: 5px 10px;
+        border-radius: 20px;
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 100%;
+          object-fit: cover;
+          margin-right: 10px;
+        }
+        
+        span {
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
+
+      .LogOut {
+        transition: .3s;
+        padding: 5px;
+        color: red;
+        border-radius: 100%;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+      .LogOut:hover {
+        background-color: red;
+        color: white;
+      }
+
+
     }
   }
 }

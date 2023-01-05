@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "./Header";
 import "../Css/Login.scss";
 
@@ -150,6 +150,22 @@ function LoginMode({ mode, setMode }) {
   const [LoginState, setLoginState] = useState();
   const [FailText, setFailText] = useState("");
 
+  const Navigate = useNavigate();
+
+  // 로그인 검사.
+  const LoginCheck = () => {
+    if (LoginId.length === 0) {
+      setFailText("아이디를 입력하세요");
+    } else if (LoginId === testId && testPwd === LoginPwd) {
+      setFailText("");
+      window.localStorage.setItem("LoginState", true);
+      Navigate("/");
+    } else {
+      window.localStorage.setItem("LoginState", false);
+      setFailText("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
+    }
+  };
+
   useEffect(() => {
     console.log("로그인 아이디 : " + LoginId);
     console.log("로그인 비밀번호 : " + LoginPwd);
@@ -166,14 +182,7 @@ function LoginMode({ mode, setMode }) {
         }}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
-            if (LoginId.length === 0) {
-              setFailText("아이디를 입력하세요");
-            } else if (LoginId === testId && testPwd === LoginPwd) {
-              setFailText("");
-              alert("성공");
-            } else {
-              setFailText("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-            }
+            LoginCheck();
           }
         }}
       />
@@ -187,14 +196,7 @@ function LoginMode({ mode, setMode }) {
         }}
         onKeyPress={(e) => {
           if (e.key === "Enter") {
-            if (LoginId.length === 0) {
-              setFailText("아이디를 입력하세요");
-            } else if (LoginId === testId && testPwd === LoginPwd) {
-              setFailText("");
-              alert("성공");
-            } else {
-              setFailText("아이디 혹은 비밀번호를 잘못 입력하셨습니다.");
-            }
+            LoginCheck();
           }
         }}
       />
@@ -208,9 +210,7 @@ function LoginMode({ mode, setMode }) {
       <div className="ButtonBox">
         <button
           onClick={(e) => {
-            if (e.keycode === 13) {
-              console.log("A");
-            }
+            LoginCheck();
           }}
         >
           로그인하기
