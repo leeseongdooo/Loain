@@ -85,6 +85,12 @@
         }
       }
 
+      .DownArrow {
+        transform: rotate(180deg);
+        width: 20px;
+        height: 20px;
+      }
+
       .LogOut {
         transition: .3s;
         padding: 5px;

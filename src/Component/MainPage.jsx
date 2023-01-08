@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import "../Css/MainPage.scss";
-import Header from "./Header";
+import Event from "./Event";
+import SearchCharacter from "./SearchCharacter";
 
 function MatchCard({}) {
   return (
@@ -86,6 +87,9 @@ function MainPage() {
           </div>
         </div>
       </div>
+
+      <Event />
+      <SearchCharacter/>
     </div>
   );
 }

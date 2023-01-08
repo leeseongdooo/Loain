@@ -159,6 +159,7 @@ function LoginMode({ mode, setMode }) {
     } else if (LoginId === testId && testPwd === LoginPwd) {
       setFailText("");
       window.localStorage.setItem("LoginState", true);
+      window.location.replace("/");
       Navigate("/");
     } else {
       window.localStorage.setItem("LoginState", false);

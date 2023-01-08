@@ -1,7 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { BiSearchAlt2 } from "react-icons/bi";
+import { BiSearchAlt2, BiExit } from "react-icons/bi";
+import { RiArrowUpSFill } from "react-icons/ri";
 import "../Css/Header.scss";
+
+
+function YesLogin({NickName}) {
+  return (
+    <div className="YesLogin">
+      <div className="UserMiniProfile">
+        <img src="/img/elgasia.jpg" alt="유저이미지" />
+        <span>{NickName}</span>
+        <RiArrowUpSFill className="DownArrow" />
+      </div>
+      
+      <BiExit className="LogOut" onClick={() => {window.localStorage.setItem("LoginState", false); window.location.replace("/");}}/>
+  </div> 
+  )
+}
+
+function NoLogin() {
+  return (
+    <div className="NoLogin">
+      <Link to="/Login">로그인</Link>
+    </div> 
+  )
+}
 
 function Header() {
   const [LoginStates, setLoginState] = useState(window.localStorage.getItem("LoginState"));
@@ -20,20 +44,12 @@ function Header() {
       </div>
 
       <div className="utility">
-        {/* <div className="NoLogin">
-          <Link to="/Login">로그인</Link>
-        </div> */}
 
-        <div className="YesLogin">
-          <div className="UserMiniProfile">
-            <img src="/img/elgasia.jpg" alt="유저이미지" />
-            <span>{NickName}</span>
-            <BiSearchAlt2 />
-          </div>
-          
-          <BiSearchAlt2 className="LogOut" onClick={() => {}}/>
-          
-        </div>
+        {
+        LoginStates === "true" ? 
+        <YesLogin NickName={NickName} /> : <NoLogin/>
+      
+}
       </div>
     </header>
   );
