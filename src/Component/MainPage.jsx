@@ -59,14 +59,8 @@ function MainPage() {
 
   return (
     <div className="MainPageBox">
-      <div className="EventBigBox">
-        {EventData.map((data, index) => (
-          <a key={index} href={data.Link} className="EventCard">
-            <img src={data.Thumbnail} alt={data.Title} />
-          </a>
-        ))}
-      </div>
-
+     
+     
       <div className="QuickMatchParent">
         <div className="QuickMatchChild">
           <ul className="SelectRaid">
@@ -89,7 +83,7 @@ function MainPage() {
       </div>
 
       <Event />
-      <SearchCharacter/>
+      
     </div>
   );
 }

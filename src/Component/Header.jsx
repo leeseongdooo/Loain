@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BiSearchAlt2, BiExit } from "react-icons/bi";
 import { RiArrowUpSFill } from "react-icons/ri";
@@ -29,8 +30,22 @@ function NoLogin() {
 
 function Header() {
   const [LoginStates, setLoginState] = useState(window.localStorage.getItem("LoginState"));
+  const [SearchNickName, setSearchNickName] = useState("");
   const NickName = useState(window.localStorage.getItem("userNickName"));
-  console.log(LoginStates);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(SearchNickName);
+  }, [SearchNickName])
+
+  // 검색함수
+
+  const SearchEnter = (e) => {
+    if (e.key === "Enter")
+    {
+      navigate(`/Search/${SearchNickName}`)  
+    }
+  }
 
   return (
     <header className="HeaderParent">
@@ -40,8 +55,9 @@ function Header() {
 
       <div className="SearchBox">
         <BiSearchAlt2 id="SearchIcon" />
-        <input type="text" placeholder="파티 이름을 검색해주세요!" />
-      </div>
+        
+        <input type="text" placeholder="캐릭터 검색하기." onChange={(e) => {setSearchNickName(e.target.value)}} onKeyPress={(e) => {SearchEnter(e)}}/>
+      </div> 
 
       <div className="utility">
 
