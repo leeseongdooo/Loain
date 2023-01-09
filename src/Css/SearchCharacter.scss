@@ -1,7 +1,32 @@
-.CharacterSearchBox {
+.SearchPageBox {
     margin-top: 30px;
-    input {
-        width: 30%;
-        padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    .CategoryBox {
+        list-style: none;
+        width: 80%;
+        padding: 10px 0px;
+        border: 1px solid black;
+        li {
+            cursor: pointer;
+            border: 1px solid black;
+            border-radius: 10px;
+            float: left;
+            width: calc(20% - 32px);
+            margin: 0px 5px;
+            padding: 10px;
+        }
     }
+
+    // 보여지는곧.
+    .ShowBox {
+        margin-top: 30px;
+        width: 80%;
+        height: 70vh;
+        border: 1px solid black;
+    }
+
 }
