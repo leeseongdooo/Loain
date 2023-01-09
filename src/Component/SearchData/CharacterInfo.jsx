@@ -29,16 +29,44 @@ function CharacterInfo() {
     useEffect(() => {
         getCharacterInfo();
         
-    }, [])
+    }, [NickName])
    
 
 
     return (
         <div className="CharacterSearchResult">
-          <div style={{backgroundImage: `url(${SearchCharacter.CharacterImage})`}}>
-    d
+          
+          <div className="profileArea">
+            <img src={SearchCharacter.CharacterImage} alt="" className="UserImage" />
+
+            <div className="TextArea">
+                <div className="TopArea">
+                    <p>{SearchCharacter.ServerName}</p>
+                    <p>{SearchCharacter.CharacterClassName}</p>
+                </div>
+
+                <div className="MiddleArea">
+                     <h2>{SearchCharacter.CharacterName}</h2>
+                     <p>칭호: {SearchCharacter.Title}</p>
+                     <p>영지: Lv{SearchCharacter.TownLevel} {SearchCharacter.TownName}</p>
+                     <p>길드명: {SearchCharacter.GuildName}</p>
+                </div>
+            
+
+                <div className="BottomArea">
+                    <p>아이템 <br/> {SearchCharacter.ItemAvgLevel}</p>
+                    <p>전투 <br/> {SearchCharacter.CharacterLevel}</p>
+                    <p>원정대 <br/> {SearchCharacter.ExpeditionLevel}</p>
+                    <p>스킬포인트 <br/> {SearchCharacter.UsingSkillPoint} / {SearchCharacter.TotalSkillPoint}</p>
+                    <p>PVP <br/> {SearchCharacter.PvpGradeName}</p>
+                </div>
+            </div>
+          </div>
+
+          <div className="Specifications">
 
           </div>
+
         </div>
     )
 }
