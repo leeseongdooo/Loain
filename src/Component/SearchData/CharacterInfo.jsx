@@ -12,7 +12,8 @@ function CharacterInfo() {
     const NickName = useParams();
     const [SearchCharacter, setSearchCharacter] = useState([]);
     const [CharacterStats, setCharacterStats] = useState([]);
-
+    const [EquipmentData, setEquipmentData] = useState([]);
+    
     useEffect(() => {
         const getCharacterInfo = async () => {
             try {
@@ -26,7 +27,9 @@ function CharacterInfo() {
                 console.log(error)
             }
         }
+
         getCharacterInfo();  
+        
     }, []);
 
 
@@ -101,10 +104,10 @@ function CharacterInfo() {
                   </div>
 
                   <div className="AbilityArea MiniBox">
-                        각인을 보여주는곳입니다.
+                       <CharacterEquipment/>
+                     
                   </div>
 
-                  <CharacterEquipment/>
           </div>
 
           
