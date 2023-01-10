@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../../Css/CharacterInfo.scss";
+import CharacterEquipment from "./CharacterEquipment";
 
 function CharacterInfo() {
 
@@ -9,9 +10,10 @@ function CharacterInfo() {
     const NickName = useParams();
     const [SearchCharacter, setSearchCharacter] = useState({});
     
+
+
     async function getCharacterInfo() {
         try {
-            
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/profiles`, {
                 headers: {Authorization: `bearer ${Key}`}
             });
@@ -64,8 +66,10 @@ function CharacterInfo() {
           </div>
 
           <div className="Specifications">
-
+                  <CharacterEquipment/>
           </div>
+
+          
 
         </div>
     )
