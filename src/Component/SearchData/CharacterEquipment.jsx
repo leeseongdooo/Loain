@@ -28,8 +28,7 @@ function CharacterEquipment() {
         GetEquipment();
     }, [NickName]);
     
-  
-    if (loading) return <div>로딩중..</div>;
+
 
     return (
         <div>

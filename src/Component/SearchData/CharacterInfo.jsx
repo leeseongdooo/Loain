@@ -26,10 +26,11 @@ function CharacterInfo() {
                 console.log(error)
             }
         }
-
         getCharacterInfo();  
-    }, [])
-   
+    }, []);
+
+
+    
 
 
     return (
@@ -64,13 +65,39 @@ function CharacterInfo() {
 
           <div className="Specifications">
                   <div className="StatArea MiniBox">
-                    <h3>전투 특성</h3>
-                    <ul>
-                        {CharacterStats.map((Data) => <li>
-                            <span>{Data.Type}</span>
-                            <span>{Data.Value}</span>
-                        </li> )}
+                    
+                    <p className="GuideText">전투 특성</p>
+                    
+                    <ul className="BattleStat">
+                        {CharacterStats.map((Data, index) =>  {
+                            if(index < 6)
+                            {
+                                return (
+                                    <li key={index}>
+                                        <span id="StatName">{Data.Type}</span>
+                                        <span id="StatNumber">{Data.Value}</span>
+                                    </li>
+                                )
+                            }
+                        })}                        
                     </ul>
+
+                    <p className="GuideText">기본 특성</p>
+                    
+                    <ul className="BasicStat">
+                       {CharacterStats.map((Data, index) => {
+                            if(index >= 6)
+                            {
+                                return (
+                                    <li key={index}>
+                                        <span id="StatName">{Data.Type}</span>
+                                        <span id="StatNumber">{Data.Value}</span>
+                                    </li>
+                                )
+                            }
+                       })} 
+                    </ul>
+
                   </div>
 
                   <div className="AbilityArea MiniBox">
