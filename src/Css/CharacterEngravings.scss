@@ -1,0 +1,18 @@
+.EngravingTextBox {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 10px;
+    .TextStyle {
+        font-size: 14px;
+        color: #353945;
+        font-weight: bold;
+        margin: 8px 0px;
+    }
+
+    .Icon {
+        cursor: pointer;
+        font-size: 18px;
+    }
+}

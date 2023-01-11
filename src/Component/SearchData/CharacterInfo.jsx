@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../../Css/CharacterInfo.scss";
-import CharacterEquipment from "./CharacterEquipment";
+import CharacterEngravings from "./CharacterEngravings";
 
 
 
@@ -12,8 +12,7 @@ function CharacterInfo() {
     const NickName = useParams();
     const [SearchCharacter, setSearchCharacter] = useState([]);
     const [CharacterStats, setCharacterStats] = useState([]);
-    const [EquipmentData, setEquipmentData] = useState([]);
-    
+
     useEffect(() => {
         const getCharacterInfo = async () => {
             try {
@@ -30,7 +29,7 @@ function CharacterInfo() {
 
         getCharacterInfo();  
         
-    }, []);
+    }, [NickName]);
 
 
     
@@ -104,7 +103,7 @@ function CharacterInfo() {
                   </div>
 
                   <div className="AbilityArea MiniBox">
-                       <CharacterEquipment/>
+                       <CharacterEngravings/>
                      
                   </div>
 
