@@ -11,8 +11,22 @@
         margin: 8px 0px;
     }
 
+    .Description {
+        position: absolute;
+        right: 300px;
+        width: 300px;
+        background-color: whitesmoke;
+        border-radius: 20px;
+        padding: 10px;    
+    }
+
     .Icon {
         cursor: pointer;
         font-size: 18px;
     }
+    
+    p {
+        font-weight: bold;
+    }
 }
+

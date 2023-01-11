@@ -4,14 +4,14 @@ import { useParams } from "react-router-dom";
 import "../../Css/CharacterEngravings.scss"
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
-function EngravingText({Info}) {
+
+
+function EngravingText({Info, setEngravingsInfo}) {
 
     return (
         <div className="EngravingTextBox">
             <p className="TextStyle">{Info.Name}</p>
-            <AiOutlineInfoCircle className="Icon" onClick={() => {
-                console.log(Info.Description);
-            }}/>
+            <AiOutlineInfoCircle className="Icon" onClick={() => {setEngravingsInfo(Info.Description);}}/>
         </div>
         
     )
@@ -23,7 +23,7 @@ function CharacterEngravings() {
     const NickName = useParams();
     const [EquipmentData, setEquipmentData] = useState(null);
     const [Loading, setLoading] = useState(false);
-    const [Level, setLevel] = useState([]);
+    const [EngravingsInfo, setEngravingsInfo] = useState(null);
 
     const GetEquipment = async () =>  {
         try {
@@ -32,39 +32,22 @@ function CharacterEngravings() {
                 headers: {Authorization: `bearer ${Key}`}
             });
             setEquipmentData(response.data.Effects);  
-            
-            setLevel(response.data.Effects.map((Info) => {
-                if(Info.Name.includes("Lv. 3")) {
-                    Level.push(3);
-                } else if(Info.Name.includes("Lv. 2"))
-                {
-                    Level.push(2);
-                } else if(Info.Name.includes("Lv. 1"))
-                {
-                    Level.push(1);
-                }
-            })) 
             console.log(EquipmentData);
-            console.log(Level);
-           
         } catch (error) {
             console.log(error)
         }
     };
 
     useEffect(() => {
-      
         GetEquipment();
-      
-      
     }, [NickName]);
    
 
     return (
         <div>
-            <p className="GuideText" onClick={() => {console.log(Level)}}>각인</p>
-            <p></p>
-            {EquipmentData !== null ? EquipmentData.map((Info, index) => <EngravingText key={index} Info={Info} />) : <span>로딩중</span>}
+            <p className="GuideText">각인</p>
+            {EquipmentData !== null ? EquipmentData.map((Info, index) => <EngravingText key={index} Info={Info} setEngravingsInfo={setEngravingsInfo}/>) : <span>로딩중</span>}
+            {EngravingsInfo !== null ? <p className="Description" >{EngravingsInfo}</p> : <span></span>}
         </div>
     )
 }
