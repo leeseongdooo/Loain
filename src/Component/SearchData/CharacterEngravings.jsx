@@ -2,18 +2,28 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../../Css/CharacterEngravings.scss"
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineInfoCircle, AiOutlineCloseCircle } from "react-icons/ai";
 
 
 
-function EngravingText({Info, setEngravingsInfo}) {
+function EngravingText({Info, setEngravingsInfo, EngravingsInfo}) {
 
     return (
-        <div className="EngravingTextBox">
+        <div className="EngravingTextBox" style={EngravingsInfo !== null ? {display: 'none'} : {}} >
             <p className="TextStyle">{Info.Name}</p>
-            <AiOutlineInfoCircle className="Icon" onClick={() => {setEngravingsInfo(Info.Description);}}/>
+            <AiOutlineInfoCircle className="Icon" onClick={() => {setEngravingsInfo(Info.Description); console.log(Info.Description)}}/>
         </div>
         
+    )
+}
+
+function DescriptionText({EngravingsInfo, setEngravingsInfo})
+{
+    return (
+        <div className="DescriptionBox">
+            <AiOutlineCloseCircle className="Icon" onClick={() => {setEngravingsInfo(null)}} />
+           <p className="Description" >{EngravingsInfo}</p>
+        </div>
     )
 }
 
@@ -44,10 +54,13 @@ function CharacterEngravings() {
    
 
     return (
-        <div>
+        <div className="EngravingsBox">
             <p className="GuideText">각인</p>
-            {EquipmentData !== null ? EquipmentData.map((Info, index) => <EngravingText key={index} Info={Info} setEngravingsInfo={setEngravingsInfo}/>) : <span>로딩중</span>}
-            {EngravingsInfo !== null ? <p className="Description" >{EngravingsInfo}</p> : <span></span>}
+            <div className="EngravingsList">
+                {EquipmentData !== null ? EquipmentData.map((Info, index) => <EngravingText key={index} Info={Info} EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/>) : <span>로딩중</span>}
+            </div>
+            
+            {EngravingsInfo !== null ? <DescriptionText EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/> : <span></span>}
         </div>
     )
 }
