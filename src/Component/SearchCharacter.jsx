@@ -59,8 +59,8 @@ function SearchCharacter() {
             
             <>
                 <ul className="CategoryBox">
-                    <li>능력치</li>
-                    <li>스킬</li>
+                    <li className="focusStyle" >능력치</li>
+                    <li >스킬</li>
                     <li>스킬 포인트</li>
                     <li>수집형 포인트</li>
                     <li>증명의 전장</li>

@@ -6,6 +6,8 @@ import {GiCrestedHelmet} from 'react-icons/gi'
 import CharacterEngravings from "./CharacterEngravings";
 
 
+
+// eslint-disable-next-line no-lone-blocks
 function NewDesign({SearchCharacter}) {{
     return (
         // 큰 div
@@ -13,27 +15,48 @@ function NewDesign({SearchCharacter}) {{
             <div className="InformationArea">
                 <div className="TopArea">
                     <div className="SimpleInformation">
-                        <span>Lv. {SearchCharacter.CharacterLevel}</span>
-                        <span>{SearchCharacter.CharacterClassName}</span>
-                        <span>@ {SearchCharacter.ServerName}</span>
+                        <span>Lv. {SearchCharacter.CharacterLevel} {SearchCharacter.CharacterClassName} @ {SearchCharacter.ServerName}</span>
                     </div>
                     
                     <h2>{SearchCharacter.CharacterName}</h2>
-                    <GiCrestedHelmet /> 
-                    <h2>{SearchCharacter.ItemAvgLevel}</h2>
+                    
+                    <div className="ItemLevelArea">
+                        <GiCrestedHelmet className="Icon" /> 
+                        <h2>{SearchCharacter.ItemAvgLevel}</h2>
+                    </div>
+                    
                 </div>
 
                 <div className="BottomArea">
-                    <p>원정대  {SearchCharacter.ExpeditionLevel}</p>
-                    <p>칭호 {SearchCharacter.Title}</p>
-                    <p>길드 {SearchCharacter.GuildName}</p>
-                    <p>영지: Lv{SearchCharacter.TownLevel} {SearchCharacter.TownName}</p>
-                    <p>PVP {SearchCharacter.PvpGradeName}</p>
+                    <div>
+                        <p className="TitleName">원정대</p>
+                        <p>Lv. {SearchCharacter.ExpeditionLevel}</p>
+                    </div>
+
+                    <div>
+                        <p className="TitleName">칭호</p>
+                        <p>{SearchCharacter.Title}</p>
+                    </div>
+
+                    <div>
+                        <p className="TitleName">길드</p>
+                        <p>{SearchCharacter.GuildName}</p>
+                    </div>
+
+                    <div>
+                        <p className="TitleName">영지</p>
+                        <p>Lv.{SearchCharacter.TownLevel} {SearchCharacter.TownName}</p>
+                    </div>
+
+                    <div>
+                        <p className="TitleName">PVP</p>
+                        <p>{SearchCharacter.PvpGradeName}</p>
+                    </div>            
                 </div>
             </div>
             
-            <div>
-                {/* 사진 이미지 */}
+            <div className="CharacterImageArea">
+               <img src={SearchCharacter.CharacterImage} alt="" />
             </div>
         </div>
     )
