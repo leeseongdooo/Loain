@@ -3,13 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../../Css/CharacterEquipment.scss";
 
-function FirstEquipmentArea({EquipmentData, Data, index}) {
+function EquipentArea({EquipmentData, Data, index}) {
 
     const [BackColorStyle, setBackColorStyle] = useState(null);
     const [FontColorStyle, setFontColorStyle] = useState(null);
     const [LvValue, setLvValue] = useState(null);
     const [QualityValue, setQualityValue] = useState(null)
     const [QualityColor, setQualityColor] = useState(null);
+    const [AbilityStoneNumber, setAbilityStoneNumber] = useState([]);
     const NickName = useParams();
 
     useEffect(() => {
@@ -51,6 +52,7 @@ function FirstEquipmentArea({EquipmentData, Data, index}) {
         
         setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
         setQualityValue(parseInt(Data.Tooltip.substr(Data.Tooltip.indexOf('qualityValue') + 15, 3)));
+        
 
         if(QualityValue !== null)
         {
@@ -96,15 +98,22 @@ function FirstEquipmentArea({EquipmentData, Data, index}) {
                 <p style={{color: FontColorStyle}}>{Data.Name}</p>
                 
                 <div className="BottomArea">
+                    {/* 장비 레벨에 대한 정보 [무기 방어구에만 보인다.] */}
                     {index < 6 ? <span className="EquipmentLevel">{LvValue}</span> : ""}
                     {index < 11 ? 
                     <>
+                        {/* 품질 */}
                         <span className="QuallityValueText" style={{color: `${QualityColor}`}}>{QualityValue !== null ? QualityValue : "X"}</span>
                         <div className="StickBox">
                             <div className="StickValue" style={{width: `${QualityValue}%`, background: `${QualityColor}`}}></div>
                         </div> 
-                    </> : ""
+                    </> :  index === 11 ? 
+                        <div className="AbilityStoneInfo">
+                            <h3>어빌</h3>
+                        </div> : "팔찌~"
+                    
                     }
+                   
                 </div>
                
             </div>
@@ -118,7 +127,7 @@ function CharacterEquipment() {
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const NickName = useParams();
     const [EquipmentData, setEquipmentData] = useState();
-    
+    const [EngravingData, setEngravingData] = useState(null);
     const GetEquipment = async () => {
         try {
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/equipment`, {
@@ -136,24 +145,65 @@ function CharacterEquipment() {
         }
     }
 
+    const GetEngravings = async () =>  {
+        try {
+            const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/engravings`, {
+                headers: {Authorization: `bearer ${Key}`}
+            });
+            setEngravingData(response.data.Engravings);  
+            console.log(response);
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
     useEffect(() => {
        GetEquipment();
+       GetEngravings();
     }, [NickName])
     
 
     return (
         <div className="EquipmentParentBox">
             <div className="EquipmentZone">
-                {EquipmentData !== undefined ? EquipmentData.map((Data, index) => {
-                    if(index < 12)
-                    {
-                        return (
-                            <FirstEquipmentArea key={index} EquipmentData={EquipmentData} Data={Data} index={index} />
-                        )
-                    }
-                } ): "로딩중"}
+                
+                <div className="FirstBox">
+                    {EquipmentData !== undefined ? EquipmentData.map((Data, index) => {
+                        if(index < 6)
+                        {
+                            return (  
+                                    <EquipentArea key={index} EquipmentData={EquipmentData} Data={Data} index={index} />
+                            )
+                        }
+                    } ): "로딩중"}
+                    <div className="EngravingBox">
+                        {EngravingData !== null ? EngravingData.map((Data) => (
+                            <div className="EngravingInfo">
+                                <img src={Data.Icon} alt="각인 아이콘" />
+                                <div>
+                                    <h5>{Data.Name}</h5>
+                                    <span>활성 포인트 {Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 8, 2)}</span>
+                                </div>
+                                
+                            </div>
+                        )) : ""}
+                    </div>
+                </div>
+
+                <div className="SecondBox">
+                    {EquipmentData !== undefined ? EquipmentData.map((Data, index) => {
+                        if(index >= 6 && index < 13)
+                        {
+                            return (  
+                                    <EquipentArea key={index} EquipmentData={EquipmentData} Data={Data} index={index} />
+                            )
+                        }
+                    } ): "로딩중"}
+                </div>
+
+               
             </div>
-            <button onClick={() => {if(EquipmentData !== null) console.log(EquipmentData[1].Tooltip)}}>툴팁확인용도</button>
+            <button onClick={() => {if(EquipmentData !== null) console.log(EngravingData[0].Tooltip)}}>툴팁확인용도</button>
             
         </div>
     )

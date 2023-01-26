@@ -2,27 +2,63 @@
 .EquipmentParentBox {
     position: relative;
     width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+
     .EquipmentZone {
-        width: calc(50% - 10px);
+
+        margin: 20px 0px 0px 20px;
+        width: 100%;
         display: flex;
-        justify-content: space-between;
-        flex-direction: column;
         height: 400px;
-        flex-wrap: wrap;
         
+        .FirstBox { 
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            
+            .EngravingBox {
+                display: flex;
+                
+                .EngravingInfo {
+                    display: flex;
+                    align-items: center;
+                    margin: 0px 3px;
+                    img {
+                        max-width: 44px;
+                        border-radius: 100%;
+                        margin-right: 10px;
+                    }
+
+                    h5 {
+                        font-size: 14px;
+                    }
+
+                    span {
+                        font-weight: bold;
+                        font-size: 12px;
+                    }
+                }
+                
+            }
+        }
+
+        .SecondBox {
+            width: 50%;
+        }
 
         .EquipmentInfo {
             display: flex;
             margin-bottom: 5px;
             width: 100%;
             margin-right: 20px;
-            border: 1px solid black;
          
             .ImageArea {
                 img {
-                    width: 40px;
-                    padding: 5px;
-                   
+                    width: 44px;
+                    max-width: 44px;
+                    padding: 2px;
                     border-radius: 10px;
                 }
             }

@@ -41,7 +41,7 @@ function CharacterEngravings() {
                 headers: {Authorization: `bearer ${Key}`}
             });
             setEquipmentData(response.data.Effects);  
-            console.log(EquipmentData);
+            console.log(response);
         } catch (error) {
             console.log(error)
         }
