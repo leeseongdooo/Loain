@@ -1,92 +1,106 @@
 .CharacterSearchResult {
     width: 100%;
-    
     display: flex;
     flex-direction: column;
     align-items: left;
     justify-content: center;
     border-radius: 20px;
     
-    .NewCharacterInfoBox {
-        position: relative;
-        overflow: hidden;
-        padding: 10px;
-        width: calc(50% - 40px);
-        height: 430px;
-        border-radius: 10px;
-        
-        
-        .InformationArea {
+    .CharacterInfoArea {
+        display: flex;
+        justify-content: space-between;
+        .NewCharacterInfoBox {
+            margin-left: 20px;
+            position: relative;
+            overflow: hidden;
+            padding: 10px;
+            width: calc(40% - 40px);
+            min-height: 470px;
+            max-height: 500px;
             border-radius: 10px;
-            position: absolute;
-            z-index: 3;
-            color: white;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-               
             
-            .TopArea {
-                margin: 10px;
-                .SimpleInformation {
-                    span {
-
-                    }
-                }
-
-                .ItemLevelArea {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
-                    .Icon {
-                        font-size: 32px;
-                        margin-right: 10px;
-                    }
-                }
-                
-            }
-
-            .BottomArea {
+            .InformationArea {
                 border-radius: 10px;
+                position: absolute;
+                z-index: 3;
                 color: white;
-                margin: 10px;
-                margin-bottom: 20px;
-                div {
-                    display: flex;
-                    align-items: center;
-                    margin: 5px 0px;
-                    .TitleName {
-                        width: 44px;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                
+                .TopArea {
+                    margin: 10px;
+                    .SimpleInformation {
+                        span {
+
+                        }
+                    }
+
+                    .ItemLevelArea {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
-                        padding: 3px;
-                        background-color: black;
-                        font-size: 12px;
-                        color: white;
-                        border-radius: 20px;
-                        margin-right: 5px;
+                        justify-content: flex-start;
+                        .Icon {
+                            font-size: 32px;
+                            margin-right: 10px;
+                        }
+                    }
+                    
+                }
+
+                .BottomArea {
+                    border-radius: 20px;
+                    color: white;
+                    margin: 10px;
+                    margin-bottom: 20px;
+                    div {
+                        display: flex;
+                        align-items: center;
+                        margin: 5px 0px;
+                        .TitleName {
+                            width: 44px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 3px;
+                            background-color: black;
+                            font-size: 12px;
+                            color: white;
+                            border-radius: 20px;
+                            margin-right: 5px;
+                        }
+                    }
+                    p {
+        
                     }
                 }
-                p {
-    
+            }
+
+            .CharacterImageArea  {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                img {
+                    border-radius: 10px;
+                    width: 100%;
                 }
             }
         }
 
-        .CharacterImageArea  {
-            position: absolute;
-            top: 0;
-            z-index: 2;
-            img {
-                border-radius: 10px;
-                width: 100%;
-                height: 450px;
-                object-fit: contain;
-            }
+        .CharacterEquipment {
+            display: flex;
+            padding: 10px;
+            margin-left: 10px;
+            width: 58%;
+            min-height: 470px;
+            max-height: 500px;
+            border-radius: 10px;
+            border: 1px solid black;
         }
     }
+
 
 
     .Specifications {

@@ -1,0 +1,41 @@
+
+.EquipmentParentBox {
+    position: relative;
+    width: 100%;
+    .EquipmentZone {
+        
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 400px;
+        flex-wrap: wrap;
+        
+
+        .EquipmentInfo {
+            display: flex;
+            margin-bottom: 5px;
+           
+         
+            .ImageArea {
+                img {
+                    width: 40px;
+                    padding: 5px;
+                   
+                    border-radius: 10px;
+                }
+            }
+        
+            .TextArea {
+                margin-left: 10px;
+                p {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    
+}
+
+

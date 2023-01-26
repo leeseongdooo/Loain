@@ -37,7 +37,6 @@ function CharacterEngravings() {
 
     const GetEquipment = async () =>  {
         try {
-            
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/engravings`, {
                 headers: {Authorization: `bearer ${Key}`}
             });

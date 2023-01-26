@@ -4,6 +4,7 @@ import axios from "axios";
 import "../../Css/CharacterInfo.scss";
 import {GiCrestedHelmet} from 'react-icons/gi'
 import CharacterEngravings from "./CharacterEngravings";
+import CharacterEquipment from "./CharacterEquipment";
 
 
 
@@ -71,33 +72,14 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
     return (
         
         <div className="CharacterSearchResult">
-            <NewDesign SearchCharacter={SearchCharacter}/>
-          {/* <div className="profileArea">
-            <img src={SearchCharacter.CharacterImage} alt="" className="UserImage" />
-
-            <div className="TextArea">
-                <div className="TopArea">
-                    <p>{SearchCharacter.ServerName}</p>
-                    <p>{SearchCharacter.CharacterClassName}</p>
-                </div>
-
-                <div className="MiddleArea">
-                     <h2>{SearchCharacter.CharacterName}</h2>
-                     <p>칭호: {SearchCharacter.Title}</p>
-                     <p>영지: Lv{SearchCharacter.TownLevel} {SearchCharacter.TownName}</p>
-                     <p>길드명: {SearchCharacter.GuildName}</p>
-                </div>
-            
-
-                <div className="BottomArea">
-                    <p>아이템 <br/> {SearchCharacter.ItemAvgLevel}</p>
-                    <p>전투 <br/> {SearchCharacter.CharacterLevel}</p>
-                    <p>원정대 <br/> {SearchCharacter.ExpeditionLevel}</p>
-                    <p>스킬포인트 <br/> {SearchCharacter.UsingSkillPoint} / {SearchCharacter.TotalSkillPoint}</p>
-                    <p>PVP <br/> {SearchCharacter.PvpGradeName}</p>
+            <div className="CharacterInfoArea">
+                <NewDesign SearchCharacter={SearchCharacter}/>
+                
+                <div className="CharacterEquipment"> {/* 캐릭터의 장비를 보여주는 Area입니다.*/}
+                        <CharacterEquipment />
                 </div>
             </div>
-          </div> */}
+            
 
           <div className="Specifications">
                   <div className="StatArea MiniBox">
@@ -138,7 +120,6 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
 
                   <div className="AbilityArea MiniBox">
                        <CharacterEngravings/>
-                     
                   </div>
 
           </div>
