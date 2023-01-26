@@ -3,8 +3,7 @@
     position: relative;
     width: 100%;
     .EquipmentZone {
-        
-        width: 100%;
+        width: calc(50% - 10px);
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -15,7 +14,9 @@
         .EquipmentInfo {
             display: flex;
             margin-bottom: 5px;
-           
+            width: 100%;
+            margin-right: 20px;
+            border: 1px solid black;
          
             .ImageArea {
                 img {
@@ -27,11 +28,62 @@
             }
         
             .TextArea {
+                
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                width: 100%;
                 margin-left: 10px;
                 p {
                     font-size: 16px;
                     font-weight: bold;
                 }
+
+                .BottomArea {
+                    margin-top: 5px;
+                    display: flex;
+                    align-items: center;
+                    
+                    .EquipmentLevel {
+                        margin-right: 5px;
+                        font-weight: 700;
+                        border-radius: 5px;
+                        background-color: #E6E8EC;
+                        padding: 1px 5px;
+                        font-size: 12px;
+                    }
+
+                    .QuallityValueText {
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+
+                    .StickBox {
+                        position: relative;
+                        width: 60%;
+                        height: 6px;
+                        margin-left: 10px;
+                        background-color: #E6E8EC;
+                        border-radius: 5px;
+                        padding: 1px 5px;
+
+                        .StickValue {
+                            position: absolute;
+                            left: 0;
+                            margin: 0 auto;
+                            width: 0%;
+                            height: 6px;
+                            padding: 1px 5px;
+                            transition: 0.5s;
+                            background-color: royalblue;
+                            border-radius: 5px;
+                            
+                        }
+                    }
+                    
+                }
+
+                
             }
         }
     }

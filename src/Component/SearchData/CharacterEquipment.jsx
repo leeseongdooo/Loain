@@ -3,10 +3,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "../../Css/CharacterEquipment.scss";
 
-function FirstEquipmentArea({EquipmentData, Data}) {
+function FirstEquipmentArea({EquipmentData, Data, index}) {
 
     const [BackColorStyle, setBackColorStyle] = useState(null);
     const [FontColorStyle, setFontColorStyle] = useState(null);
+    const [LvValue, setLvValue] = useState(null);
+    const [QualityValue, setQualityValue] = useState(null)
+    const [QualityColor, setQualityColor] = useState(null);
+    const NickName = useParams();
 
     useEffect(() => {
         switch(Data.Grade)
@@ -43,10 +47,43 @@ function FirstEquipmentArea({EquipmentData, Data}) {
                 break;
             default: 
                 break;
-                
         }
-    
-    }, [EquipmentData]);
+        
+        setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
+        setQualityValue(parseInt(Data.Tooltip.substr(Data.Tooltip.indexOf('qualityValue') + 15, 3)));
+
+        if(QualityValue !== null)
+        {
+            switch(Math.floor(QualityValue / 10))
+            {
+                case 10: 
+                    setQualityColor("#F9AE00");
+                    break;
+                case 9 : 
+                    setQualityColor("#8045DD");
+                    break;
+                case 8:
+                case 7:
+                    setQualityColor("#2AB1F6");
+                    break;
+                case 6:
+                case 5:
+                case 4:
+                case 3:
+                    setQualityColor("#A0E716");
+                    break;
+                case 2:
+                case 1: 
+                    setQualityColor("#FFE81D");
+                    break;
+                default :
+                    setQualityColor("#FFE81D");
+                    break;
+            }
+        }
+
+        
+    }, [EquipmentData, NickName, QualityValue]);
     
     
     return (
@@ -57,6 +94,18 @@ function FirstEquipmentArea({EquipmentData, Data}) {
 
             <div className="TextArea">
                 <p style={{color: FontColorStyle}}>{Data.Name}</p>
+                
+                <div className="BottomArea">
+                    {index < 6 ? <span className="EquipmentLevel">{LvValue}</span> : ""}
+                    {index < 11 ? 
+                    <>
+                        <span className="QuallityValueText" style={{color: `${QualityColor}`}}>{QualityValue !== null ? QualityValue : "X"}</span>
+                        <div className="StickBox">
+                            <div className="StickValue" style={{width: `${QualityValue}%`, background: `${QualityColor}`}}></div>
+                        </div> 
+                    </> : ""
+                    }
+                </div>
                
             </div>
 
@@ -90,6 +139,7 @@ function CharacterEquipment() {
     useEffect(() => {
        GetEquipment();
     }, [NickName])
+    
 
     return (
         <div className="EquipmentParentBox">
@@ -98,13 +148,13 @@ function CharacterEquipment() {
                     if(index < 12)
                     {
                         return (
-                            <FirstEquipmentArea key={index} EquipmentData={EquipmentData} Data={Data} />
+                            <FirstEquipmentArea key={index} EquipmentData={EquipmentData} Data={Data} index={index} />
                         )
                     }
                 } ): "로딩중"}
             </div>
-            <button onClick={() => {if(EquipmentData !== null) console.log(EquipmentData[0].Tooltip.includes("quality"))}}>1</button>
-
+            <button onClick={() => {if(EquipmentData !== null) console.log(EquipmentData[1].Tooltip)}}>툴팁확인용도</button>
+            
         </div>
     )
 }
