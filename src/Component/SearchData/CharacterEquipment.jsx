@@ -1,7 +1,63 @@
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Parser from 'html-react-parser';
 import "../../Css/CharacterEquipment.scss";
+
+
+function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
+
+    let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
+    
+    
+    
+    return (
+        <div className="ModalBigBox" style={ShowModalArea === true ?{display: "flex"} : {display: "none"}}>
+            <div onClick={() => {console.log(TooltipInfo)}}>
+                {Parser(TooltipInfo.Element_000.value)}
+            </div>
+
+            <div className="FirstArea">
+                <img src={Data.Icon} alt="장비" style={{background: BackColor}}/>
+                <div className="InnerArea">
+                {/* {Parser(TooltipInfo.Element_001.leftStr0)} */}
+                    {/* 부위, 레벨, 티어 */}
+                    <div>
+                        <span>{Parser(TooltipInfo.Element_001.value.leftStr0)}</span>
+                        <span>{Parser(TooltipInfo.Element_001.value.leftStr2)}</span>
+                    </div>
+                    
+                    {index < 11 ? 
+                    <div className="QualityArea">
+                        <span className="QuallityValueText" style={{color: `${QualityColor}`}}>{TooltipInfo.Element_001.value.qualityValue !== null ? TooltipInfo.Element_001.value.qualityValue : "X"}</span>
+                        <div className="StickBox">
+                            <div className="StickValue" style={{width: `${TooltipInfo.Element_001.value.qualityValue}%`, background: `${QualityColor}`}}></div>
+                        </div> 
+                    </div> : ""
+                    }
+                </div>
+            </div>
+
+            <div className="BasicStatArea">
+                 <p>{index < 11 & index > 5 ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
+                 
+                 <p>{index < 11 ? Parser(SplitText) : ""}</p>
+                 {/* 팔찌 옵션 */}
+                 <p>{index === 12 & Data.Type === "팔찌" ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
+            </div>
+
+            <hr />
+
+            <div>
+                <p>{TooltipInfo.Element_006.value.Element_001}</p>
+                <p className="EquipmentLevel">{index < 6 ? Parser(TooltipInfo.Element_008.value.Element_001) : ""}</p>
+                <p className="EngravingName">{index < 11 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
+                <p className="EngravingName">{index < 11 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
+                <p className="EngravingName debuff">{index < 11 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
+            </div>
+        </div>
+    )
+} 
 
 function EquipentArea({EquipmentData, Data, index}) {
 
@@ -10,10 +66,14 @@ function EquipentArea({EquipmentData, Data, index}) {
     const [LvValue, setLvValue] = useState(null);
     const [QualityValue, setQualityValue] = useState(null)
     const [QualityColor, setQualityColor] = useState(null);
-    const [AbilityStoneNumber, setAbilityStoneNumber] = useState([]);
+    const [TooltipInfo, setTooltipInfo] = useState(null);
+    const [ShowModalArea, setShowModalArea] = useState(false);
     const NickName = useParams();
+    
+    
 
     useEffect(() => {
+        // 등급별 폰트색 및 배경색
         switch(Data.Grade)
         {
             case "에스더" :
@@ -53,7 +113,7 @@ function EquipentArea({EquipmentData, Data, index}) {
         setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
         setQualityValue(parseInt(Data.Tooltip.substr(Data.Tooltip.indexOf('qualityValue') + 15, 3)));
         
-
+        // 품질 색상
         if(QualityValue !== null)
         {
             switch(Math.floor(QualityValue / 10))
@@ -84,14 +144,15 @@ function EquipentArea({EquipmentData, Data, index}) {
             }
         }
 
+        setTooltipInfo(JSON.parse(Data.Tooltip));
         
     }, [EquipmentData, NickName, QualityValue]);
     
-    
+    // onMouseEnter={()=>{console.log(setShowModalArea(true))}} onMouseOut={() => {setShowModalArea(false)}}
     return (
         <div className="EquipmentInfo" >
            <div className="ImageArea">
-                <img src={Data.Icon} alt=""  style={{background: BackColorStyle}} />
+                <img src={Data.Icon} alt=""  style={{background: BackColorStyle}} onClick={()=>{setShowModalArea(!ShowModalArea)}}/>
            </div>
 
             <div className="TextArea">
@@ -111,13 +172,11 @@ function EquipentArea({EquipmentData, Data, index}) {
                         <div className="AbilityStoneInfo">
                             <h3>어빌</h3>
                         </div> : "팔찌~"
-                    
                     }
-                   
                 </div>
-               
             </div>
 
+            {TooltipInfo !== null ? <EquipmentModalArea ShowModalArea={ShowModalArea} TooltipInfo={TooltipInfo} Data={Data} BackColor={BackColorStyle} index={index} QualityColor={QualityColor}/> : ""}
         </div>
     )
 }
@@ -128,6 +187,7 @@ function CharacterEquipment() {
     const NickName = useParams();
     const [EquipmentData, setEquipmentData] = useState();
     const [EngravingData, setEngravingData] = useState(null);
+    
     const GetEquipment = async () => {
         try {
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/equipment`, {
@@ -162,7 +222,6 @@ function CharacterEquipment() {
        GetEngravings();
     }, [NickName])
     
-
     return (
         <div className="EquipmentParentBox">
             <div className="EquipmentZone">
@@ -182,7 +241,7 @@ function CharacterEquipment() {
                                 <img src={Data.Icon} alt="각인 아이콘" />
                                 <div>
                                     <h5>{Data.Name}</h5>
-                                    <span>활성 포인트 {Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 8, 2)}</span>
+                                    <span>활성 포인트 {Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 3)}</span>
                                 </div>
                                 
                             </div>
@@ -203,7 +262,7 @@ function CharacterEquipment() {
 
                
             </div>
-            <button onClick={() => {if(EquipmentData !== null) console.log(EngravingData[0].Tooltip)}}>툴팁확인용도</button>
+            
             
         </div>
     )

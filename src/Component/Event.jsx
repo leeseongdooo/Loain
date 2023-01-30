@@ -36,11 +36,7 @@ function Event() {
     useEffect(() => {
         getEventData();
     }, [])
-
-    console.log(EventData);
-    
    
-
     return (
         <>
           
@@ -48,8 +44,8 @@ function Event() {
             <h3>현재 이벤트 정보</h3>
                 <div className="EventListBox">
                     {
-                        EventData.map((Data) => 
-                        <EventListForm ListData={Data} />
+                        EventData.map((Data, index) => 
+                            <EventListForm ListData={Data} key={index} />
                         )
                     }
                     ㅇㅇ

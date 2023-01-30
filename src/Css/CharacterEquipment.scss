@@ -7,12 +7,40 @@
     flex-direction: column;
 
     .EquipmentZone {
-
-        margin: 20px 0px 0px 20px;
+        margin: 10px 0px 0px 10px;
         width: 100%;
         display: flex;
         height: 400px;
         
+
+        .QuallityValueText {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .StickBox {
+            position: relative;
+            width: 60%;
+            height: 6px;
+            margin-left: 10px;
+            background-color: #E6E8EC;
+            border-radius: 5px;
+            padding: 1px 5px;
+
+            .StickValue {
+                position: absolute;
+                left: 0;
+                margin: 0 auto;
+                width: 0%;
+                height: 6px;
+                padding: 1px 5px;
+                transition: 0.5s;
+                background-color: royalblue;
+                border-radius: 5px;
+                
+            }
+        }
+
         .FirstBox { 
             width: 50%;
             display: flex;
@@ -48,6 +76,90 @@
             width: 50%;
         }
 
+        .ModalBigBox {
+            position: absolute;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-left: 50px;
+            padding: 10px;
+            margin-bottom: 20px;
+            width: calc(43% - 30px);
+            border-radius: 10px;
+            background-color: whitesmoke;
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.378);
+            z-index: 5;
+            
+            p {
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .FirstArea {
+                display: flex;
+                align-items: center;
+                margin: 10px 0px;
+
+                span {
+                    margin-right: 5px;
+                    display: block;
+                }
+                
+                font {
+                    font-weight: bold;
+                    font-size: 14px !important ;
+                }
+    
+                img {
+                    max-width: 44px;
+                    max-height: 44px;
+                    border-radius: 10%;
+                    margin-right: 10px;
+                }
+                
+                .InnerArea {
+                    width: 100%;
+                    .QualityArea {
+                        display: flex;
+                        align-items: center;
+                        
+                        .StickBox {
+                            margin-left: 0px;
+                        }
+                    }
+                }
+                
+                
+            }
+
+            .BasicStatArea {
+                margin: 10px 0px;
+            }
+
+            hr {
+                margin-bottom: 10px;
+            }
+
+            .EquipmentLevel {
+                font {
+                    color: black !important;
+                }
+            }
+
+            .EngravingName {
+                font {
+                    color: black !important;
+                }
+            }
+
+            .debuff {
+                color: red !important;
+                font {
+                    color: red !important;
+                }
+            }
+        }
+
         .EquipmentInfo {
             display: flex;
             margin-bottom: 5px;
@@ -64,7 +176,6 @@
             }
         
             .TextArea {
-                
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -87,36 +198,7 @@
                         background-color: #E6E8EC;
                         padding: 1px 5px;
                         font-size: 12px;
-                    }
-
-                    .QuallityValueText {
-                        font-size: 12px;
-                        font-weight: bold;
-                    }
-
-                    .StickBox {
-                        position: relative;
-                        width: 60%;
-                        height: 6px;
-                        margin-left: 10px;
-                        background-color: #E6E8EC;
-                        border-radius: 5px;
-                        padding: 1px 5px;
-
-                        .StickValue {
-                            position: absolute;
-                            left: 0;
-                            margin: 0 auto;
-                            width: 0%;
-                            height: 6px;
-                            padding: 1px 5px;
-                            transition: 0.5s;
-                            background-color: royalblue;
-                            border-radius: 5px;
-                            
-                        }
-                    }
-                    
+                    }                    
                 }
 
                 
