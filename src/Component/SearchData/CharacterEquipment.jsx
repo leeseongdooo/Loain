@@ -42,7 +42,7 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
                  {/* 어빌리티 스톤 */}
                  <p>{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
                  {/* 팔찌 옵션 */}
-                 <p>{Data.Type !== "팔찌" && TooltipInfo.Element_004.value.Element_001 !== null ? "" : Parser("" + TooltipInfo.Element_004.value.Element_001)}</p>
+                 <p className="BraceletModal">{Data.Type !== "팔찌" && TooltipInfo.Element_004.value.Element_001 !== null ? "" : Parser("" + TooltipInfo.Element_004.value.Element_001)}</p>
             </div>
 
             <hr />
@@ -54,7 +54,8 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
                 {TooltipInfo.Element_006.value.Element_000 !== undefined & TooltipInfo !== null ?  
                 <>
                     <p className="AbilityStoneHp">{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_005.value.Element_001) : ""}</p>
-                    <p className="EngravingName">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
+                    <p className="EngravingName" onClick={() => {console.log(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001)}}>{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
+            
                     <p className="EngravingName">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
                     <p className="EngravingName debuff">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
                 </> : 
@@ -181,11 +182,11 @@ function EquipentArea({EquipmentData, Data, index}) {
     }, [EquipmentData, NickName, QualityValue]);
     
 
-    // onMouseEnter={()=>{console.log(setShowModalArea(true))}} onMouseOut={() => {setShowModalArea(false)}}
+    
     return (
         <div className="EquipmentInfo" >
            <div className="ImageArea">
-                <img src={Data.Type === DataTypeArray[index] ? Data.Icon : ""} alt=""  style={Data.Type === DataTypeArray[index] ? {background: BackColorStyle} : {}} onClick={()=>{setShowModalArea(!ShowModalArea)}}/>
+                <img src={Data.Type === DataTypeArray[index] ? Data.Icon : ""} alt=""  style={Data.Type === DataTypeArray[index] ? {background: BackColorStyle} : {}} onMouseEnter={()=>{setShowModalArea(true)}} onMouseOut={() => {setShowModalArea(false)}}/>
            </div>
 
             <div className="TextArea" style={Data.Type === DataTypeArray[index] ? {} : {display: "none"}}>
@@ -207,17 +208,17 @@ function EquipentArea({EquipmentData, Data, index}) {
                         <div className="AbilityStoneInfo">
                             {TooltipInfo.Element_006.value.Element_000 !== undefined & TooltipInfo !== null ? 
                             <>
-                               <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
                                 <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}</span>
-                               <span className="Debuff">{TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                <span className="Debuff">{TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
                             </> : 
                             <>
-                                {TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)} 
-                                {TooltipInfo.Element_005.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}  
-                                {TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}
+                               <span>{TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
+                               <span>{TooltipInfo.Element_005.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}</span>
+                               <span className="Debuff">{TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
                             </>}
                            
-                        </div> : <div>{Bracelet.length > 0 ? Bracelet.map((Data) => <span>{Data}</span>) : ""}</div>
+                        </div> : <div className="BraceletAbilityTextBox">{Bracelet.length > 0 ? Bracelet.map((Data) => <span className="AbilityName">{Data}</span>) : ""}</div>
                     }
                 </div>
             </div>
@@ -286,7 +287,9 @@ function CharacterEquipment() {
                                 <img src={Data.Icon} alt="각인 아이콘" />
                                 <div>
                                     <h5>{Data.Name}</h5>
-                                    <span>활성 포인트 {Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 3)}</span>
+                                    <span onClick={() => {console.log(Data.Tooltip)}}>활성 포인트 
+                                        {Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 3).includes("<") ? Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 2) : Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 3)}
+                                    </span>
                                 </div>
                                 
                             </div>

@@ -1,6 +1,7 @@
 // 헤더에서 가장 큰 부모요소.
 .HeaderParent {
   position: relative;
+  border: 1px solid black;
   background-color: white;
   width: calc(100% - 80px);
   padding: 0px 40px;
@@ -22,29 +23,50 @@
     font-weight: 700; // 두껍게 설정하기 위해 700으로 지정
   }
 
-  // 공격대를 검색하는 div에 대한 Css입니다.
-  .SearchBox {
-    margin-left: 10%;
-    width: 50%;
-    height: 40px;
-    border: 2px solid purple;
-    border-radius: 10px;
+  // 페이지를 이동할 수 있는 메뉴, 캐릭터를 검색하는 input을 담은 div
+  .CenterBox {
+    width: 60%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    // 돋보기 아이콘에 대한 CSS
-    #SearchIcon {
-      font-size: 28px;
-      margin: 0px 10px;
+    a {
+      font-size: 16px;
+      margin: 0px 15px;
+      font-weight: bold;
+      color: #7D8395;
     }
 
-    input {
-      outline: none;
-      margin-right: 20px;
-      width: 100%;
-      height: 100%;
-      border: none;
+    a:first-child {
+      margin-left: 0px;
+    }
+
+      // 공격대를 검색하는 div에 대한 Css입니다.
+    .SearchBox {
+      margin-left: 10%;
+      width: 150px;
+      height: 40px;
+      border: 2px solid purple;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      // 돋보기 아이콘에 대한 CSS
+      #SearchIcon {
+        font-size: 28px;
+        margin: 0px 10px;
+      }
+
+      input {
+        transition: .3s;
+        font-weight: bold;
+        outline: none;
+        margin-right: 20px;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
     }
   }
 

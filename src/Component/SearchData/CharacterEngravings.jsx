@@ -53,14 +53,17 @@ function CharacterEngravings() {
    
 
     return (
-        <div className="EngravingsBox">
-            <p className="GuideText">각인</p>
-            <div className="EngravingsList">
-                {EquipmentData !== null ? EquipmentData.map((Info, index) => <EngravingText key={index} Info={Info} EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/>) : <span>로딩중</span>}
-            </div>
-            
-            {EngravingsInfo !== null ? <DescriptionText EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/> : <span></span>}
-        </div>
+        <>
+        {EquipmentData !== null ? 
+            <div className="EngravingsBox">
+                <p className="GuideText" onClick={() => {console.log(EngravingsInfo)}}>각인</p>
+                <div className="EngravingsList">
+                    {EquipmentData !== null ? EquipmentData.map((Info, index) => <EngravingText key={index} Info={Info} EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/>) : <span>로딩중</span>}
+                </div>
+                
+                {EngravingsInfo !== null ? <DescriptionText EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/> : <span></span>}
+            </div> : <div className="EngravingsBox"><p className="GuideText">정보X</p></div> }
+        </>
     )
 }
 

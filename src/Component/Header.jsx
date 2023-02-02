@@ -31,6 +31,7 @@ function NoLogin() {
 function Header() {
   const [LoginStates, setLoginState] = useState(window.localStorage.getItem("LoginState"));
   const [SearchNickName, setSearchNickName] = useState("");
+  const [SearchFoucs, setSearchFocus] = useState(false);
   const NickName = useState(window.localStorage.getItem("userNickName"));
   const navigate = useNavigate();
 
@@ -53,19 +54,27 @@ function Header() {
         LOAIN
       </Link>
 
-      <div className="SearchBox">
-        <BiSearchAlt2 id="SearchIcon" />
+      <div className="CenterBox">
+        <div className="textbox">
+          <Link to="/Guild">길드정보</Link>
+          <Link to="/Aution">거래소</Link>
+          <Link to="/Market">경매장</Link>
+          <Link to="/Notice">공지사항</Link>
+        </div>
         
-        <input type="text" placeholder="캐릭터 검색하기." onChange={(e) => {setSearchNickName(e.target.value)}} onKeyPress={(e) => {SearchEnter(e)}}/>
-      </div> 
+
+        <div className="SearchBox">
+          <BiSearchAlt2 id="SearchIcon" />
+          <input type="text"  style={SearchFoucs === false ? {width: "400px"} : {width: "150px"}}placeholder="캐릭터 검색하기." onChange={(e) => {setSearchNickName(e.target.value)}} onKeyPress={(e) => {SearchEnter(e)}} onFocus={() => {setSearchFocus(true)}}/>
+        </div> 
+      </div>
+
 
       <div className="utility">
-
         {
-        LoginStates === "true" ? 
-        <YesLogin NickName={NickName} /> : <NoLogin/>
-      
-}
+          LoginStates === "true" ? 
+          <YesLogin NickName={NickName} /> : <NoLogin/>
+        }
       </div>
     </header>
   );

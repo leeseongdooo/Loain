@@ -138,6 +138,12 @@
                 .Stat1 {
                     margin: 5px 0px 10px 0px;
                 }
+
+                img {
+                    display: none;
+                }
+
+                
             }
 
             hr {
@@ -237,6 +243,26 @@
                             display: none;
                         }
                     }
+
+                    .BraceletAbilityTextBox {
+                        margin-top: -5px;
+
+                        .AbilityName {
+                            color: #353945;
+                            font-size: 13px;
+                            font-weight: 700;
+                        }
+    
+                        .AbilityName::after {
+                            content: ':';
+                            margin: 0px 2.5px;
+                        }
+    
+                        .AbilityName:last-child::after {
+                            content: '';
+                        }
+                    }
+                    
                 }                
             }
         }

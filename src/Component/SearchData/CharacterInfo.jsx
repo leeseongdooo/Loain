@@ -15,8 +15,8 @@ function NewDesign({SearchCharacter}) {{
         <div className="NewCharacterInfoBox">
             <div className="InformationArea">
                 <div className="TopArea">
-                    <div className="SimpleInformation">
-                        <span>Lv. {SearchCharacter.CharacterLevel} {SearchCharacter.CharacterClassName} @ {SearchCharacter.ServerName}</span>
+                    <div className="SimpleInformation" onClick={() => {console.log(SearchCharacter)}}>
+                        <span>Lv. {SearchCharacter.CharacterLevel} {SearchCharacter.CharacterClassName} @ {SearchCharacter.ServerName !== "" ? SearchCharacter.ServerName : "서버X"}</span>
                     </div>
                     
                     <h2>{SearchCharacter.CharacterName}</h2>
@@ -36,12 +36,12 @@ function NewDesign({SearchCharacter}) {{
 
                     <div>
                         <p className="TitleName">칭호</p>
-                        <p>{SearchCharacter.Title}</p>
+                        <p>{SearchCharacter.Title !== null ? SearchCharacter.Title : "-"}</p>
                     </div>
 
                     <div>
                         <p className="TitleName">길드</p>
-                        <p>{SearchCharacter.GuildName}</p>
+                        <p>{SearchCharacter.GuildName !== null ? SearchCharacter.GuildName : "-" }</p>
                     </div>
 
                     <div>
@@ -51,7 +51,7 @@ function NewDesign({SearchCharacter}) {{
 
                     <div>
                         <p className="TitleName">PVP</p>
-                        <p>{SearchCharacter.PvpGradeName}</p>
+                        <p>{SearchCharacter.PvpGradeName !== null ? SearchCharacter.PvpGradeName : "-"}</p>
                     </div>            
                 </div>
             </div>
@@ -68,7 +68,6 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
 
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const NickName = useParams();
-    console.log(SearchCharacter);
     return (
         
         <div className="CharacterSearchResult">
@@ -82,24 +81,23 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
             
 
           <div className="Specifications">
+          {CharacterStats !== null ?  
                   <div className="StatArea MiniBox">
                     
                     <p className="GuideText">전투 특성</p>
-                    
-                    <ul className="BattleStat">
-                        {CharacterStats.map((Data, index) =>  {
-                            if(index < 6)
-                            {
-                                return (
-                                    <li key={index}>
-                                        <span id="StatName">{Data.Type}</span>
-                                        <span id="StatNumber">{Data.Value}</span>
-                                    </li>
-                                )
-                            }
-                        })}                        
-                    </ul>
-
+                        <ul className="BattleStat">
+                            {CharacterStats.map((Data, index) =>  {
+                                if(index < 6)
+                                {
+                                    return (
+                                        <li key={index}>
+                                            <span id="StatName">{Data.Type}</span>
+                                            <span id="StatNumber">{Data.Value}</span>
+                                        </li>
+                                    )
+                                }
+                            })}                        
+                        </ul> 
                     <p className="GuideText">기본 특성</p>
                     
                     <ul className="BasicStat">
@@ -116,7 +114,9 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
                        })} 
                     </ul>
 
-                  </div>
+                  </div> : <div className="StatArea MiniBox"><h2 className="GuideText">정보X</h2></div>
+
+                    }
 
                   <div className="AbilityArea MiniBox">
                        <CharacterEngravings/>
