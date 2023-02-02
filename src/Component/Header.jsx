@@ -55,17 +55,28 @@ function Header() {
       </Link>
 
       <div className="CenterBox">
-        <div className="textbox">
-          <Link to="/Guild">길드정보</Link>
-          <Link to="/Aution">거래소</Link>
-          <Link to="/Market">경매장</Link>
-          <Link to="/Notice">공지사항</Link>
+        <div className="textBox">
+          <div>
+            <Link to="/Guild">길드정보</Link>
+          </div>
+          
+          <div>
+            <Link to="/Aution">거래소</Link>
+          </div>
+         
+          <div>
+            <Link to="/Market">경매장</Link>
+          </div>
+          
+          <div>
+            <Link to="/Notice">공지사항</Link>
+          </div>
         </div>
         
 
-        <div className="SearchBox">
+        <div className="SearchBox" style={SearchFoucs === false ? {width: "200px"} : {width: "300px"}}>
           <BiSearchAlt2 id="SearchIcon" />
-          <input type="text"  style={SearchFoucs === false ? {width: "400px"} : {width: "150px"}}placeholder="캐릭터 검색하기." onChange={(e) => {setSearchNickName(e.target.value)}} onKeyPress={(e) => {SearchEnter(e)}} onFocus={() => {setSearchFocus(true)}}/>
+          <input type="text" placeholder="캐릭터 검색하기." onChange={(e) => {setSearchNickName(e.target.value)}} onKeyPress={(e) => {SearchEnter(e)}} onFocus={() => {setSearchFocus(true)}} onBlur={() => {setSearchFocus(false)}}/>
         </div> 
       </div>
 
