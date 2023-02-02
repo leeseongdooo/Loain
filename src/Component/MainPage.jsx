@@ -1,44 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
+
+import {IoIosArrowBack,IoIosArrowForward} from "react-icons/io";
 import "../Css/MainPage.scss";
 import Event from "./Event";
 import SearchCharacter from "./SearchCharacter";
 
-function MatchCard({}) {
-  return (
-    <div className="MatchCard">
-      <div className="Top">
-        <div className="TextArea">
-          <img src="" alt="" />
-          <h3>저녁에 같이 레이드 가실분!!</h3>
-        </div>
 
-        <AiOutlineStar className="Icons" />
-      </div>
-
-      <div className="Middle">
-        <p>레이드 : </p>
-        <p>모집현황 : </p>
-      </div>
-
-      <div className="Bottom">
-        <span>존중이리퍼</span>
-
-        <div className="ButtonBox">
-          <button>상세보기</button>
-          <button>지원하기</button>
-        </div>
-      </div>
-    </div>
-  );
-}
 function MainPage() {
   const accessToken =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
 
   const [EventData, setEventData] = useState([]);
   const [AdventureIslandData, setAdventureIslandData] = useState(null);
+  const [SlideWidth, setSlideWidth] = useState(0);
+  const [SlideCount, setSlideCount] = useState(0);
+  const EventRef = useRef();
+
 
   const AdventureIsland = async () => {
     try {
@@ -57,6 +35,7 @@ function MainPage() {
         },
       })
       .then((Response) => {
+        console.log(Response.data);
         setEventData(Response.data);
       })
       .catch((Error) => {
@@ -66,35 +45,54 @@ function MainPage() {
       
   }, []);
 
-  console.log("A");
+  const leftClick = () => {
+    setSlideWidth(SlideWidth + EventRef.current.clientWidth + 10); 
+    setSlideCount(SlideCount - 1)
+  }
 
   return (
     <div className="MainPageBox">
-     
-     
-      <div className="QuickMatchParent">
-        <div className="QuickMatchChild">
-          <ul className="SelectRaid">
-            <li>어비스 레이드</li>
-            <li>군단장 레이드</li>
-          </ul>
+      <h1>오늘의 섬 정보!</h1>
+      {AdventureIslandData !== null ? AdventureIslandData.map((Data, index) => {
+        console.log(Data);
+      }) : "로딩중입니다."}
 
-          <div className="MatchBox">
-            <ul className="SelectRaidBoss">
-              <li className="Valtan">발탄</li>
-              <li className="BiaKis">비아키스</li>
-              <li className="Kukeu">쿠크세이튼</li>
-              <li className="Ave">아브렐슈드</li>
-              <li className="Iliy">일리아칸</li>
-              <li className="Kman">카멘</li>
-            </ul>
-            <MatchCard />
-          </div>
+      <div className="CalenderBigBox">
+        
+      </div>
+
+        <div className="EventBigBox">
+          <span className="IntroduceEvent">진행중인 이벤트 {EventData.length !== 0 ? EventData.length + "개" : ""}</span>
+          
+          <div className="EventBox">
+            <IoIosArrowBack className="Icon left" onClick={() => {SlideWidth < 0 ? leftClick() : console.log("NO") }} style={SlideWidth >= 0 ? {color: "gray"} : {color: "black"}}/>
+                <div className="ParentBox">
+                  <div className="InnerBox" style={{left: SlideWidth}}>
+                    {EventData.length !== 0 ? EventData.map((Data ,index) => {
+                      return (
+                        <a href={Data.Link} key={index} target="_blank">
+                          <div className="CardStyle">
+                            {EventData.length !== 0 ? <img src={Data.Thumbnail} ref={EventRef}/> : ""}
+                          
+                            <div className="EventInfo">
+                              <div className="TextArea">
+                                <p>{Data.Title}</p>
+                                <span className="EventDate">이벤트 기간 : </span>
+                                <span>{EventData.length !== 0 ? Data.StartDate.substr(0, 10) : ""} - </span>
+                                <span>{EventData.length !== 0 ? Data.EndDate.substr(0, 10) : ""}  </span>
+                              </div>
+
+                              <p className="Nowing">진행중</p>
+                            </div>
+                          </div>
+                        </a>
+                      )
+                  }) : ""}
+                </div>
+              </div>
+              <IoIosArrowForward className="Icon right" style={EventData.length - 1 === SlideCount && EventData.length !== 0 ? {display: "none"} : {display: "block"}}onClick={() => {setSlideWidth(SlideWidth - EventRef.current.clientWidth - 10); setSlideCount(SlideCount + 1)}}/>
         </div>
       </div>
-      <h1>오늘의 섬 정보!</h1>
-      {AdventureIslandData !== null ? AdventureIslandData.map((Data, index) => <p key={index}>{Data.Name}</p>) : "로딩중입니다."}
-      <Event />
       
     </div>
   );

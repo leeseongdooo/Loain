@@ -39,7 +39,6 @@ function Event() {
    
     return (
         <>
-          
             <div className="FlexBox">
             <h3>현재 이벤트 정보</h3>
                 <div className="EventListBox">

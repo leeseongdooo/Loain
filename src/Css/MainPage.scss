@@ -4,206 +4,130 @@
 }
 
 .MainPageBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   background-color: white;
 
-  .QuickMatchParent {
-    width: 100%;
-    min-height: 330px;
-    padding: 10px;
+  .EventBigBox {
     display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .QuickMatchChild {
-      box-shadow: 2px 4px 2px rgba(0, 0, 0, 0.175);
-      background-color: white;
-      border: 1px solid green;
-      display: flex;
-      padding: 10px;
-      width: 80%;
-      height: 300px;
-
-      .SelectRaid {
-        margin-right: 10px;
-        border-right: 1px solid black;
-        li {
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: white;
-          padding: 5px;
-          margin: 5px 0px;
-          border-radius: 10px;
-          width: 120px;
-          height: 30px;
-          list-style: none;
-          transition: 0.3s;
-          font-weight: 700;
-          font-size: 16px;
-        }
-
-        li:hover {
-          background-color: royalblue;
-          color: white;
-        }
-      }
-
-      // 현재 매칭 현황에 대해 간략하게 알려주는 Box입니다.
-      .MatchBox {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-
-        // 레이드 이름
-        .SelectRaidBoss {
-          li {
-            width: 70px;
-            margin: 0px 5px;
-            border-radius: 10px;
-            border: 1px solid #999999;
-            padding: 10px;
-            list-style: none;
-            font-weight: 700;
-            float: left;
-            transition: 0.3s;
-            cursor: pointer;
-          }
-
-          li:first-child {
-            margin-left: 10px;
-          }
-
-          // 레이드 마다 hover시 색상 다르게
-
-          .Valtan:hover {
-            background-color: black;
-            color: white;
-          }
-
-          .BiaKis:hover {
-            background-color: rgb(244, 107, 130);
-            color: white;
-          }
-
-          .Kukeu:hover {
-            background-color: rgb(210, 44, 44);
-            color: white;
-          }
-
-          .Ave:hover {
-            background-color: rgb(132, 83, 182);
-            color: white;
-          }
-
-          .Iliy:hover {
-            background-color: rgb(48, 118, 48);
-            color: white;
-          }
-
-          .Kman:hover {
-            background-color: rgb(33, 33, 151);
-            color: white;
-          }
-        }
-
-        .MatchCard {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          margin: 10px;
-          border: 1px solid rgba(168, 168, 168, 0.382);
-          border-radius: 10px;
-          min-width: 330px;
-          max-width: 450px;
-          height: 130px;
-          padding: 10px;
-
-          .Top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            .TextArea {
-              display: flex;
-              align-items: center;
-              img {
-                width: 30px;
-                height: 30px;
-                border-radius: 100%;
-                border: 1px solid black;
-                margin-right: 10px;
-              }
-            }
-
-            .Icons {
-              cursor: pointer;
-              font-size: 24px;
-            }
-          }
-
-          .Middle {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: flex-start;
-            p {
-              font-size: 14px;
-              color: #999999;
-            }
-          }
-
-          .Bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            span {
-              font-size: 14px;
-            }
-
-            button {
-              cursor: pointer;
-              border: 1px solid lightgray;
-              padding: 5px 10px;
-              width: 80px;
-              border-radius: 10px;
-              font-weight: 700;
-              margin: 0px 5px;
-            }
-
-            button:first-child {
-            }
-          }
-        }
-      }
-    }
+    flex-direction: column;
+    min-width: 90%;
+    max-width: 90%;
+    margin-top: 20px;
   }
 
-  // 이벤트 박스
-  .EventBigBox {
-    display: none;
-    border: 3px solid black;
-    margin-top: 10px;
-    width: 90%;
+  .IntroduceEvent {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
 
+  .EventBox {
+    position: relative;
+    background-color: whitesmoke;
+    display: flex;
     align-items: center;
-    justify-content: flex-start;
+    padding: 0px 10px;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 280px;
+    max-height: 280px;
+    border-radius: 10px;
+    overflow: hidden;
 
-    .EventCard {
-      display: none;
-      margin: 0px 5px;
+    // 아이콘 영역
+    .Icon {
+      position: absolute; 
+      font-size: 40px;
+      min-width: 40px;
+      min-height: 40px;
+      color: black;
+      z-index: 10;
+    }
 
-      img {
-        width: 400px;
-        border-radius: 20px;
+    .left {
+      left: 0;
+    }
+
+    .right {
+      right: 0;
+    }
+
+    // 슬라이드 영역
+    .ParentBox {
+      position: relative;
+      margin-left: 40px;
+      height: 250px;
+      width: calc(100% - 80px);
+      display: inline;
+      overflow: hidden;
+    
+      .InnerBox {      
+        transition: .3s;
+        position: absolute;
+        display: flex;      
       }
     }
 
-    .EventCard:first-child {
-      margin-left: 0px;
+    .CardStyle {
+      position: relative;
+      cursor: pointer;
+      margin: 0px 5px;
+      height: 250px;
+      border-radius: 10px;
+
+      img {
+        border-radius: 10px;
+        min-width: 100%;
+        height: 100%;
+      }
+
+      .EventInfo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 1;
+        transition: .3s;
+        position: absolute;
+        bottom: 0px;
+        min-width: 100%;
+        height: 70px;
+        color: black;
+        background-color: white;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        
+        .TextArea {
+          padding: 10px;
+        
+          // 이벤트 이름
+          p {
+            font-weight: 700;
+            font-size: 18px;
+            color: #222;
+          }
+
+          // 이벤트 기간
+          span {
+            font-size: 14px;
+            color: #666;
+          }
+
+          .EventDate {
+            color: #8045dd;
+            font-weight: 400;
+          }
+        }
+
+        // 진행중
+        .Nowing {
+          margin-right: 20px;
+          color: #8045dd;
+          font-weight: bold;
+        }
+      }
     }
   }
 }

@@ -61,7 +61,7 @@ function Header() {
           </div>
           
           <div>
-            <Link to="/Aution">거래소</Link>
+            <Link to="/Matching">공대해듀오</Link>
           </div>
          
           <div>
