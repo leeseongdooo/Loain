@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-
+import Calendar from "./Calendar";
 import {IoIosArrowBack,IoIosArrowForward} from "react-icons/io";
 import "../Css/MainPage.scss";
 import Event from "./Event";
@@ -12,20 +12,10 @@ function MainPage() {
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
 
   const [EventData, setEventData] = useState([]);
-  const [AdventureIslandData, setAdventureIslandData] = useState(null);
   const [SlideWidth, setSlideWidth] = useState(0);
   const [SlideCount, setSlideCount] = useState(0);
   const EventRef = useRef();
 
-
-  const AdventureIsland = async () => {
-    try {
-      const response = await axios.get("https://lostarkapi.ga/adventureisland");
-      setAdventureIslandData(response.data.Island);
-    } catch(e) {
-      console.log(e)
-    }
-  };
 
   useEffect(() => {
     axios
@@ -35,13 +25,12 @@ function MainPage() {
         },
       })
       .then((Response) => {
-        console.log(Response.data);
+        // console.log(Response.data);
         setEventData(Response.data);
       })
       .catch((Error) => {
         console.log(Error);
       });
-      AdventureIsland();
       
   }, []);
 
@@ -52,16 +41,9 @@ function MainPage() {
 
   return (
     <div className="MainPageBox">
-      <h1>오늘의 섬 정보!</h1>
-      {AdventureIslandData !== null ? AdventureIslandData.map((Data, index) => {
-        console.log(Data);
-      }) : "로딩중입니다."}
+      
 
-      <div className="CalenderBigBox">
-        
-      </div>
-
-        <div className="EventBigBox">
+      <div className="EventBigBox">
           <span className="IntroduceEvent">진행중인 이벤트 {EventData.length !== 0 ? EventData.length + "개" : ""}</span>
           
           <div className="EventBox">
@@ -93,7 +75,9 @@ function MainPage() {
               <IoIosArrowForward className="Icon right" style={EventData.length - 1 === SlideCount && EventData.length !== 0 ? {display: "none"} : {display: "block"}}onClick={() => {setSlideWidth(SlideWidth - EventRef.current.clientWidth - 10); setSlideCount(SlideCount + 1)}}/>
         </div>
       </div>
-      
+    
+      <Calendar></Calendar>
+        
     </div>
   );
 }

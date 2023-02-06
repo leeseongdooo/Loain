@@ -25,7 +25,7 @@
   // 페이지를 이동할 수 있는 메뉴, 캐릭터를 검색하는 input을 담은 div
   .CenterBox {
     padding: 3px 0px;
-    width: 65%;
+    width: 85%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,15 +34,15 @@
       width: 40%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+     
       
       div {
         transition: .1s;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 5px 5px;
         a {
+          padding: 0px 15px;
           font-size: 16px;
           font-weight: bold;
           color: #7D8395;

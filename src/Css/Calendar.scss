@@ -1,0 +1,174 @@
+// 캘린더 최상위 div
+.CalenderBigBox {
+    display: flex;
+    flex-direction: column;
+    min-width: 90%;
+    max-width: 90%;
+    margin-top: 20px;
+
+    .TitleAndTimer {
+        // 모험 섬 span과 타이머가 있습니다.
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        span {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .TimerText {
+            margin-left: 10px;
+            color: #8045DD;
+        }
+    }
+
+    .ContentsBox {
+        margin-top: 10px;
+        width: calc(100% - 20px);
+        border-radius: 10px;
+        min-height: 280px;
+        max-height: 280px;
+        padding: 10px;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // 하루 콘텐츠에 대한 박스
+
+        .ChooseDayBox {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 90%;
+            height: 100px;
+            
+            // 날짜를 선택하는 박스
+
+            .MiniCalendar {
+                cursor: pointer;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transition: .3s;
+                padding: 15px;
+                margin: 0px 15px;
+                .KorDate {
+                    margin-bottom: 20px;
+                    font-size: 16px;
+                    color: #7D8395;
+                }   
+                .Date {
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+            }
+
+            .MiniCalendar:hover {
+                background-color: whitesmoke;
+            }
+        }
+
+        .Line {
+            display: flex;
+            
+        }
+
+
+        .DayContentsBox {
+            border-top: 1px solid #e5e7eb;;
+            // 하루 콘텐츠 소개 박스
+            width: 90%;
+            height: 50px;
+            
+
+            .ContentsForm {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                
+                .MiniContentsBox {
+                    width: calc(90% / 3 - 20px);
+                    height: 40px;
+                    margin: 0px 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    span {
+                        font-size: 16px;
+                        font-weight: bold;
+                        color: #353945;
+                    }
+
+                    .IconAndName {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        
+                        .Icon {
+                            width: 20px;
+                            height: 20px;
+                            margin-right: 5px;
+                        }
+                        
+                    }
+                }
+            }
+        }
+
+        .AdventureIslandBox {
+            // 모험섬 박스
+            width: 90%;
+            height: 120px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .MiniIslandBox {
+                width: calc(90% / 3 - 20px);
+                height: 64px;
+                border-radius: 10px;
+                padding: 13px 15px;
+                margin: 0px 10px;
+                display: flex;
+                align-items: center;
+                background-color: whitesmoke;
+
+                .IslandImage {
+                    width: 64px;
+                    height: 64px;
+                    border-radius: 10px;
+                    border: 1px solid black;
+                }
+
+                .TextInfo {
+                    margin-left: 10px;
+                    height: 64px;
+                    display: flex;
+                    flex-direction: column;
+                    .TopInfo {
+                        .Reward {
+                            font-size: 14px;
+                            border-radius: 5px;
+                            padding: 2px 8px;
+                            background-color: aqua;
+                            margin-right: 10px;
+                        }
+
+                        .IslandName {
+                            font-size: 18px;
+                            font-weight: bold;
+                            color: #353945;
+                        }
+                    }
+
+                    .BottomInfo {
+
+                    }
+                }
+            }
+        }
+    }
+}
