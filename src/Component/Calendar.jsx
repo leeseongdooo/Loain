@@ -179,7 +179,6 @@ function Calendar() {
         }
     ]
 
-
     const AdventureIsland = async () => {
         try {
           const response = await axios.get("https://lostarkapi.ga/adventureisland");
@@ -204,24 +203,49 @@ function Calendar() {
 
     // 카운트
     
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
-    const [DayContentsTimer, setDayContentsTimer] = useState("00:00:00");
-    
     const padNumber = (num, length) => {
         return String(num).padStart(length, '0');
     };
 
+    const weekDayAdventureIsland = [11, 13, 19, 21, 23];
+    const weekendAdventureIsland = [9, 11, 13, 19, 21, 23];
+
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    // 지금 시간
+    const NowSecTime = (hours * 60 * 60) + (minutes * 60) + seconds;
     
+    const [Adventurehour, setAdventureHour] = useState(0);
+    const [Adventuremin, setAdventureMin] = useState(0);
+    const [Adventuresec, setAdventureSec] = useState(0);
+
+    let NextAdventureIsland = [];
+    weekDayAdventureIsland.map((Data, index) => {
+        // 현재시간보다 큰것.
+        if(hours < Data)
+        {
+            NextAdventureIsland.push(Data);
+        } else if(hours === 23 ) {
+            NextAdventureIsland = [11, 13, 19, 21, 23];
+        }
+    
+    }); 
+
+    // NextAdventureIsland[0] * 3600 - NowSecTime
+    const [AdventureIslandTimer, setAdventureIslandTimer] = useState(0);
+    const [NextsecTime, setNextsecTime] = useState(NextAdventureIsland[0] * 3600 - NowSecTime); // 다음 시간을 초로 변환
+    // 다음 모험섬 시간을 구하는 함수
+    
+    const [DayContentsTimer, setDayContentsTimer] = useState("");
+  
+    // 하루 콘텐츠 1시간
     const tempHour = 1;
     const tempMin = 0;
     const tempSec = 0;
-
+    
     // 타이머를 초단위로 변환한 initialTime과 setInterval을 저장할 interval ref
     const [initialTime, setInitialTime] = useState((tempHour * 60 * 60 + tempMin * 60 + tempSec) - (minutes * 60 + seconds));
-    
-    
     const [hour, setHour] = useState(padNumber(tempHour, 2));
     const [min, setMin] = useState(padNumber(tempMin, 2));
     const [sec, setSec] = useState(padNumber(tempSec, 2));
@@ -236,24 +260,52 @@ function Calendar() {
             // count => count - 1            
             setInitialTime(initialTime => initialTime - 1);
             
-            setSec(padNumber(initialTime % 60, 1));
-            setMin(padNumber(parseInt(initialTime / 60), 1));
-            setHour(padNumber(parseInt(initialTime / 60 / 60), 1));
+            setSec(padNumber(initialTime % 60, 2));
+            setMin(padNumber(parseInt(initialTime / 60), 2));
+            setHour(padNumber(parseInt(initialTime / 60 / 60), 2));
             setDayContentsTimer(hour + " : " + min + " : " + sec);
 
         }, 1000);
         if(initialTime === 0){
-            
+            setInitialTime(3600);
+            return () => clearInterval(id);
         }
         return () => clearInterval(id);
     }, [initialTime])
     
+    useEffect(() => {
+        const NextTime = setInterval(() => {
+            setNextsecTime(NextsecTime => NextsecTime - 1);
+            
+            setAdventureSec(padNumber(NextsecTime % 60, 2));
+            setAdventureMin(padNumber(parseInt((NextsecTime / 60) % 60), 2));
+            setAdventureHour(padNumber(parseInt(NextsecTime / 60 / 60), 2));
+            console.log(NowSecTime)
+            setAdventureIslandTimer(Adventurehour + " : " + Adventuremin + " : " + Adventuresec);
+        }, [1000]);
+        
+        if(NextsecTime <= 0)
+        {                        
+            if(hours === 23)
+            {
+                setNextsecTime(NextAdventureIsland[0] * 3600);
+                return clearInterval(NextTime);
+            } else {
+                setNextsecTime(NextAdventureIsland[0] * 3600 - NowSecTime);
+                return clearInterval(NextTime);
+            }
+
+            
+        }
+        return () => clearInterval(NextTime);
+    }, [NowSecTime])
+
     return (
         <div className="CalenderBigBox">
             <div className="TitleAndTimer">
                 <div>
                     <span>모험 섬</span>
-                    <span className="TimerText">타이머</span>
+                    <span className="TimerText" onClick={() => console.log(NextAdventureIsland)}>{AdventureIslandTimer}</span>
                 </div>
                 
                 <div>
