@@ -17,7 +17,7 @@ function Calendar() {
     ); // 오늘
     const [ThisMonthlastDay, setThisMonthLastDay] = useState(new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()); // 오늘 기준으로 해당 달에 마지막날
     const [lastMonthFinalDay, setlastMonthFinalDay] = useState(new Date(now.getFullYear(), now.getMonth(), 0).getDate()); // 오늘 기준으로 지난 달에 마지막날
-    const [AdventureIslandData, setAdventureIslandData] = useState(null);
+    const [AdventureIslandImageData, setAdventureIslandImageData] = useState(null)
     const [TestArray, setTestArray] = useState([]);
     
     const getMiniCalendar = () => {
@@ -34,11 +34,11 @@ function Calendar() {
                     "date": lastMonthFinalDay + minusDay,
                     "korDate": KorWeek[lastDays],
                 } 
-                console.log("저번달 : " + lastMonthInfo);
+                
                 miniarray.push(lastMonthInfo);
-                console.log("저번달 성공!");
+                
             } else {
-                console.log("이번달 : " + minusDay);
+                
                 const lastDays = new Date(`${now.getFullYear()}-${now.getMonth() + 1}-${minusDay}`).getDay();
                 const lastMonthInfo = {
                     "year": now.getFullYear(),
@@ -47,18 +47,17 @@ function Calendar() {
                     "korDate": KorWeek[lastDays],
                 } 
                 miniarray.push(lastMonthInfo );       
-                console.log(miniarray);         
-                console.log("이번달 성공!");
             }    
         }
         setTestArray(miniarray);
         
     }
     
+    // 금일 콘텐츠
     const DayContents = [
         {
             id: 1,
-            icon: '	https://kloa.gg/_next/static/media/ico_boss_on.5fa466bf.png',
+            icon: 'https://kloa.gg/_next/static/media/ico_boss_on.5fa466bf.png',
             noIcon: 'https://kloa.gg/_next/static/media/ico_boss_off.6c4eae60.png',
             contentName: "필드보스",
             NoContents: "<자리비움>",
@@ -81,14 +80,129 @@ function Calendar() {
             ContentsDay: ['월', '목', '토','일']
         }
     ]
+
+    // 모험섬 데이터, 
+    const AdventureIslandImage = [
+        {
+            id: 1,
+            IslandName: "고요한 안식의 섬",
+            IslandImage: '/img/sabbath.png'
+        },
+        {
+            id: 2,
+            IslandName: "잔혹한 장난감 성",
+            IslandImage: '/img/brutaltoycastle.png'
+        },
+        {
+            id: 3,
+            IslandName: "환영 나비의 섬",
+            IslandImage: '/img/phantombutterfly.png'
+        },
+        {
+            id: 4,
+            IslandName: "수라도",
+            IslandImage: '/img/suras.png'
+        },
+        {
+            id: 5,
+            IslandName: "메데이아",
+            IslandImage: '/img/medeia.png'
+        },
+        {
+            id: 6,
+            IslandName: "스노우팡 아일랜드",
+            IslandImage: '/img/snow.png'
+        },
+        {
+            id: 7,
+            IslandName: "기회의 섬",
+            IslandImage: '/img/chance.png'
+        },
+        {
+            id: 8,
+            IslandName: "죽음의 협곡",
+            IslandImage: '/img/deathvalley.png'
+        },
+        {
+            id: 9,
+            IslandName: "우거진 갈대의 섬",
+            IslandImage: '/img/lushreeds.png'
+        },
+        {
+            id: 10,
+            IslandName: "포르페",
+            IslandImage: '/img/forpe.png'
+        },
+        {
+            id: 11,
+            IslandName: "볼라르 섬",
+            IslandImage: '/img/volare.png'
+        },
+        {
+            id: 12,
+            IslandName: "블루홀 섬",
+            IslandImage: '/img/bluehole.png'
+        },
+        {
+            id: 13,
+            IslandName: "하모니 섬",
+            IslandImage: '/img/harmony.png'
+        },
+        {
+            id: 14,
+            IslandName: "몬테 섬",
+            IslandImage: '/img/monte.png'
+        }, 
+    ];
+
+    // 모험섬 보상 데이터
+    const reward = [
+        {
+            id: 1,
+            rewardName: "카드",
+            rewardImage: ["/img/island_cardpack.png", "/img/island_exp.png", "/img/island_heart.png", "/img/island_simbol.png"]
+        },
+        {
+            id: 2,
+            rewardName: "주화",
+            rewardImage: ["/img/island_coinbox.png", "/img/island_coin1.png", "/img/island_heart.png", "/img/island_simbol.png"]
+        },
+        {
+            id: 3,
+            rewardName: "실링",
+            rewardImage: ["/img/island_siling.png", "/img/island_heart.png", "/img/island_simbol.png"]
+        },
+        {
+            id: 4,
+            rewardName: "골드",
+            rewardImage: ["/img/island_gold.png", "/img/island_heart.png", "/img/island_simbol.png"]
+        }
+    ]
+
+
     const AdventureIsland = async () => {
         try {
           const response = await axios.get("https://lostarkapi.ga/adventureisland");
-          setAdventureIslandData(response.data.Island);
+          console.log(response.data.Island)
+          let copycat = response.data.Island;
+
+          AdventureIslandImage.map((Data) => {
+            copycat.map((Data2, index) => {
+                if(Data.IslandName === Data2.Name)
+                {
+                    console.log(copycat[index]);
+                    copycat[index].IslandImage = Data.IslandImage;
+                    setAdventureIslandImageData(copycat);
+                }
+            })
+        })
+          
         } catch(e) {
           console.log(e)
         }
       };
+
+    
 
     useEffect(() => {
         getMiniCalendar();
@@ -138,32 +252,32 @@ function Calendar() {
                             <div className="MiniContentsBox">
                                 <div className="IconAndName">
                                     <img src={Data.ContentsDay.includes(today.korDate) ? Data.icon : Data.noIcon} alt={"X"} className="Icon"/>
-                                    <span>{Data.contentName}</span>
+                                    <span style={Data.ContentsDay.includes(today.korDate) ? {} : {color: "#B1B5C3"}}>{Data.contentName}</span>
                                 </div>
-                                <span>{Data.ContentsDay.includes(today.korDate) ? "타이머" : Data.NoContents }</span>
+                                <span style={Data.ContentsDay.includes(today.korDate) ? {} : {color: "#B1B5C3"}}>{Data.ContentsDay.includes(today.korDate) ? "타이머" : Data.NoContents }</span>
                             </div>
                         ))}
                     </div>
                 </div>
 
                 <div className="AdventureIslandBox">
-                {AdventureIslandData !== null ? AdventureIslandData.map((Data, index) => {
-                        return(
-                            <div className="MiniIslandBox">
-                                <img src="" alt="섬사진" className="IslandImage"/>
-                                <div className="TextInfo">
-                                    <div className="TopInfo">
-                                        <span className="Reward" style={Data.Reward === "실링" ? {backgroundColor: "#7D839533", color: "#7D8395"} : Data.Reward === "카드" ? {backgroundColor: "#F38F0033", color: "#F38F00"} : {backgroundColor: "#CE43FC33", color: "#AA37D1"}}>{Data.Reward}</span>
-                                        <span className="IslandName">{Data.Name}</span>
-                                    </div>
+                    {AdventureIslandImageData !== null  ? AdventureIslandImageData.map((Data, index) => {
+                            return(
+                                <div className="MiniIslandBox">
+                                    <img src={Data.IslandImage} alt="" className="IslandImage" onClick={() => {console.log(Data)}} />
+                                    <div className="TextInfo">
+                                        <div className="TopInfo">
+                                            <span className="Reward" style={Data.Reward === "실링" ? {backgroundColor: "#7D839533", color: "#7D8395"} : Data.Reward === "카드" ? {backgroundColor: "#F38F0033", color: "#F38F00"} : Data.Reward === "주화" ? {backgroundColor: "#CE43FC33", color: "#AA37D1"} : {backgroundColor: "#E8B83833", color: "#DCA000"}}>{Data.Reward}</span>
+                                            <span className="IslandName">{Data.Name}</span>
+                                        </div>
 
-                                    <div className="BottomInfo">
-
+                                        <div className="BottomInfo">
+                                            {reward.map((Data2) => Data2.rewardName === Data.Reward ? Data2.rewardImage.map((ImgData, index) => <img key={index} src={ImgData} className="rewardImage"/>) : "")}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    }) : "로딩중입니다."}
+                            )
+                        }) : "로딩중입니다."}
                 </div>
             </div>
         </div>
