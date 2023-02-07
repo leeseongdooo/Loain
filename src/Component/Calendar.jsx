@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from "react";
+import React, {useState, useEffect, useMemo, useRef} from "react";
 import axios from "axios";
 import Year from "react-live-clock";
 import Month from "react-live-clock";
@@ -202,12 +202,51 @@ function Calendar() {
         }
       };
 
+    // 카운트
     
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    const [DayContentsTimer, setDayContentsTimer] = useState("00:00:00");
+    
+    const padNumber = (num, length) => {
+        return String(num).padStart(length, '0');
+    };
+
+    
+    const tempHour = 1;
+    const tempMin = 0;
+    const tempSec = 0;
+
+    // 타이머를 초단위로 변환한 initialTime과 setInterval을 저장할 interval ref
+    const [initialTime, setInitialTime] = useState((tempHour * 60 * 60 + tempMin * 60 + tempSec) - (minutes * 60 + seconds));
+    
+    
+    const [hour, setHour] = useState(padNumber(tempHour, 2));
+    const [min, setMin] = useState(padNumber(tempMin, 2));
+    const [sec, setSec] = useState(padNumber(tempSec, 2));
 
     useEffect(() => {
         getMiniCalendar();
         AdventureIsland();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            // count => count - 1            
+            setInitialTime(initialTime => initialTime - 1);
+            
+            setSec(padNumber(initialTime % 60, 1));
+            setMin(padNumber(parseInt(initialTime / 60), 1));
+            setHour(padNumber(parseInt(initialTime / 60 / 60), 1));
+            setDayContentsTimer(hour + " : " + min + " : " + sec);
+
+        }, 1000);
+        if(initialTime === 0){
+            
+        }
+        return () => clearInterval(id);
+    }, [initialTime])
     
     return (
         <div className="CalenderBigBox">
@@ -254,7 +293,7 @@ function Calendar() {
                                     <img src={Data.ContentsDay.includes(today.korDate) ? Data.icon : Data.noIcon} alt={"X"} className="Icon"/>
                                     <span style={Data.ContentsDay.includes(today.korDate) ? {} : {color: "#B1B5C3"}}>{Data.contentName}</span>
                                 </div>
-                                <span style={Data.ContentsDay.includes(today.korDate) ? {} : {color: "#B1B5C3"}}>{Data.ContentsDay.includes(today.korDate) ? "타이머" : Data.NoContents }</span>
+                                <span style={Data.ContentsDay.includes(today.korDate) ? {} : {color: "#B1B5C3"}}>{Data.ContentsDay.includes(today.korDate) ? DayContentsTimer : Data.NoContents }</span>
                             </div>
                         ))}
                     </div>
