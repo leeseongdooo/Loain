@@ -86,6 +86,7 @@ function EquipentArea({EquipmentData, Data, index}) {
     const [ShowModalArea, setShowModalArea] = useState(false);
     // 팔찌
     const [Bracelet, setBracelet] = useState([]);
+    console.log(EquipmentData);
     const BraceletEffectArray = ['체력', '힘', '민첩', '지능', '치명', '특화', '신속', '제압', '인내', '숙련', '최대 생명력', '최대 마나', '물리 방어력', '마법 방어력', '오뚝이', '돌진', '강타', '타격', '마나회수', '속공', '투자', '반전', '멸시', '무시', '전투 중 생명력 회복량', '회생', '긴급수혈', '응급처치', '앵콜', '쐐기', '망치', '열정', '냉정', '비수', '약점 노출', '깨달음', '응원', '수확', '보상', '무기 공격력', '우월', '습격', '정밀', '상처약화', '분개', '기습', '결투', '적립'];
     const DataTypeArray = ['어깨', '투구', '상의', '하의', '장갑', '무기', '목걸이', '귀걸이', '귀걸이', '반지', '반지', '어빌리티 스톤', '팔찌'];
     const NickName = useParams();

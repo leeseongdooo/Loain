@@ -6,6 +6,86 @@ import "../Css/MainPage.scss";
 import Event from "./Event";
 import SearchCharacter from "./SearchCharacter";
 
+function SearchCharacterInputArea() {
+  return (
+    <div className="SearchCharacterInputAreaBox">
+        <h1>LOA IN</h1>
+        <input type="text" placeholder="캐릭터명" className="InputNickName"/>
+    </div>
+  )
+}
+
+function NoticeArea() {
+
+  const LostArk_NoticeInformation = [
+    {
+      id: 1,
+      Name: "2월 8일(수) 클라이언트 패치 안내",
+      type: "공지",
+      link: "https://lostark.game.onstove.com/News/Notice/Views/2290?page=1&searchtype=0&searchtext=&noticetype=all"
+    },
+    {
+      id: 2,
+      Name: "큐브 및 보스러시 콘텐츠 통합에 따른 기존 콘텐츠 입장권 교환정보 사전 안내",
+      type: "공지",
+      link: "https://lostark.game.onstove.com/News/Notice/Views/2289?page=1&searchtype=0&searchtext=&noticetype=all"
+    },
+    {
+      id: 3,
+      Name: "2월 8일(수) 로스트아크 정기 점검 완료 안내",
+      type: "공지",
+      link: "https://lostark.game.onstove.com/News/Notice/Views/2288?page=1&searchtype=0&searchtext=&noticetype=all"
+    },
+    {
+      id: 4,
+      Name: "2월 8일 신규 캐릭터 생성 가능 수치 적용 안내",
+      type: "공지",
+      link: "https://lostark.game.onstove.com/News/Notice/Views/2287?page=1&searchtype=0&searchtext=&noticetype=all"
+    },
+    {
+      id: 5,
+      Name: "알려진 이슈를 안내해 드립니다. (2/9 수정)",
+      type: "공지",
+      link: "https://lostark.game.onstove.com/News/Notice/Views/2286?page=1&searchtype=0&searchtext=&noticetype=all"
+    },
+  ]
+
+  return (
+    <div className="NoticeAreaBox">
+      {/* 로스트아크 공지사항 */}
+      <div className="InnerNoticeBox">
+        <a href="/" className="Title">로스트아크 공지사항</a>
+        <div className="LostArk_Notice">
+          <div className="Notice_BasketBox">
+            {LostArk_NoticeInformation.map((Data) => (
+              <div className="MiniNoticeBox">
+                <div style={Data.type === "공지" ? {color: "#222222"} : Data.type === "점검" ? {color: "#687de5"} : Data.type === "상점" ? {color: "#05b9b3"} : {color: "#9c69bf"}}>{Data.type}</div>
+                <a href={Data.link} target="_blank" className="Notice_Name">{Data.Name}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 로아인의 공지사항 */}
+      <div className="InnerNoticeBox">
+        <a href="/" className="Title">로아인 공지사항</a>
+        <div className="LOAIN_Notice">
+          <div className="Notice_BasketBox">
+            {LostArk_NoticeInformation.map((Data) => (
+              <div className="MiniNoticeBox">
+                <div style={Data.type === "공지" ? {color: "#222222"} : Data.type === "점검" ? {color: "#687de5"} : Data.type === "상점" ? {color: "#05b9b3"} : {color: "#9c69bf"}}>{Data.type}</div>
+                <a href={Data.link} target="_blank" className="Notice_Name">{Data.Name}</a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  )
+}
+
 
 function MainPage() {
   const accessToken =
@@ -41,8 +121,8 @@ function MainPage() {
 
   return (
     <div className="MainPageBox">
-      
-
+      <SearchCharacterInputArea />
+      <Calendar></Calendar>
       <div className="EventBigBox">
           <span className="IntroduceEvent">진행중인 이벤트 {EventData.length !== 0 ? EventData.length + "개" : ""}</span>
           
@@ -76,7 +156,7 @@ function MainPage() {
         </div>
       </div>
     
-      <Calendar></Calendar>
+      <NoticeArea/>
         
     </div>
   );
