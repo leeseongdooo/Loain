@@ -8,11 +8,18 @@ import "../../Css/CharacterEquipment.scss";
 function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
 
     let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
-        
+    
+    if(TooltipInfo.Element_006.value.Element_001 !== undefined) {
+        console.log(TooltipInfo.Element_006.value.Element_001.includes("BR"));
+        console.log(TooltipInfo.Element_006.value.Element_001);
+
+    }
+
     return (
         <div className="ModalBigBox" style={ShowModalArea === true ?{display: "flex"} : {display: "none"}}>
             <div onClick={() => {console.log(TooltipInfo)}}>
                 {Parser(TooltipInfo.Element_000.value)}
+                
             </div>
 
             <div className="FirstArea">
@@ -37,6 +44,7 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
             </div>
 
             <div className="BasicStatArea">
+
                  <p className="Stat1">{index < 11 & index > 5 ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
                  <p className="Stat2">{index < 11 ? Parser(SplitText) : ""}</p>
                  {/* 어빌리티 스톤 */}
@@ -48,16 +56,20 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
             <hr />
 
             <div>
-                <p>{TooltipInfo.Element_006.value.Element_001}</p>
-                {/* <p className="EquipmentLevel">{index < 6 ? Parser(TooltipInfo.Element_008.value.Element_001) : ""}</p> */}
+                {/* 어빌리티 스톤 보너스체력 (보너스가 활성화되어있으면 나오고 없으면 안나옴) */}
+                
+                <p>{TooltipInfo.Element_006.value.Element_001 !== undefined ? TooltipInfo.Element_006.value.Element_001.includes("BR") ? Parser(TooltipInfo.Element_006.value.Element_001) : TooltipInfo.Element_006.value.Element_001 : TooltipInfo.Element_006.value.Element_001 }</p>
+                <p className="EquipmentLevel">{index < 6 && TooltipInfo.Element_008.value.Element_001 !== undefined ? Parser(TooltipInfo.Element_008.value.Element_001) : ""}</p>
+                
                 {/* 어빌리티 스톤 체력  */}
                 {TooltipInfo.Element_006.value.Element_000 !== undefined & TooltipInfo !== null ?  
                 <>
+                
                     <p className="AbilityStoneHp">{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_005.value.Element_001) : ""}</p>
                     <p className="EngravingName" onClick={() => {console.log(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001)}}>{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
             
-                    <p className="EngravingName">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
-                    <p className="EngravingName debuff">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
+                    <p className="EngravingName">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_001 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
+                    <p className="EngravingName debuff">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_002 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
                 </> : 
                 <>
                     <p className="EngravingName">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
@@ -86,7 +98,7 @@ function EquipentArea({EquipmentData, Data, index}) {
     const [ShowModalArea, setShowModalArea] = useState(false);
     // 팔찌
     const [Bracelet, setBracelet] = useState([]);
-    console.log(EquipmentData);
+    
     const BraceletEffectArray = ['체력', '힘', '민첩', '지능', '치명', '특화', '신속', '제압', '인내', '숙련', '최대 생명력', '최대 마나', '물리 방어력', '마법 방어력', '오뚝이', '돌진', '강타', '타격', '마나회수', '속공', '투자', '반전', '멸시', '무시', '전투 중 생명력 회복량', '회생', '긴급수혈', '응급처치', '앵콜', '쐐기', '망치', '열정', '냉정', '비수', '약점 노출', '깨달음', '응원', '수확', '보상', '무기 공격력', '우월', '습격', '정밀', '상처약화', '분개', '기습', '결투', '적립'];
     const DataTypeArray = ['어깨', '투구', '상의', '하의', '장갑', '무기', '목걸이', '귀걸이', '귀걸이', '반지', '반지', '어빌리티 스톤', '팔찌'];
     const NickName = useParams();
@@ -104,7 +116,6 @@ function EquipentArea({EquipmentData, Data, index}) {
             BraceletEffectArray.map((Data) => {
                 if(TooltipInfo.Element_004.value.Element_001.includes(Data))
                 {
-                    console.log(Data);
                     Data2.push(Data);
                 }
             })
@@ -188,6 +199,7 @@ function EquipentArea({EquipmentData, Data, index}) {
         <div className="EquipmentInfo" >
            <div className="ImageArea">
                 <img src={Data.Type === DataTypeArray[index] ? Data.Icon : ""} alt=""  style={Data.Type === DataTypeArray[index] ? {background: BackColorStyle} : {}} onMouseEnter={()=>{setShowModalArea(true)}} onMouseOut={() => {setShowModalArea(false)}}/>
+                
            </div>
 
             <div className="TextArea" style={Data.Type === DataTypeArray[index] ? {} : {display: "none"}}>
@@ -195,7 +207,7 @@ function EquipentArea({EquipmentData, Data, index}) {
                 
                 <div className="BottomArea">
                     {/* 장비 레벨에 대한 정보 [무기 방어구에만 보인다.] */}
-                    {index < 6 ? <span className="EquipmentLevel">{LvValue}</span> : ""}
+                    {LvValue !== null && index < 6 && LvValue.charAt(0) === "L" ? <span className="EquipmentLevel">{LvValue}</span> : ""}
                     {index < 11 ? 
                     <>
                         {/* 품질 */}
@@ -246,7 +258,7 @@ function CharacterEquipment() {
             response.data[5] = response.data[0];
             response.data[0] = tmp;
             setEquipmentData(response.data)
-            console.log(response.data);
+            
             
         } catch {
             console.log("에러발생")

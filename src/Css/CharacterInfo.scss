@@ -6,18 +6,16 @@
     justify-content: center;
     border-radius: 20px;
     
-    .CharacterInfoArea {
+    .CharacterInfoArea { 
         display: flex;
         justify-content: space-between;
         .NewCharacterInfoBox {
-            border: 1px solid black;
             background-color: #2f2f2f;
-            margin-left: 20px;
             position: relative;
             overflow: hidden;
             padding: 10px;
-            width: calc(40% - 40px);
-            min-height: 470px;
+            min-width: 460px;
+            min-height: 500px;
             max-height: 500px;
             border-radius: 10px;
             
@@ -52,6 +50,7 @@
                 }
 
                 .BottomArea {
+                    
                     border-radius: 20px;
                     color: white;
                     margin: 10px;
@@ -93,88 +92,91 @@
 
         .CharacterEquipment {
             display: flex;
+            flex-direction: column;
             padding: 10px;
             margin-left: 10px;
-            width: 58%;
-            min-height: 470px;
+            min-width: calc(100% - 510px);
+            min-height: 500px;
             max-height: 500px;
             border-radius: 10px;
             border: 1px solid black;
+
+            // 보석 영역
         }
     }
-
 
 
     .Specifications {
         margin-top: 15px;
         width: 100%;
-        padding: 15px;
+        padding: 15px 0px;
         border-radius: 10px;
-        border: 1px solid black;
-        display: flex;
-        align-items: center;
 
-        .MiniBox {
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
-            width: 210px;
-            height: 250px;
-            padding: 10px;
-            margin-right: 20px;
+        .StatBasketBox {
+            display: flex;
+            align-items: center;
 
-
-            // 지금 스탯들이 무슨 스탯들인지 알려주는 텍스트의 css ex :) 전투 특성
-            .GuideText {
-                width: 70px;
-                font-weight: 700;
-                font-size: 14px;
-                padding: 5px 10px;
-                border-radius: 30px;
-                background-color: rgba(128,69,221,.149);;
-                color: #8045DD;
-                text-align: center;
-                margin: 5px 0px;
-            }
-
-            // 스탯의 이름 ex:) 치명, 특화
-            ul {
-                list-style: none;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                margin-bottom: 10px;
-                li {
-                    display: flex;
-                    justify-content: space-between;
-                    width: 35%;
-                    margin: 5px 10px;
-                    
-                }
-
-                #StatName {
-                    
+            .MiniBox {
+                box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+                border-radius: 20px;
+                width: 210px;
+                height: 250px;
+                padding: 10px;
+                margin-right: 20px;
+                
+                // 지금 스탯들이 무슨 스탯들인지 알려주는 텍스트의 css ex :) 전투 특성
+                .GuideText {
+                    width: 70px;
+                    font-weight: 700;
                     font-size: 14px;
-                    color: #7D8395;
+                    padding: 5px 10px;
+                    border-radius: 30px;
+                    background-color: rgba(128,69,221,.149);;
+                    color: #8045DD;
+                    text-align: center;
+                    margin: 5px 0px;
                 }
     
-                #StatNumber {
-                    font-weight: bold;
-                    font-size: 14px;
-                    color: #353945;
+                // 스탯의 이름 ex:) 치명, 특화
+                ul {
+                    list-style: none;
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    margin-bottom: 10px;
+                    li {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 35%;
+                        margin: 5px 10px;
+                        
+                    }
+    
+                    #StatName {
+                        
+                        font-size: 14px;
+                        color: #7D8395;
+                    }
+        
+                    #StatNumber {
+                        font-weight: bold;
+                        font-size: 14px;
+                        color: #353945;
+                    }
+                }
+    
+                .BasicStat {
+                    display: flex;
+                    flex-wrap: wrap;
+    
+                    li {
+                        width: 100%;
+                    }
                 }
             }
-
-            .BasicStat {
-                display: flex;
-                flex-wrap: wrap;
-
-                li {
-                    width: 100%;
-                }
-            }
-            
-            
         }
+
+        
     }
 
 }
