@@ -6,6 +6,7 @@ import {GiCrestedHelmet} from 'react-icons/gi'
 import CharacterEngravings from "./CharacterEngravings";
 import CharacterEquipment from "./CharacterEquipment";
 import Charactergems from "./Charactergems";
+import CharacterCard from "./CharacterCard";
 
 
 
@@ -125,6 +126,7 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
                 <div className="AbilityArea MiniBox">
                     <CharacterEngravings/>
                 </div>
+                <CharacterCard />
             </div>
 
           </div>
