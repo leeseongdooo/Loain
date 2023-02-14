@@ -181,8 +181,7 @@ function Calendar() {
 
     const AdventureIsland = async () => {
         try {
-          const response = await axios.get("3");
-          console.log(response.data.Island)
+          const response = await axios.get("https://lostarkapi.ga/adventureisland");
           let copycat = response.data.Island;
 
           AdventureIslandImage.map((Data) => {
