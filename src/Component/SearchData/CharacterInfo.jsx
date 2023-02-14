@@ -125,21 +125,14 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
                         <div className="StatArea MiniBox"><h2 className="GuideText">정보X</h2></div>
 
                     }
-                
+            
                     <div className="AbilityArea MiniBox">
                         <CharacterEngravings/>
                     </div>
                 </div>
-
-
-
                 <CharacterCard />
             </div>
-
-          </div>
-
-          
-
+          </div>          
         </div>
     )
 }

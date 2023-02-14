@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import CharacterInfo from "./SearchData/CharacterInfo";
 import axios from "axios";
 import "../Css/SearchCharacter.scss";
@@ -60,8 +60,8 @@ function SearchCharacter() {
             <>
                 <ul className="CategoryBox">
                     <li className="focusStyle" >능력치</li>
-                    <li >스킬</li>
-                    <li>스킬 포인트</li>
+                    <li>스킬</li>
+                    <Link to=""><li>보유 캐릭터</li></Link>
                     <li>수집형 포인트</li>
                     <li>증명의 전장</li>
                 </ul>

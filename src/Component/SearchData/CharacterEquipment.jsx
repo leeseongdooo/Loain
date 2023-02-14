@@ -4,7 +4,7 @@ import axios from "axios";
 import Parser from 'html-react-parser';
 import "../../Css/CharacterEquipment.scss";
 
-
+// 장비 모덜 창
 function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
 
     let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
@@ -12,7 +12,6 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
     if(TooltipInfo.Element_006.value.Element_001 !== undefined) {
         console.log(TooltipInfo.Element_006.value.Element_001.includes("BR"));
         console.log(TooltipInfo.Element_006.value.Element_001);
-
     }
 
     return (
@@ -82,6 +81,7 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
     )
 } 
 
+
 function EquipentArea({EquipmentData, Data, index}) {
 
     const [BackColorStyle, setBackColorStyle] = useState(null);
@@ -99,11 +99,13 @@ function EquipentArea({EquipmentData, Data, index}) {
     // 팔찌
     const [Bracelet, setBracelet] = useState([]);
     
+    // </img>의 위치를 담아놓는 배열
+    const [ImgBasket, setImgBasket] = useState([50, 100, 200, 300, 400]);
+    const [ImgLocation, setImgLocation] = useState([]);
+
     const BraceletEffectArray = ['체력', '힘', '민첩', '지능', '치명', '특화', '신속', '제압', '인내', '숙련', '최대 생명력', '최대 마나', '물리 방어력', '마법 방어력', '오뚝이', '돌진', '강타', '타격', '마나회수', '속공', '투자', '반전', '멸시', '무시', '전투 중 생명력 회복량', '회생', '긴급수혈', '응급처치', '앵콜', '쐐기', '망치', '열정', '냉정', '비수', '약점 노출', '깨달음', '응원', '수확', '보상', '무기 공격력', '우월', '습격', '정밀', '상처약화', '분개', '기습', '결투', '적립'];
     const DataTypeArray = ['어깨', '투구', '상의', '하의', '장갑', '무기', '목걸이', '귀걸이', '귀걸이', '반지', '반지', '어빌리티 스톤', '팔찌'];
     const NickName = useParams();
-    
-    
     
     useEffect(() => {
         setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
@@ -192,14 +194,25 @@ function EquipentArea({EquipmentData, Data, index}) {
         }
 
     }, [EquipmentData, NickName, QualityValue]);
-    
+        
+    const ClickFunction = () => {
+        if(TooltipInfo !== null)
+        {
+            for(let i=0; i < 5; i++)
+            {
+                
+                let newNumber = TooltipInfo.Element_004.value.Element_001.indexOf('mg>', ImgBasket[i]);
 
-    
+                setImgLocation([...ImgLocation, newNumber])
+            }
+            console.log(ImgLocation)
+        }
+    }
+
     return (
         <div className="EquipmentInfo" >
            <div className="ImageArea">
-                <img src={Data.Type === DataTypeArray[index] ? Data.Icon : ""} alt=""  style={Data.Type === DataTypeArray[index] ? {background: BackColorStyle} : {}} onMouseEnter={()=>{setShowModalArea(true)}} onMouseOut={() => {setShowModalArea(false)}}/>
-                
+                <img src={Data.Type === DataTypeArray[index] ? Data.Icon : ""} onClick={() => {ClickFunction()}} alt="" style={Data.Type === DataTypeArray[index] ? {background: BackColorStyle} : {}} onMouseEnter={()=>{setShowModalArea(true)}} onMouseOut={() => {setShowModalArea(false)}}/>
            </div>
 
             <div className="TextArea" style={Data.Type === DataTypeArray[index] ? {} : {display: "none"}}>
@@ -231,7 +244,7 @@ function EquipentArea({EquipmentData, Data, index}) {
                                <span className="Debuff">{TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
                             </>}
                            
-                        </div> : <div className="BraceletAbilityTextBox">{Bracelet.length > 0 ? Bracelet.map((Data) => <span className="AbilityName">{Data}</span>) : ""}</div>
+                        </div> : <div className="BraceletAbilityTextBox">{Bracelet.length > 0 ? <span>준비중</span> : "ㅁ"}</div>
                     }
                 </div>
             </div>
