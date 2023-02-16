@@ -102,6 +102,82 @@ function AdventureIsland({today}) {
     )
 }
 
+
+function ChallengeGuardian() {
+    const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
+    const [ChallengeGuardianInfo, setChallengeGuardianInfo] = useState([]);
+
+    async function getThisWeekChallengeGuardian() {
+        try {
+            
+            //응답 성공
+            const response = await axios.get(`gamecontents/challenge-guardian-raids`, {
+                headers: {Authorization: `bearer ${Key}`}
+            });
+            setChallengeGuardianInfo(response.data.Raids);
+            
+        
+        } catch (error) {
+          //응답 실패
+          console.error(error);
+        }
+      }
+
+      useEffect(() => {
+        getThisWeekChallengeGuardian();
+      }, [])
+    
+    return (
+        <div className="ChallengeGuardianBox">
+            {ChallengeGuardianInfo.length !== 0 ? ChallengeGuardianInfo.map((Data, index) => (
+                <div className="GuardianInfo" key={index}>
+                    <img src={Data.Image} alt="가디언 이미지" />
+                    <h3>{Data.Name}</h3>
+                </div>
+            )) : ""}
+        </div>    
+    )
+}
+
+function ChallengeAbyss() {
+    const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
+    const [ChallengeAbyssInfo, setChallengeAbyssInfo] = useState([]);
+
+    async function getThisWeekChallengeGuardian() {
+        try {
+            
+            //응답 성공
+            const response = await axios.get(`gamecontents/challenge-abyss-dungeons`, {
+                headers: {Authorization: `bearer ${Key}`}
+            });
+            console.log(response)
+            setChallengeAbyssInfo(response.data);
+            
+        
+        } catch (error) {
+          //응답 실패
+          console.error(error);
+        }
+      }
+
+      useEffect(() => {
+        getThisWeekChallengeGuardian();
+      }, [])
+      return (
+        <div className="ChallengeAbyssDungeons">
+            <div className="ChallengeAbyssBox">
+            {ChallengeAbyssInfo.length !== 0 ? ChallengeAbyssInfo.map((Data, index) => (
+                <div className="AbyssInfo" key={index}>
+                    <img src={Data.Image} alt="가디언 이미지" />
+                    <h3>{Data.Name}</h3>
+                </div>
+            )) : ""}
+        </div>    
+        </div>
+      )
+}
+
+
 function Calendar() {
 
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
@@ -431,6 +507,16 @@ function Calendar() {
                     <AdventureIsland today={today} />
                 </div>
             </div>
+
+            <div className="ChallengContentsBox">
+
+                <div className="ChallengContentsInnerBox">
+                    <ChallengeGuardian />
+                    <ChallengeAbyss />
+                </div>
+
+            </div>
+            
         </div>
     )
 }
