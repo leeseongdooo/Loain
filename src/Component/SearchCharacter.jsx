@@ -61,7 +61,7 @@ function SearchCharacter() {
                 <ul className="CategoryBox">
                     <li className="focusStyle" >능력치</li>
                     <li>스킬</li>
-                    <Link to=""><li>보유 캐릭터</li></Link>
+                    <Link to="/Search/"><li>보유 캐릭터</li></Link>
                     <li>수집형 포인트</li>
                     <li>증명의 전장</li>
                 </ul>
