@@ -4,6 +4,104 @@ import Year from "react-live-clock";
 import Month from "react-live-clock";
 import "../Css/Calendar.scss";
 
+
+function AdventureIsland({today}) {
+    const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
+    const [AdventureIslandData, setAdventureIslandData] = useState([]);
+    
+     // 오늘의 모험섬 데이터 가져오기.
+     async function getTodayAdventureIsland() {
+        try {
+        
+        let today2 = `${today.year}-0${today.month}-${today.date}`;
+            
+        //응답 성공
+        const response = await axios.get(`/gamecontents/calendar`, {
+            headers: {Authorization: `bearer ${Key}`}
+        });
+        
+        let FirstFilter = response.data.filter((data) => data.CategoryName === "모험 섬");
+        
+        let test = [];
+        FirstFilter.map((data) => {
+            for(let i = 0; i < data.StartTimes.length; i++)
+            {
+                if(data.StartTimes[i].includes(today2))
+                {
+                    test.push(data); 
+                    break;
+                }
+            }
+        });
+        
+        setAdventureIslandData(test);
+    
+        } catch (error) {
+          //응답 실패
+          console.error(error);
+        }
+      }
+
+      useEffect(() => {
+        getTodayAdventureIsland();
+      }, [])
+
+    return (
+        <div className="AdventureIslandBox">
+        {AdventureIslandData.length !== 0 ? AdventureIslandData.map((Data, index) => {
+            return (
+                <div className="MiniIslandBox" key={index}>
+                    <img src={Data.ContentsIcon} alt="" className="IslandImage" onClick={() => console.log(Data)} />
+                    <div className="TextInfo">
+                        <div className="TopInfo">
+                            
+                            <span className="IslandName">{Data.ContentsName}</span>
+                        </div>
+
+                        <div className="BottomInfo">
+
+                            {Data.RewardItems.map((Data2, index) => 
+                                {
+                                    let backgroundColor = '';
+                                    switch(Data2.Grade)
+                                    {
+                                        case "유물" : 
+                                            backgroundColor = "linear-gradient(135deg,#341a09,#a24006)";
+                                            break;
+                                        case "전설" : 
+                                            backgroundColor = "linear-gradient(135deg,#362003,#9e5f04)";
+                                            break;
+                                        case "영웅" : 
+                                            backgroundColor = "linear-gradient(135deg,#261331,#480d5d)";
+                                            break;
+                                        case "희귀" :
+                                            backgroundColor = "linear-gradient(135deg,#111f2c,#113d5d)";
+                                            
+                                            break;
+                                        case "고급" : 
+                                            backgroundColor = "linear-gradient(135deg,#18220b,#304911)";
+                                            break;
+                                        default: 
+                                            backgroundColor = "linear-gradient(135deg,#18220b,#304911)";
+                                            break;
+                                    }
+                    
+                                    return (
+                                        <>
+                                            <img key={index} style={{background: backgroundColor}} src={Data2.Icon} className="rewardImage"/>
+                                        </>
+                                    )
+                                }
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )
+        }) : "로딩중입니다."}
+    </div>
+    )
+}
+
 function Calendar() {
 
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
@@ -20,9 +118,10 @@ function Calendar() {
     ); // 오늘
     const [ThisMonthlastDay, setThisMonthLastDay] = useState(new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()); // 오늘 기준으로 해당 달에 마지막날
     const [lastMonthFinalDay, setlastMonthFinalDay] = useState(new Date(now.getFullYear(), now.getMonth(), 0).getDate()); // 오늘 기준으로 지난 달에 마지막날
-    const [AdventureIslandImageData, setAdventureIslandImageData] = useState(null)
     const [TestArray, setTestArray] = useState([]);
-    
+    const [BackColorStyle, setBackColorStyle] = useState(null);
+
+    // 날짜 UI 만드는것
     const getMiniCalendar = () => {
         let miniarray = [];
         for(let i = -7; i <= 7; i++)
@@ -56,6 +155,7 @@ function Calendar() {
         
     }
     
+   
     // 금일 콘텐츠
     const DayContents = [
         {
@@ -159,32 +259,31 @@ function Calendar() {
     ];
 
     // 모험섬 보상 데이터
-    const reward = [
-        {
-            id: 1,
-            rewardName: "카드",
-            rewardImage: ["/img/island_cardpack.png", "/img/island_exp.png", "/img/island_heart.png", "/img/island_simbol.png"]
-        },
-        {
-            id: 2,
-            rewardName: "주화",
-            rewardImage: ["/img/island_coinbox.png", "/img/island_coin1.png", "/img/island_heart.png", "/img/island_simbol.png"]
-        },
-        {
-            id: 3,
-            rewardName: "실링",
-            rewardImage: ["/img/island_siling.png", "/img/island_heart.png", "/img/island_simbol.png"]
-        },
-        {
-            id: 4,
-            rewardName: "골드",
-            rewardImage: ["/img/island_gold.png", "/img/island_heart.png", "/img/island_simbol.png"]
-        }
-    ]
+    // const reward = [
+    //     {
+    //         id: 1,
+    //         rewardName: "카드",
+    //         rewardImage: ["/img/island_cardpack.png", "/img/island_exp.png", "/img/island_heart.png", "/img/island_simbol.png"]
+    //     },
+    //     {
+    //         id: 2,
+    //         rewardName: "주화",
+    //         rewardImage: ["/img/island_coinbox.png", "/img/island_coin1.png", "/img/island_heart.png", "/img/island_simbol.png"]
+    //     },
+    //     {
+    //         id: 3,
+    //         rewardName: "실링",
+    //         rewardImage: ["/img/island_siling.png", "/img/island_heart.png", "/img/island_simbol.png"]
+    //     },
+    //     {
+    //         id: 4,
+    //         rewardName: "골드",
+    //         rewardImage: ["/img/island_gold.png", "/img/island_heart.png", "/img/island_simbol.png"]
+    //     }
+    // ]
 
 
     // 카운트
-    
     const padNumber = (num, length) => {
         return String(num).padStart(length, '0');
     };
@@ -261,7 +360,6 @@ function Calendar() {
             setAdventureSec(padNumber(NextsecTime % 60, 2));
             setAdventureMin(padNumber(parseInt((NextsecTime / 60) % 60), 2));
             setAdventureHour(padNumber(parseInt(NextsecTime / 60 / 60), 2));
-            console.log(NowSecTime)
             setAdventureIslandTimer(Adventurehour + " : " + Adventuremin + " : " + Adventuresec);
         }, [1000]);
         
@@ -308,8 +406,8 @@ function Calendar() {
 
             <div className="ContentsBox">
                 <div className="ChooseDayBox">
-                      {TestArray.map((Data) => (
-                        <div className="MiniCalendar" style={Data.date == today.date ? {backgroundColor: "royalblue", color: "white"} : {}}>
+                      {TestArray.map((Data, index) => (
+                        <div className="MiniCalendar" key={index} style={Data.date == today.date ? {backgroundColor: "royalblue", color: "white"} : {}}>
                             <p className="KorDate" style={Data.date == today.date ? {color: "white"} : {}}>{Data.korDate}</p>
                             <p className="Date" style={Data.korDate === "일" ? {color: 'red'} : {}}>{Data.date}</p>
                         </div>
@@ -320,8 +418,8 @@ function Calendar() {
 
                 <div className="DayContentsBox">
                     <div className="ContentsForm">
-                        {DayContents.map((Data) => (
-                            <div className="MiniContentsBox">
+                        {DayContents.map((Data, index) => (
+                            <div className="MiniContentsBox" key={index}>
                                 <div className="IconAndName">
                                     <img src={Data.ContentsDay.includes(today.korDate) ? Data.icon : Data.noIcon} alt={"X"} className="Icon"/>
                                     <span style={Data.ContentsDay.includes(today.korDate) ? {} : {color: "#B1B5C3"}}>{Data.contentName}</span>
@@ -330,26 +428,7 @@ function Calendar() {
                             </div>
                         ))}
                     </div>
-                </div>
-
-                <div className="AdventureIslandBox">
-                    {AdventureIslandImageData !== null  ? AdventureIslandImageData.map((Data, index) => {
-                            return(
-                                <div className="MiniIslandBox">
-                                    <img src={Data.IslandImage} alt="" className="IslandImage" onClick={() => {console.log(Data)}} />
-                                    <div className="TextInfo">
-                                        <div className="TopInfo">
-                                            <span className="Reward" style={Data.Reward === "실링" ? {backgroundColor: "#7D839533", color: "#7D8395"} : Data.Reward === "카드" ? {backgroundColor: "#F38F0033", color: "#F38F00"} : Data.Reward === "주화" ? {backgroundColor: "#CE43FC33", color: "#AA37D1"} : {backgroundColor: "#E8B83833", color: "#DCA000"}}>{Data.Reward}</span>
-                                            <span className="IslandName">{Data.Name}</span>
-                                        </div>
-
-                                        <div className="BottomInfo">
-                                            {reward.map((Data2) => Data2.rewardName === Data.Reward ? Data2.rewardImage.map((ImgData, index) => <img key={index} src={ImgData} className="rewardImage"/>) : "")}
-                                        </div>
-                                    </div>
-                                </div>
-                            )
-                        }) : "로딩중입니다."}
+                    <AdventureIsland today={today} />
                 </div>
             </div>
         </div>
