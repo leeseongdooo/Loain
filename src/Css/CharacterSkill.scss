@@ -1,0 +1,188 @@
+
+// CharacterSkill에서 가장 위에 있는 div 입니다.
+.CharacterSkillBox {
+    width: 100%;
+
+    .CharacterInfoArea {
+        padding: 10px;
+        width: calc(100% - 20px);
+        min-height: 150px;
+        background-color: rgb(214, 82, 82);
+        margin-bottom: 20px;
+    }    
+
+
+    .SkillBox {
+        padding: 10px;
+        width: calc(100% - 20px);
+        background-color: white;
+        border-radius: 10px;
+        min-height: 400px;
+
+        .SkillAreaParents {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            width: calc(100% - 20px);
+            margin: 10px 0px;
+            border-bottom: 1px solid #5555554f;
+            
+           
+
+            // 이미지와 이름
+            .ImageAndName {
+                min-width: 200px;
+                display: flex;
+                align-items: center;
+                // 스킬 이미지
+                img {
+                    min-width: 44px;
+                    max-width: 44px;
+                    min-height: 44px;
+                    max-height: 44px;
+                    border-radius: 10px;
+                }
+
+                p {
+                    margin-left: 10px;
+                    color: #353945;
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+            }
+
+            // 트라이포드와 룬
+            .TripodsAndRune {
+                min-width: 500px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                
+                .SkillLevel {
+                    min-width: 50px;
+                    font-size: 18px;
+                    color: #D9AB48;
+                    margin-right: 26px;
+                }
+
+                // 트라이포드 순서
+                .TripodsOrder {
+                    min-width: 110px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    div {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        width: 25px;
+                        height: 25px;
+                        padding: 3px;
+                        border-radius: 15px;
+                        margin-left: 2px;
+                    }
+
+                    div:nth-child(1) {
+                        background-color: #47ABD9;
+                    }
+                    div:nth-child(2){
+                        background-color: #8DC80E;
+                    }
+                    div:nth-child(3){
+                        background-color: #FFB00E;
+                    }
+                }
+
+                // 룬 영역
+                .RuneArea {
+                    display: flex;
+                    align-items: center;
+                    min-width: 100px;
+
+                    .RuneBackground {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 40px;
+                        max-width: 40px;
+                        min-height: 40px;
+                        max-height: 40px;
+                        border-radius: 100%;
+                        background-color: orange;
+                        
+                        img {
+                            min-width: 40px;
+                            max-width: 40px;
+                            min-height: 40px;
+                            max-height: 40px;
+                        }
+                    }
+                    p {
+                        margin-left: 5px;
+                        font-weight: 700;
+                    }
+                }
+
+                // 착용중인 보석 영역
+                .JemArea {
+                    min-width: 100px;
+                    display: flex;
+                    .JemBackground {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 40px;
+                        max-width: 40px;
+                        min-height: 40px;
+                        max-height: 40px;
+                        border-radius: 100%;
+                        
+                        
+                        img {
+                            min-width: 40px;
+                            max-width: 40px;
+                            min-height: 40px;
+                            max-height: 40px;
+                        }
+                    }
+                }
+            }
+
+            // 활성화된 트라이포드 
+            .ActiveTripodsInfo {
+                display: flex;
+                align-items: center;
+                min-width: 400px;
+                margin-left: 5px;
+                padding-left: 10px;
+                border-left: 2px dashed rgb(193, 193, 193, 0.3);
+                .ActiveTripodsArea {
+                    display: flex;
+                    align-items: center;
+                    margin-right: 10px;
+                    img {
+                        width: 40px;
+                        height: 40px;
+                    }
+
+                    .NameAndLevel {
+                        display: flex;
+                        flex-direction: column;
+                        margin-left: 10px;
+                        
+                        p {
+                            min-width: 80px;
+                            font-size: 13px;
+                            color: #353945;
+                            font-weight: bold;
+                        }
+                    }
+                }
+
+               
+            }
+        }
+    }
+}
