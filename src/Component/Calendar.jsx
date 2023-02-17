@@ -3,7 +3,7 @@ import axios from "axios";
 import Year from "react-live-clock";
 import Month from "react-live-clock";
 import "../Css/Calendar.scss";
-
+import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 function AdventureIsland({today}) {
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
@@ -102,18 +102,17 @@ function AdventureIsland({today}) {
     )
 }
 
-
 function ChallengeGuardian() {
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const [ChallengeGuardianInfo, setChallengeGuardianInfo] = useState([]);
 
     async function getThisWeekChallengeGuardian() {
         try {
-            
             //응답 성공
             const response = await axios.get(`gamecontents/challenge-guardian-raids`, {
                 headers: {Authorization: `bearer ${Key}`}
             });
+            console.log(response.data)
             setChallengeGuardianInfo(response.data.Raids);
             
         
@@ -129,10 +128,15 @@ function ChallengeGuardian() {
     
     return (
         <div className="ChallengeGuardianBox">
+            <h3>도전 가디언 토벌</h3>
             {ChallengeGuardianInfo.length !== 0 ? ChallengeGuardianInfo.map((Data, index) => (
                 <div className="GuardianInfo" key={index}>
                     <img src={Data.Image} alt="가디언 이미지" />
-                    <h3>{Data.Name}</h3>
+                    
+                    <div className="TextArea">
+                        <p className="Name">{Data.Name}</p>
+                        <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p>
+                    </div>
                 </div>
             )) : ""}
         </div>    
@@ -145,12 +149,11 @@ function ChallengeAbyss() {
 
     async function getThisWeekChallengeGuardian() {
         try {
-            
             //응답 성공
             const response = await axios.get(`gamecontents/challenge-abyss-dungeons`, {
                 headers: {Authorization: `bearer ${Key}`}
             });
-            console.log(response)
+            
             setChallengeAbyssInfo(response.data);
             
         
@@ -165,11 +168,15 @@ function ChallengeAbyss() {
       }, [])
       return (
         <div className="ChallengeAbyssDungeons">
+            <h3>도전 어비스 던전</h3>
             <div className="ChallengeAbyssBox">
             {ChallengeAbyssInfo.length !== 0 ? ChallengeAbyssInfo.map((Data, index) => (
                 <div className="AbyssInfo" key={index}>
                     <img src={Data.Image} alt="가디언 이미지" />
-                    <h3>{Data.Name}</h3>
+                    <div className="TextArea">
+                        <p className="Name">{Data.Name}</p>
+                        <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p>
+                    </div>
                 </div>
             )) : ""}
         </div>    
@@ -508,8 +515,9 @@ function Calendar() {
                 </div>
             </div>
 
+            <span className="ContentsName">주간 도전 컨텐츠</span>
             <div className="ChallengContentsBox">
-
+                
                 <div className="ChallengContentsInnerBox">
                     <ChallengeGuardian />
                     <ChallengeAbyss />

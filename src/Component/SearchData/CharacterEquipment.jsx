@@ -10,8 +10,7 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
     let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
     
     if(TooltipInfo.Element_006.value.Element_001 !== undefined) {
-        console.log(TooltipInfo.Element_006.value.Element_001.includes("BR"));
-        console.log(TooltipInfo.Element_006.value.Element_001);
+        
     }
 
     return (

@@ -179,6 +179,13 @@
         }
     }
 
+    // 컨텐츠 이름 CSS
+    .ContentsName {
+        margin-top: 15px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
     // 금주 도전 컨텐츠를 보여주는 영역
     .ChallengContentsBox {
         margin-top: 10px;
@@ -192,20 +199,96 @@
         align-items: center;
 
         .ChallengContentsInnerBox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             width: 90%;
-        
+            max-height: 400px;
             // 도전 가디언 토벌
             .ChallengeGuardianBox {
-                border: 1px solid black;
+                width: 50%;
+                height: 385px;
                 display: flex;
-                width: 100%;
+                flex-direction: column;
                 justify-content: space-between;
+                border-right: 1px solid #7D8395;
+                .GuardianInfo {
+                    margin: 10px 0px;
+                    width: 100%;
+                    display: flex;
+                    
+                    img {
+                        width: 250px;
+                        height: 100px;
+                        border-radius: 10px;
+                    }
 
-                img {
-                    height: 64px;
-                    border-radius: 10px;
-                    border: 1px solid black;
-                    object-fit: cover;
+                    // 가디언에 대한 정보를 담고 있는 영역입니다. 
+                    // 텍스트만 있습니다.
+
+                    .TextArea {
+                        margin-left: 10px;
+
+                        .Name {
+                            min-width: 100px;
+                            font-weight: bold;
+                        }
+
+                        .SeeMore {
+                            display: flex;
+                            align-items: center;
+                            font-weight: 500;
+                            cursor: pointer;
+                            .Icon {
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                }
+                
+            }
+
+            // 도전 어비스 던전.
+            .ChallengeAbyssDungeons {
+                width: 50%; 
+                height: 385px;
+                margin-left: 50px;
+                .ChallengeAbyssBox {
+
+                    .AbyssInfo {
+                        margin: 10px 0px;
+                        width: 100%;
+                        display: flex;
+                        // 어비스 던전에 대한 이미지 CSS 입니다.
+                        img {
+                            width: 250px;
+                            border-radius: 10px;
+                        }
+
+                        // 해당 어비스 던전에 대한 텍스트 영역입니다.
+                        .TextArea {
+                            margin-left: 10px;
+
+                            .Name {
+                                min-width: 100px;
+                                font-weight: bold;
+                            }
+    
+                            .SeeMore {
+                                display: flex;
+                                align-items: center;
+                                font-weight: 500;
+                                cursor: pointer;
+                                .Icon {
+                                    margin-left: 5px;
+                                }
+                            }
+                        }
+                    }   
+
+                    .AbyssInfo:nth-child(2) {
+                        margin-top: 30px;
+                    }
                 }
             }
         }
