@@ -10,10 +10,12 @@ function SkillArea({data, GemInfo}) {
     let ActiveTripods = data.Tripods.filter((Data) => Data.IsSelected === true);
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const [CharacterGems, setCharacterGems] = useState(null);
-
     
-
-  
+    useEffect(() => {
+        setCharacterGems(GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)));
+        
+    }, [])
+      
 
     return (
         <div className="SkillAreaParents">
@@ -47,14 +49,14 @@ function SkillArea({data, GemInfo}) {
 
                 <div className="JemArea">
                     <div className="JemBackground">
-                        {/* <img src="" alt="보석" /> */}
+                        {CharacterGems !== null ? CharacterGems.map((Icon, index) => <img src={Icon.Icon} key={index} /> ) : ""}
                     </div>
                 </div>
             </div>
 
             <div className="ActiveTripodsInfo">
                 {ActiveTripods.map((Data, index) => (
-                    <div className="ActiveTripodsArea">
+                    <div className="ActiveTripodsArea" key={index}>
                         <img src={Data.Icon} alt="" />
                         <div className="NameAndLevel">
                             <p>{Data.Name}</p>
@@ -117,7 +119,7 @@ function CharacterSkill() {
             </div>
 
             <div className="SkillBox">
-                {CharacterSkillInfo !== null ? CharacterSkillInfo.map((Data, index) => <SkillArea data={Data} GemInfo={CharacterSkillGems !== null ? CharacterSkillGems : ""} />) : "준비중"}
+                {CharacterSkillInfo !== null ? CharacterSkillInfo.map((Data, index) => <SkillArea key={index} data={Data} GemInfo={CharacterSkillGems !== null ? CharacterSkillGems : ""} />) : "준비중"}
             </div>
         </div>
     )
