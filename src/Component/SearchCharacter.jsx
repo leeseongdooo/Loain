@@ -24,7 +24,7 @@ function SearchCharacter() {
     const NickName = useParams();
     
     const [Searchresult, setSearchResult] = useState(null); // 유저 닉네임 검색 후 있으면 true 없으면 null
-    const [SearchCharacter, setSearchCharacter] = useState([]);
+    const [SearchCharacter, setSearchCharacter] = useState(null);
     const [CharacterStats, setCharacterStats] = useState([]);
     const Location = useLocation();
     
@@ -43,7 +43,7 @@ function SearchCharacter() {
                     } else if(response.data !== null)
                     {
                         setSearchResult(true);
-                        console.log("결과 : " + Searchresult);
+                        console.log(response.data);
                         setSearchCharacter(response.data);
                         setCharacterStats(response.data.Stats);
                     }
@@ -54,7 +54,7 @@ function SearchCharacter() {
             }
 
             getCharacterInfo();  
-            console.log(SearchParams.get("tab"));
+            
         }, [NickName, Location]);
     return (
        
@@ -67,14 +67,12 @@ function SearchCharacter() {
                         <Link to="?tab=expedition"><li className={SearchParams.get("tab") === "expedition" ? "focusStyle" : ""}>보유 캐릭터</li></Link>
                         <Link to="?tab=collection"><li className={SearchParams.get("tab") === "collection" ? "focusStyle" : ""}>수집형 포인트</li></Link>
                         <Link to="?tab=pvp"><li className={SearchParams.get("tab") === "pvp" ? "focusStyle" : ""}>증명의 전장</li></Link>
-
-                        
                     </ul>
 
                     <div className="ShowBox">
                         {
                             Location.search === "" ? <CharacterInfo SearchCharacter={SearchCharacter} CharacterStats={CharacterStats} /> : 
-                            Location.search === "?tab=skill" ? <CharacterSkill /> : ""
+                            Location.search === "?tab=skill" ? <CharacterSkill CharacterInfo={SearchCharacter !== null ? SearchCharacter : ""}/> : ""
                         }
                         
                     </div>
