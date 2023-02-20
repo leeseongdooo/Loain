@@ -4,11 +4,13 @@ import axios from "axios";
 import Parser from 'html-react-parser';
 import "../../Css/CharacterEquipment.scss";
 
+
+
+
 // 장비 모덜 창
 function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
 
     let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
-    
     
     return (
         <div className="ModalBigBox" style={ShowModalArea === true ?{display: "flex"} : {display: "none"}}>
