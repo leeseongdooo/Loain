@@ -27,7 +27,6 @@
             margin: 10px 0px;
             border-bottom: 1px solid #5555554f;
             
-           
 
             // 이미지와 이름
             .ImageAndName {
@@ -109,13 +108,14 @@
                         min-height: 40px;
                         max-height: 40px;
                         border-radius: 100%;
-                        background-color: orange;
+                        
                         
                         img {
                             min-width: 40px;
                             max-width: 40px;
                             min-height: 40px;
                             max-height: 40px;
+                            border-radius: 100%;
                         }
                     }
                     p {
@@ -128,18 +128,17 @@
                 .JemArea {
                     min-width: 100px;
                     display: flex;
+                    
                     .JemBackground {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
-                        min-width: 40px;
-                        max-width: 40px;
-                        min-height: 40px;
-                        max-height: 40px;
-                        border-radius: 100%;
+                        justify-content: flex-start;
+                        width: 100%;
                         
                         
                         img {
+                            margin-right: 5px;
+                            border-radius: 100%;
                             min-width: 40px;
                             max-width: 40px;
                             min-height: 40px;
@@ -151,6 +150,7 @@
 
             // 활성화된 트라이포드 
             .ActiveTripodsInfo {
+                
                 display: flex;
                 align-items: center;
                 min-width: 400px;

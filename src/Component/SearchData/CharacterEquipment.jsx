@@ -5,19 +5,15 @@ import Parser from 'html-react-parser';
 import "../../Css/CharacterEquipment.scss";
 
 // 장비 모덜 창
-function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
+function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
 
     let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
     
-    if(TooltipInfo.Element_006.value.Element_001 !== undefined) {
-        
-    }
-
+    
     return (
         <div className="ModalBigBox" style={ShowModalArea === true ?{display: "flex"} : {display: "none"}}>
             <div onClick={() => {console.log(TooltipInfo)}}>
                 {Parser(TooltipInfo.Element_000.value)}
-                
             </div>
 
             <div className="FirstArea">
@@ -57,15 +53,13 @@ function EquipmentModalArea({TooltipInfo, Data, BackColor, index, QualityColor, 
                 {/* 어빌리티 스톤 보너스체력 (보너스가 활성화되어있으면 나오고 없으면 안나옴) */}
                 
                 <p>{TooltipInfo.Element_006.value.Element_001 !== undefined ? TooltipInfo.Element_006.value.Element_001.includes("BR") ? Parser(TooltipInfo.Element_006.value.Element_001) : TooltipInfo.Element_006.value.Element_001 : TooltipInfo.Element_006.value.Element_001 }</p>
-                <p className="EquipmentLevel">{index < 6 && TooltipInfo.Element_008.value.Element_001 !== undefined ? Parser(TooltipInfo.Element_008.value.Element_001) : ""}</p>
-                
+                {/* <p className="EquipmentLevel">{index < 6 && TooltipInfo.Element_008.value.Element_001 !== undefined ? Parser(TooltipInfo.Element_008.value.Element_001) : ""}</p> */}
+                <p>{index < 6 && LvValue.includes("Lv") ? LvValue : ""}</p>
                 {/* 어빌리티 스톤 체력  */}
                 {TooltipInfo.Element_006.value.Element_000 !== undefined & TooltipInfo !== null ?  
                 <>
-                
                     <p className="AbilityStoneHp">{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_005.value.Element_001) : ""}</p>
                     <p className="EngravingName" onClick={() => {console.log(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001)}}>{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
-            
                     <p className="EngravingName">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_001 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
                     <p className="EngravingName debuff">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_002 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
                 </> : 
@@ -219,7 +213,7 @@ function EquipentArea({EquipmentData, Data, index}) {
                 
                 <div className="BottomArea">
                     {/* 장비 레벨에 대한 정보 [무기 방어구에만 보인다.] */}
-                    {LvValue !== null && index < 6 && LvValue.charAt(0) === "L" ? <span className="EquipmentLevel">{LvValue}</span> : ""}
+                    {LvValue !== null && index < 6 && LvValue.charAt(0) === "L" ? <span onClick={() => {console.log(LvValue)}} className="EquipmentLevel">{LvValue}</span> : ""}
                     {index < 11 ? 
                     <>
                         {/* 품질 */}
@@ -248,7 +242,7 @@ function EquipentArea({EquipmentData, Data, index}) {
                 </div>
             </div>
 
-            {TooltipInfo !== null & Data.Type === DataTypeArray[index] ? <EquipmentModalArea ShowModalArea={ShowModalArea} TooltipInfo={TooltipInfo} Data={Data} BackColor={BackColorStyle} index={index} QualityColor={QualityColor}/> : ""}
+            {TooltipInfo !== null & Data.Type === DataTypeArray[index] ? <EquipmentModalArea LvValue={LvValue !== null ? LvValue : ""} ShowModalArea={ShowModalArea} TooltipInfo={TooltipInfo} Data={Data} BackColor={BackColorStyle} index={index} QualityColor={QualityColor}/> : ""}
         </div>
     )
 }

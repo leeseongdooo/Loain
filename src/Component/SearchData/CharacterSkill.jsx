@@ -10,10 +10,79 @@ function SkillArea({data, GemInfo}) {
     let ActiveTripods = data.Tripods.filter((Data) => Data.IsSelected === true);
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const [CharacterGems, setCharacterGems] = useState(null);
+    const [RuneBackColor, setRuneBackColor] = useState("");
+    const [GemBackColor, setGemBackColor] = useState("");
     
     useEffect(() => {
-        setCharacterGems(GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)));
+
+        // 룬 등급
+        if(data.Rune !== null)
+        {
+            switch(data.Rune.Grade)
+            {
+                case "에스더" :
+                    setRuneBackColor('linear-gradient(135deg,#0c2e2c,#2faba8)');
+                    break;
+                case "고대" : 
+                    setRuneBackColor('linear-gradient(135deg,#3d3325,#dcc999)');
+                    break;
+                case "유물" : 
+                    setRuneBackColor('linear-gradient(135deg,#341a09,#a24006)');
+                    break;
+                case "전설" : 
+                    setRuneBackColor('linear-gradient(135deg,#362003,#9e5f04)');
+                    break;
+                case "영웅" : 
+                    setRuneBackColor('linear-gradient(135deg,#261331,#480d5d)');
+                    break;
+    
+                case "희귀" :
+                    setRuneBackColor('linear-gradient(135deg,#111f2c,#113d5d)');
+                    break;
+    
+                case "고급" : 
+                    setRuneBackColor('linear-gradient(135deg,#18220b,#304911)');
+                    break;
+                default: 
+                    break;
+            }
+        }
+       
+
+        let FilterGems = GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name));
+        console.log(FilterGems);
         
+        FilterGems.map((Icon, index) => {
+            console.log(Icon.Grade);
+            switch(Icon.Grade)
+            {
+                case "에스더" :
+                    setGemBackColor('linear-gradient(135deg,#0c2e2c,#2faba8)');
+                    break;
+                case "고대" : 
+                    setGemBackColor('linear-gradient(135deg,#3d3325,#dcc999)');
+                    break;
+                case "유물" : 
+                    setGemBackColor('linear-gradient(135deg,#341a09,#a24006)');
+                    break;
+                case "전설" : 
+                    setGemBackColor('linear-gradient(135deg,#362003,#9e5f04)');
+                    break;
+                case "영웅" : 
+                    setGemBackColor ('linear-gradient(135deg,#261331,#480d5d)');
+                    break;
+                case "희귀" :
+                    setGemBackColor('linear-gradient(135deg,#111f2c,#113d5d)');
+                    break;
+                case "고급" : 
+                    setGemBackColor('linear-gradient(135deg,#18220b,#304911)');
+                    break;
+                default: 
+                    break;
+            }   
+        })
+        
+        setCharacterGems(GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)));
     }, [])
       
 
@@ -40,7 +109,7 @@ function SkillArea({data, GemInfo}) {
                     {data.Rune !== null ? 
                         <>
                             <div className="RuneBackground">
-                                <img src={data.Rune.Icon} alt="룬 이미지" />
+                                <img src={data.Rune.Icon} alt="룬 이미지" style={{background: RuneBackColor}}/>
                             </div>
                             <p>{data.Rune.Name}</p>
                         </> : ""
@@ -49,7 +118,42 @@ function SkillArea({data, GemInfo}) {
 
                 <div className="JemArea">
                     <div className="JemBackground">
-                        {CharacterGems !== null ? CharacterGems.map((Icon, index) => <img src={Icon.Icon} key={index} /> ) : ""}
+                        {CharacterGems !== null ? CharacterGems.map((Icon, index) => 
+                            {
+                                let backgroundColor = ""
+                                
+                                switch(Icon.Grade)
+                                {
+                                    case "에스더" :
+                                        backgroundColor = 'linear-gradient(135deg,#0c2e2c,#2faba8)';
+                                        break;
+                                    case "고대" : 
+                                        backgroundColor = 'linear-gradient(135deg,#3d3325,#dcc999)';
+                                        break;
+                                    case "유물" : 
+                                        backgroundColor = 'linear-gradient(135deg,#341a09,#a24006)';
+                                        break;
+                                    case "전설" : 
+                                        backgroundColor = 'linear-gradient(135deg,#362003,#9e5f04)';
+                                        break;
+                                    case "영웅" : 
+                                        backgroundColor = 'linear-gradient(135deg,#261331,#480d5d)';
+                                        break;
+                                    case "희귀" :
+                                        backgroundColor = 'linear-gradient(135deg,#111f2c,#113d5d)';
+                                        break;
+                                    case "고급" : 
+                                        backgroundColor = 'linear-gradient(135deg,#18220b,#304911)';
+                                        break;
+                                    default: 
+                                        break;
+                                }
+
+                                return (
+                                    <img src={Icon.Icon} key={index} style={{background: backgroundColor}} />    
+                                )
+                            }
+                        ) : ""}
                     </div>
                 </div>
             </div>
