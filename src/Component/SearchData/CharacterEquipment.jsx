@@ -12,6 +12,12 @@ function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, Quali
 
     let [SplitText, setSplitText] = useState(TooltipInfo.Element_005.value.Element_001);
     
+    let test = Object.entries(JSON.parse(Data.Tooltip))
+    let filterItemPartBox = test.filter((Test) => Test[1].type === "ItemPartBox")
+    
+    console.log(TooltipInfo)
+    
+
     return (
         <div className="ModalBigBox" style={ShowModalArea === true ?{display: "flex"} : {display: "none"}}>
             <div onClick={() => {console.log(TooltipInfo)}}>
@@ -29,47 +35,57 @@ function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, Quali
                     </div>
                     
                     {index < 11 ? 
-                    <div className="QualityArea">
-                        <span className="QuallityValueText" style={{color: `${QualityColor}`}}>{TooltipInfo.Element_001.value.qualityValue !== null ? TooltipInfo.Element_001.value.qualityValue : "X"}</span>
-                        <div className="StickBox">
-                            <div className="StickValue" style={{width: `${TooltipInfo.Element_001.value.qualityValue}%`, background: `${QualityColor}`}}></div>
-                        </div> 
-                    </div> : ""
+                        <div className="QualityArea">
+                            <span className="QuallityValueText" style={{color: `${QualityColor}`}}>
+                                {TooltipInfo.Element_001.value.qualityValue !== null ? TooltipInfo.Element_001.value.qualityValue < 0 ? 0 : TooltipInfo.Element_001.value.qualityValue : ""}
+                            </span>
+                            <div className="StickBox">
+                                <div className="StickValue" style={{width: TooltipInfo.Element_001.value.qualityValue < 0 ? 0 : `${TooltipInfo.Element_001.value.qualityValue}%`, background: `${QualityColor}`}}></div>
+                            </div> 
+                        </div> : ""
                     }
                 </div>
             </div>
 
             <div className="BasicStatArea">
 
-                 <p className="Stat1">{index < 11 & index > 5 ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
-                 <p className="Stat2">{index < 11 ? Parser(SplitText) : ""}</p>
+                {/* 기본스탯  */}
+                {filterItemPartBox.length > 0 ?  
+                    filterItemPartBox.map((FilterData) =>  index < 11  ? <p className="Stat1">{Parser(FilterData[1].value.Element_001)}</p> : "") : ""
+                }
                  {/* 어빌리티 스톤 */}
-                 <p>{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
+                 
+                 <p>{Data.Type === "어빌리티 스톤" && TooltipInfo.Element_004.value.Element_001 !== undefined ? Parser(TooltipInfo.Element_004.value.Element_001) : ""}</p>
                  {/* 팔찌 옵션 */}
                  <p className="BraceletModal">{Data.Type !== "팔찌" && TooltipInfo.Element_004.value.Element_001 !== null ? "" : Parser("" + TooltipInfo.Element_004.value.Element_001)}</p>
             </div>
 
-            <hr />
+            
 
             <div>
                 {/* 어빌리티 스톤 보너스체력 (보너스가 활성화되어있으면 나오고 없으면 안나옴) */}
                 
-                <p>{TooltipInfo.Element_006.value.Element_001 !== undefined ? TooltipInfo.Element_006.value.Element_001.includes("BR") ? Parser(TooltipInfo.Element_006.value.Element_001) : TooltipInfo.Element_006.value.Element_001 : TooltipInfo.Element_006.value.Element_001 }</p>
+                {/* <p>{TooltipInfo.Element_006.value.Element_001 !== undefined ? TooltipInfo.Element_006.value.Element_001.includes("BR") ? Parser(TooltipInfo.Element_006.value.Element_001) : TooltipInfo.Element_006.value.Element_001 : TooltipInfo.Element_006.value.Element_001 }</p> */}
                 {/* <p className="EquipmentLevel">{index < 6 && TooltipInfo.Element_008.value.Element_001 !== undefined ? Parser(TooltipInfo.Element_008.value.Element_001) : ""}</p> */}
-                <p>{index < 6 && LvValue.includes("Lv") ? LvValue : ""}</p>
+                {/* <p>{index < 6 && LvValue.includes("Lv") ? LvValue : ""}</p> */}
                 {/* 어빌리티 스톤 체력  */}
-                {TooltipInfo.Element_006.value.Element_000 !== undefined & TooltipInfo !== null ?  
-                <>
-                    <p className="AbilityStoneHp">{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_005.value.Element_001) : ""}</p>
-                    <p className="EngravingName" onClick={() => {console.log(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001)}}>{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
-                    <p className="EngravingName">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_001 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
-                    <p className="EngravingName debuff">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_002 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
-                </> : 
-                <>
-                    <p className="EngravingName">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
-                    <p className="EngravingName">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
-                    <p className="EngravingName debuff">{index < 12 & index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
-                </> 
+
+              
+                {  
+                     TooltipInfo.Element_006.value.Element_000 !== undefined && TooltipInfo.Element_006.type === "IndentStringGroup" ? 
+                        <>
+                            <p className="AbilityStoneHp">{Data.Type === "어빌리티 스톤" ? Parser(TooltipInfo.Element_005.value.Element_001) : ""}</p>
+                            <p clas sName="EngravingName" onClick={() => {console.log(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001)}}>{index < 12 & index > 5 ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
+                            <p className="EngravingName">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_001 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
+                            <p className="EngravingName debuff">{index < 12 && index > 5 && TooltipInfo.Element_006.value.Element_000.contentStr.Element_002 !== undefined ? Parser(TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
+                        </> :
+                         TooltipInfo.Element_005.type === "IndentStringGroup" ?
+                        <>
+                              <p className="EngravingName">{index < 12 && index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr) : ""}</p>
+                              <p className="EngravingName">{index < 12 && index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_001.contentStr) : ""}</p>
+                              <p className="EngravingName debuff">{index < 12 && index > 5 ? Parser(TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr) : ""}</p>
+                        </> : <></>
+                    
                 }
             </div>
         </div>
@@ -97,10 +113,13 @@ function EquipentArea({EquipmentData, Data, index}) {
     // </img>의 위치를 담아놓는 배열
     const [ImgBasket, setImgBasket] = useState([50, 100, 200, 300, 400]);
     const [ImgLocation, setImgLocation] = useState([]);
-
     const BraceletEffectArray = ['체력', '힘', '민첩', '지능', '치명', '특화', '신속', '제압', '인내', '숙련', '최대 생명력', '최대 마나', '물리 방어력', '마법 방어력', '오뚝이', '돌진', '강타', '타격', '마나회수', '속공', '투자', '반전', '멸시', '무시', '전투 중 생명력 회복량', '회생', '긴급수혈', '응급처치', '앵콜', '쐐기', '망치', '열정', '냉정', '비수', '약점 노출', '깨달음', '응원', '수확', '보상', '무기 공격력', '우월', '습격', '정밀', '상처약화', '분개', '기습', '결투', '적립'];
     const DataTypeArray = ['어깨', '투구', '상의', '하의', '장갑', '무기', '목걸이', '귀걸이', '귀걸이', '반지', '반지', '어빌리티 스톤', '팔찌'];
     const NickName = useParams();
+
+    
+    let ExistAbilityStone = Data.Tooltip.includes("어빌리티 스톤");
+    console.log(ExistAbilityStone);
     
     useEffect(() => {
         setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
@@ -118,7 +137,6 @@ function EquipentArea({EquipmentData, Data, index}) {
             })
             setBracelet(Data2);
         }
-        
         
         // 등급별 폰트색 및 배경색
         switch(Data.Grade)
@@ -183,13 +201,15 @@ function EquipentArea({EquipmentData, Data, index}) {
                     setQualityColor("#FFE81D");
                     break;
                 default :
-                    setQualityColor("#FFE81D");
+                    setQualityColor("black");
                     break;
             }
         }
 
     }, [EquipmentData, NickName, QualityValue]);
-        
+    
+
+
     const ClickFunction = () => {
         if(TooltipInfo !== null)
         {
@@ -203,6 +223,8 @@ function EquipentArea({EquipmentData, Data, index}) {
             console.log(ImgLocation)
         }
     }
+
+
 
     return (
         <div className="EquipmentInfo" >
@@ -219,32 +241,38 @@ function EquipentArea({EquipmentData, Data, index}) {
                     {index < 11 ? 
                     <>
                         {/* 품질 */}
-                        <span className="QuallityValueText" style={{color: `${QualityColor}`}}>{QualityValue !== null ? QualityValue : "X"}</span>
+                        <span className="QuallityValueText" style={{color: `${QualityColor}`}}>{QualityValue !== null ? QualityValue < 0 ? 0 : QualityValue : "X"}</span>
                         <div className="StickBox">
-                            <div className="StickValue" style={{width: `${QualityValue}%`, background: `${QualityColor}`}}></div>
+                            <div className="StickValue" style={{width: QualityValue < 0 ? "0px" : `${QualityValue}%`, background: `${QualityColor}`}}></div>
                         </div> 
                     </> :  Data.Type === "어빌리티 스톤" & TooltipInfo !== null ? 
                         
                         // 어빌리티 스톤 정보
                         <div className="AbilityStoneInfo">
-                            {TooltipInfo.Element_006.value.Element_000 !== undefined & TooltipInfo !== null ? 
-                            <>
-                                <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
-                                <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}</span>
-                                <span className="Debuff">{TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
-                            </> : 
-                            <>
-                               <span>{TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
-                               <span>{TooltipInfo.Element_005.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}</span>
-                               <span className="Debuff">{TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
-                            </>}
-                           
+                            {ExistAbilityStone === true && TooltipInfo.Element_006.value.Element_000 !== undefined ? 
+                                <>
+                                    <span onClick={() => {console.log(TooltipInfo)}}>보기</span>
+                                    <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                    <span>{TooltipInfo.Element_006.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                    <span className="Debuff">{TooltipInfo.Element_006.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                </> : 
+                            
+                                TooltipInfo.Element_005.value.Element_000.contentStr !== undefined  ? 
+                                    <>
+                                        <span>{TooltipInfo.Element_005.value.Element_000.contentStr.Element_000.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                        <span>{TooltipInfo.Element_005.value.Element_000.contentStr.Element_001.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                        <span className="Debuff">{TooltipInfo.Element_005.value.Element_000.contentStr.Element_002.contentStr.split('').reverse().join('').charAt(4)}</span>
+                                    </> : ""
+                                 
+                            }
                         </div> : <div className="BraceletAbilityTextBox">{Bracelet.length > 0 ? <span>준비중</span> : "ㅁ"}</div>
                     }
                 </div>
             </div>
 
-            {TooltipInfo !== null & Data.Type === DataTypeArray[index] ? <EquipmentModalArea LvValue={LvValue !== null ? LvValue : ""} ShowModalArea={ShowModalArea} TooltipInfo={TooltipInfo} Data={Data} BackColor={BackColorStyle} index={index} QualityColor={QualityColor}/> : ""}
+            {TooltipInfo !== null & Data.Type === DataTypeArray[index] ? 
+                <EquipmentModalArea LvValue={LvValue !== null ? LvValue : ""} ShowModalArea={ShowModalArea} TooltipInfo={TooltipInfo} Data={Data} BackColor={BackColorStyle} index={index} QualityColor={QualityColor}/> :
+            ""}
         </div>
     )
 }
