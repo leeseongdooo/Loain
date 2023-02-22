@@ -1,346 +1,349 @@
 
-// CharacterSkill에서 가장 위에 있는 div 입니다.
-.CharacterSkillBox {
-    width: 100%;
-
-    .CharacterInfoArea {        
-        display: flex;
+    // CharacterSkill에서 가장 위에 있는 div 입니다.
+    .CharacterSkillBox {
         width: 100%;
-        min-height: 150px;
-        margin-bottom: 20px;
-        max-height: 200px;
-        
-        .TopArea {
-            width: 40%;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
-            border-radius: 10px;
-            position: relative;
-            border: 1px solid black;
-            overflow: hidden;
+        padding-bottom: 50px;
+        .CharacterInfoArea {        
+            display: flex;
+            width: 100%;
+            min-height: 150px;
+            margin-bottom: 20px;
+            max-height: 200px;
+            
+            .TopArea {
+                width: 40%;
+                box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
+                border-radius: 10px;
+                position: relative;
+                border: 1px solid black;
+                overflow: hidden;
 
-            .ImageArea {
-                position: absolute;
-                right: 1;
-                top: -80px;
-                z-index: 1;
-                img {
-                    width: 100;
-                    object-fit: cover;
+                .ImageArea {
+                    position: absolute;
+                    right: 1;
+                    top: -80px;
+                    z-index: 1;
+                    img {
+                        width: 100;
+                        object-fit: cover;
+                    }
                 }
+
+                .TextArea {
+                    left: 30px;
+                    position: absolute;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    z-index: 20;
+                    color: white;
+                    
+                    .SimpleInformation {
+                        margin-top: 20px;
+                        margin-bottom: 10px;
+                        font-size: 16px;
+                    }
+
+                    .CharacterName {
+                        margin-bottom: 10px;
+                        font-size: 24px;
+                    }
+
+                    .ItemLevelArea {        
+                        display: flex;
+                        align-items: center;
+                        font-size: 20px;
+                    }
+                }   
             }
 
-            .TextArea {
-                left: 30px;
-                position: absolute;
-                height: 100%;
+            .SkillSummary {
+                margin-left: 10px;
+                width: calc(60% - 10px);
                 display: flex;
                 flex-direction: column;
-                z-index: 20;
-                color: white;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+                box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
                 
-                .SimpleInformation {
-                    margin-top: 20px;
-                    margin-bottom: 10px;
-                    font-size: 16px;
-                }
-
-                .CharacterName {
-                    margin-bottom: 10px;
-                    font-size: 24px;
-                }
-
-                .ItemLevelArea {        
-                    display: flex;
-                    align-items: center;
+                .SkillPointArea {
+                    margin-left: 10px;
                     font-size: 20px;
                 }
-            }   
-        }
 
-        .SkillSummary {
-            margin-left: 10px;
-            width: calc(60% - 10px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
-            
-            .SkillPointArea {
-                margin-left: 10px;
-                font-size: 20px;
-            }
-
-            .SkillTypeArea {
-                margin-top: 20px;
-                width: 80%;
-                font-size: 16px;
-                display: flex;
-                justify-content: space-between;
-                font-weight: 500;
-            }
-
-            .InnerFontStyle {
-                color: #8045DD;
-                font-weight: 700;
-            }
-        }
-        
-    }    
-
-    .SkillBox {
-        padding: 10px;
-        width: calc(100% - 20px);
-        border-radius: 10px;
-        min-height: 400px;
-        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.287);
-
-        .SkillAreaParents {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            width: calc(100% - 20px);
-            margin: 10px 0px;
-            border-bottom: 1px solid #5555554f;
-            
-
-            // 이미지와 이름
-            .ImageAndName {
-                min-width: 200px;
-                display: flex;
-                align-items: center;
-                // 스킬 이미지
-                img {
-                    min-width: 44px;
-                    max-width: 44px;
-                    min-height: 44px;
-                    max-height: 44px;
-                    border-radius: 10px;
+                .SkillTypeArea {
+                    margin-top: 20px;
+                    width: 80%;
+                    font-size: 16px;
+                    display: flex;
+                    justify-content: space-between;
+                    font-weight: 500;
                 }
 
-                p {
-                    margin-left: 10px;
-                    color: #353945;
-                    font-size: 16px;
+                .InnerFontStyle {
+                    color: #8045DD;
                     font-weight: 700;
                 }
             }
+            
+        }    
 
-            // 트라이포드와 룬
-            .TripodsAndRune {
-                min-width: 500px;
+        .SkillBox {
+            position: relative;
+            padding: 10px;
+            width: calc(100% - 20px);
+            border-radius: 10px;
+            min-height: 400px;
+            box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.287);
+            
+            
+            .SkillAreaParents {
                 display: flex;
-                justify-content: space-between;
                 align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                width: calc(100% - 20px);
+                margin: 10px 0px;
+                border-bottom: 1px solid #5555554f;
                 
-                .SkillLevel {
-                    min-width: 50px;
-                    font-size: 18px;
-                    color: #D9AB48;
-                    margin-right: 26px;
-                }
 
-                // 트라이포드 순서
-                .TripodsOrder {
-                    min-width: 110px;
+                // 이미지와 이름
+                .ImageAndName {
+                    min-width: 200px;
                     display: flex;
                     align-items: center;
-                    justify-content: flex-start;
-                    div {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        
-                        width: 25px;
-                        height: 25px;
-                        padding: 3px;
-                        border-radius: 15px;
-                        margin-left: 2px;
+                    // 스킬 이미지
+                    img {
+                        min-width: 44px;
+                        max-width: 44px;
+                        min-height: 44px;
+                        max-height: 44px;
+                        border-radius: 10px;
                     }
 
-                    div:nth-child(1) {
-                        background-color: #47ABD9;
-                    }
-                    div:nth-child(2){
-                        background-color: #8DC80E;
-                    }
-                    div:nth-child(3){
-                        background-color: #FFB00E;
-                    }
-                }
-
-                // 룬 영역
-                .RuneArea {
-                    display: flex;
-                    align-items: center;
-                    min-width: 100px;
-
-                    .RuneBackground {
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        min-width: 40px;
-                        max-width: 40px;
-                        min-height: 40px;
-                        max-height: 40px;
-                        border-radius: 100%;
-                        
-                        
-                        img {
-                            min-width: 40px;
-                            max-width: 40px;
-                            min-height: 40px;
-                            max-height: 40px;
-                            border-radius: 100%;
-                        }
-                    }
                     p {
-                        margin-left: 5px;
+                        margin-left: 10px;
+                        color: #353945;
+                        font-size: 16px;
                         font-weight: 700;
                     }
                 }
 
-                // 착용중인 보석 영역
-                .JemArea {
-                    min-width: 100px;
+                // 트라이포드와 룬
+                .TripodsAndRune {
+                    min-width: 500px;
                     display: flex;
+                    justify-content: space-between;
+                    align-items: center;
                     
-                    .JemBackground {
+                    .SkillLevel {
+                        min-width: 50px;
+                        font-size: 18px;
+                        color: #D9AB48;
+                        margin-right: 26px;
+                    }
+
+                    // 트라이포드 순서
+                    .TripodsOrder {
+                        min-width: 110px;
                         display: flex;
                         align-items: center;
                         justify-content: flex-start;
-                        width: 100%;
-                        
-                        
-                        img {
-                            margin-right: 5px;
-                            border-radius: 100%;
+                        div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            
+                            width: 25px;
+                            height: 25px;
+                            padding: 3px;
+                            border-radius: 15px;
+                            margin-left: 2px;
+                        }
+
+                        div:nth-child(1) {
+                            background-color: #47ABD9;
+                        }
+                        div:nth-child(2){
+                            background-color: #8DC80E;
+                        }
+                        div:nth-child(3){
+                            background-color: #FFB00E;
+                        }
+                    }
+
+                    // 룬 영역
+                    .RuneArea {
+                        display: flex;
+                        align-items: center;
+                        min-width: 100px;
+
+                        .RuneBackground {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
                             min-width: 40px;
                             max-width: 40px;
                             min-height: 40px;
                             max-height: 40px;
-                        }
-                    }
-                }
-            }
-
-            // 활성화된 트라이포드 
-            .ActiveTripodsInfo {      
-                display: flex;
-                align-items: center;
-                min-width: 400px;
-                margin-left: 5px;
-                padding-left: 10px;
-                border-left: 2px dashed rgb(193, 193, 193, 0.3);
-                .ActiveTripodsArea {
-                    display: flex;
-                    align-items: center;
-                    margin-right: 10px;
-                    img {
-                        width: 40px;
-                        height: 40px;
-                    }
-
-                    .NameAndLevel {
-                        display: flex;
-                        flex-direction: column;
-                        margin-left: 10px;
-                        
-                        p {
-                            min-width: 80px;
-                            font-size: 13px;
-                            color: #353945;
-                            font-weight: bold;
-                        }
-                    }
-                }
-            }
-
-            .ModalArea {
-                position: absolute;
-                left: 55px;
-                top: -20px;
-                padding: 10px;
-                width: 200px;
-                min-height: 200px;
-                border-radius: 10px;
-                background-color: whitesmoke;
-                border: 1px solid #353945;
-                z-index: 99;
-
-                font {
-                    display: inline !important;
-                    color: black !important;
-                    font-size: 12px !important;
-                    font-weight: 500;
-                }
-            
-                .SkillName {
-                    text-align: center;
-                }
-            
-                .FirstBox {
-                    display: flex;
-                    align-items: flex-start;
-                    
-                    .SkillImageBox {
-                       img {
-                        min-width: 40px;
-                        max-width: 40px;
-                        min-height: 40px;
-                        max-width: 40px;
-                        border-radius: 10px;
-                       }
-                    }
-                    .TextArea {
-                        margin-left: 10px;
-                        
-                        .TopArea {
-                            display: flex;
-                            align-items: center;
+                            border-radius: 100%;
                             
-                            .SkillForm {
-                                margin-left: 5px;
+                            
+                            img {
+                                min-width: 40px;
+                                max-width: 40px;
+                                min-height: 40px;
+                                max-height: 40px;
+                                border-radius: 100%;
                             }
                         }
-
-                    }
-                }
-            
-                .SecondBox {
-                    padding-bottom: 10px;
-                    border-bottom: 1px solid black;
-                    
-                    .ManaArea {
                         p {
-                            font-size: 12px;
+                            margin-left: 5px;
+                            font-weight: 700;
                         }
-                        margin-bottom: 10px;
                     }
-            
-                    .SkillManual {
-            
+
+                    // 착용중인 보석 영역
+                    .JemArea {
+                        min-width: 100px;
+                        display: flex;
+                        
+                        .JemBackground {
+                            display: flex;
+                            align-items: center;
+                            justify-content: flex-start;
+                            width: 100%;
+                            
+                            
+                            img {
+                                margin-right: 5px;
+                                border-radius: 100%;
+                                min-width: 40px;
+                                max-width: 40px;
+                                min-height: 40px;
+                                max-height: 40px;
+                            }
+                        }
                     }
                 }
-            
-                .ThirdBox {
-                    div {
-                        margin: 10px 0px;
+
+                // 활성화된 트라이포드 
+                .ActiveTripodsInfo {      
+                    display: flex;
+                    align-items: center;
+                    min-width: 400px;
+                    margin-left: 5px;
+                    padding-left: 10px;
+                    border-left: 2px dashed rgb(193, 193, 193, 0.3);
+                    .ActiveTripodsArea {
+                        display: flex;
+                        align-items: center;
+                        margin-right: 10px;
+                        img {
+                            width: 40px;
+                            height: 40px;
+                        }
+
                         .NameAndLevel {
-                            font {
+                            display: flex;
+                            flex-direction: column;
+                            margin-left: 10px;
+                            
+                            p {
+                                min-width: 80px;
+                                font-size: 13px;
+                                color: #353945;
                                 font-weight: bold;
                             }
                         }
                     }
-
                 }
+
+                .ModalArea {
+
+                    position: absolute;
+                    left: 70px;
+                    bottom: 20px;
+                    padding: 10px;
+                    width: 200px;
+                    min-height: 200px;
+                    overflow: hidden;
+                    border-radius: 10px;
+                    background-color: whitesmoke;
+                    border: 1px solid #353945;
+                    z-index: 99;
+
+                    font {
+                        display: inline !important;
+                        color: black !important;
+                        font-size: 12px !important;
+                        font-weight: 500;
+                    }
+                
+                    .SkillName {
+                        text-align: center;
+                    }
+                
+                    .FirstBox {
+                        display: flex;
+                        align-items: flex-start;
+                        
+                        .SkillImageBox {
+                        img {
+                            min-width: 40px;
+                            max-width: 40px;
+                            min-height: 40px;
+                            max-width: 40px;
+                            border-radius: 10px;
+                        }
+                        }
+                        .TextArea {
+                            margin-left: 10px;
+                            
+                            .TopArea {
+                                display: flex;
+                                align-items: center;
+                                
+                                .SkillForm {
+                                    margin-left: 5px;
+                                }
+                            }
+
+                        }
+                    }
+                
+                    .SecondBox {
+                        padding-bottom: 10px;
+                        border-bottom: 1px solid black;
+                        
+                        .ManaArea {
+                            p {
+                                font-size: 12px;
+                            }
+                            margin-bottom: 10px;
+                        }
+                
+                        .SkillManual {
+                
+                        }
+                    }
+                
+                    .ThirdBox {
+                        div {
+                            margin: 10px 0px;
+                            .NameAndLevel {
+                                font {
+                                    font-weight: bold;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                
+                
             }
-            
-            
         }
     }
-}
 

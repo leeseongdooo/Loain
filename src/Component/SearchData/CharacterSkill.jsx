@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import {React, useState, useEffect, useRef} from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import {GiCrestedHelmet} from 'react-icons/gi';
@@ -8,11 +8,19 @@ import "../../Css/CharacterSkill.scss";
 
 function SkillModalArea({Data})
 {   
-    
+    const ModalHeight = useRef();
     let ParseTooltip = JSON.parse(Data.Tooltip);
-    console.log(ParseTooltip)
+
+    useEffect(() => {
+        if(ModalHeight.current !== null )
+        {
+            console.log(ModalHeight);
+        }
+        
+    }, []);
+
     return (
-        <div className="ModalArea">
+        <div className="ModalArea" ref={ModalHeight}>
             <h4 className="SkillName">{ParseTooltip.Element_000.value}</h4>
 
             <div className="FirstBox">
@@ -93,6 +101,16 @@ function SkillModalArea({Data})
         </div>
     )
 }
+
+function RuneModalArea({}) 
+{    
+}
+
+function GemModalArea({})
+{
+
+}
+
 
 function TopArea({CharacterInfo, CharacterSkillInfo}) {
     let counter = "";
@@ -242,7 +260,7 @@ function SkillArea({data, GemInfo}) {
         <div className="SkillAreaParents">
             {Show === true ? <SkillModalArea Data={data} /> : "" }
             <div className="ImageAndName">
-                <img src={data.Icon} alt="스킬 이미지" onClick={() => {setShow(!Show)}} />
+                <img src={data.Icon} alt="스킬 이미지" onMouseEnter={() => {setShow(true)}} onMouseOut={() => {setShow(false)}} />
                 <p>{data.Name}</p>
             </div>
 
