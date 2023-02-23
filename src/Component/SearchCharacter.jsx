@@ -5,6 +5,7 @@ import axios from "axios";
 import "../Css/SearchCharacter.scss";
 import CharacterSkill from "./SearchData/CharacterSkill";
 import CharacterPoss from "./SearchData/CharacterPoss";
+import CharacterCollection from "./SearchData/CharacterCollection";
 
 
 function WrongNickName() {
@@ -75,7 +76,8 @@ function SearchCharacter() {
                         {
                             Location.search === "" ? <CharacterInfo SearchCharacter={SearchCharacter} CharacterStats={CharacterStats} /> : 
                             Location.search === "?tab=skill" ? <CharacterSkill CharacterInfo={SearchCharacter !== null ? SearchCharacter : ""}/> : 
-                            Location.search === "?tab=expedition" ? <CharacterPoss CharacterInfo={SearchCharacter !== null ? SearchCharacter : ""}/> : "" 
+                            Location.search === "?tab=expedition" ? <CharacterPoss CharacterInfo={SearchCharacter !== null ? SearchCharacter : ""}/> : 
+                            Location.search === "?tab=collection" ? <CharacterCollection CharacterInfo={SearchCharacter !== null ? SearchCharacter : ""}/> : "" 
                         }
                         
                     </div>

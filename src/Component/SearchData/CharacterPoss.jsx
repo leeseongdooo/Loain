@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {GiCrestedHelmet} from 'react-icons/gi';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import "../../Css/CharacterPoss.scss";
 import axios from "axios";
 
@@ -86,18 +86,22 @@ function CharacterPoss({CharacterInfo}) {
                     return(
                         <div className="ServerBox" key={index}>
                             <div className="TopArea">
-                                <h3>{Data[index].ServerName}</h3>
-                                <h3>보유 캐릭터 {Data.length}</h3>
+                                <p className="ServerName">{Data[0].ServerName}</p>
+                                <p className="CharacterLength">보유 캐릭터 <span>{Data.length}</span></p>
                             </div>
 
                             <div className="CharacterList">
                                 {OrderByCharacterLevel.map((CharacterInfo) => (
-                                    <div className="CharacterInfoMiniver">
+                                    <Link to={"/Search/" + CharacterInfo.CharacterName} className="CharacterInfoMiniver">
                                         
-                                        <p className="TopInfo">Lv. {CharacterInfo.CharacterLevel} {CharacterInfo.CharacterClassName}</p>
-                                        <p className="Name">{CharacterInfo.CharacterName}</p>
-                                        <p className="ItemLevel">{CharacterInfo.ItemAvgLevel}</p>
-                                    </div>
+        
+                                        <div>
+                                            <p className="TopInfo">Lv. {CharacterInfo.CharacterLevel} {CharacterInfo.CharacterClassName}</p>
+                                            <p className="Name">{CharacterInfo.CharacterName}</p>
+                                            <p className="ItemLevel">{CharacterInfo.ItemAvgLevel}</p>
+                                        </div>
+                                        
+                                    </Link>
                                 ))}
                             </div>
                         </div> 
