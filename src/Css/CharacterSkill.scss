@@ -215,15 +215,43 @@
                             justify-content: flex-start;
                             width: 100%;
                             
-                            
-                            img {
-                                margin-right: 5px;
+
+                            .JemBox {
+                                position: relative;
                                 border-radius: 100%;
                                 min-width: 40px;
                                 max-width: 40px;
                                 min-height: 40px;
                                 max-height: 40px;
+                                margin: 0px 5px;
+                                img {
+                                    margin-right: 5px;
+                                    border-radius: 100%;
+                                    min-width: 40px;
+                                    max-width: 40px;
+                                    min-height: 40px;
+                                    max-height: 40px;
+                                }
+    
+                                .JemLevel {
+                                    position: absolute;
+                                    bottom: 0;
+                                    right: 0;
+                                    background-color: white;
+                                    opacity: 0.9;
+                                    color: orange;
+                                    font-size: 12px;
+                                    font-weight: bold;
+                                    border-top-left-radius: 10px;
+                                    border: none;
+                                    width: 16px;
+                                    height: 16px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
                             }
+                           
                         }
                     }
                 }
@@ -261,7 +289,6 @@
                 }
 
                 .ModalArea {
-
                     position: absolute;
                     left: 70px;
                     bottom: 20px;

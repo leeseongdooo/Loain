@@ -11,16 +11,8 @@ function SkillModalArea({Data})
     const ModalHeight = useRef();
     let ParseTooltip = JSON.parse(Data.Tooltip);
 
-    useEffect(() => {
-        if(ModalHeight.current !== null )
-        {
-            console.log(ModalHeight);
-        }
-        
-    }, []);
-
     return (
-        <div className="ModalArea" ref={ModalHeight}>
+        <div className="ModalArea" ref={ModalHeight} >
             <h4 className="SkillName">{ParseTooltip.Element_000.value}</h4>
 
             <div className="FirstBox">
@@ -112,7 +104,7 @@ function GemModalArea({})
 }
 
 
-function TopArea({CharacterInfo, CharacterSkillInfo}) {
+export function TopArea({CharacterInfo, CharacterSkillInfo}) {
     let counter = "";
     let powerless = "";
     let Destruction = "";
@@ -219,40 +211,41 @@ function SkillArea({data, GemInfo}) {
         }
        
 
-        let FilterGems = GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name));
-       
+        let FilterGems = GemInfo !== "" ? GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)) : undefined;
         
-        FilterGems.map((Icon, index) => {
+        if(FilterGems !== undefined)
+        {
+            FilterGems.map((Icon, index) => {
+                switch(Icon.Grade)
+                {
+                    case "에스더" :
+                        setGemBackColor('linear-gradient(135deg,#0c2e2c,#2faba8)');
+                        break;
+                    case "고대" : 
+                        setGemBackColor('linear-gradient(135deg,#3d3325,#dcc999)');
+                        break;
+                    case "유물" : 
+                        setGemBackColor('linear-gradient(135deg,#341a09,#a24006)');
+                        break;
+                    case "전설" : 
+                        setGemBackColor('linear-gradient(135deg,#362003,#9e5f04)');
+                        break;
+                    case "영웅" : 
+                        setGemBackColor ('linear-gradient(135deg,#261331,#480d5d)');
+                        break;
+                    case "희귀" :
+                        setGemBackColor('linear-gradient(135deg,#111f2c,#113d5d)');
+                        break;
+                    case "고급" : 
+                        setGemBackColor('linear-gradient(135deg,#18220b,#304911)');
+                        break;
+                    default: 
+                        break;
+                }   
+            })     
+            setCharacterGems(GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)));
+        }
        
-            switch(Icon.Grade)
-            {
-                case "에스더" :
-                    setGemBackColor('linear-gradient(135deg,#0c2e2c,#2faba8)');
-                    break;
-                case "고대" : 
-                    setGemBackColor('linear-gradient(135deg,#3d3325,#dcc999)');
-                    break;
-                case "유물" : 
-                    setGemBackColor('linear-gradient(135deg,#341a09,#a24006)');
-                    break;
-                case "전설" : 
-                    setGemBackColor('linear-gradient(135deg,#362003,#9e5f04)');
-                    break;
-                case "영웅" : 
-                    setGemBackColor ('linear-gradient(135deg,#261331,#480d5d)');
-                    break;
-                case "희귀" :
-                    setGemBackColor('linear-gradient(135deg,#111f2c,#113d5d)');
-                    break;
-                case "고급" : 
-                    setGemBackColor('linear-gradient(135deg,#18220b,#304911)');
-                    break;
-                default: 
-                    break;
-            }   
-        })
-        
-        setCharacterGems(GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)));
     }, [])
       
 
@@ -321,10 +314,14 @@ function SkillArea({data, GemInfo}) {
                                 }
 
                                 return (
-                                    <img src={Icon.Icon} key={index} style={{background: backgroundColor}} />    
+                                    <div className="JemBox">
+                                        <img src={Icon.Icon} key={index} style={{background: backgroundColor}} />
+                                        <span className="JemLevel">7</span>
+                                    </div>
                                 )
                             }
                         ) : ""}
+                        
                     </div>
                 </div>
             </div>
