@@ -4,10 +4,12 @@ import Year from "react-live-clock";
 import Month from "react-live-clock";
 import "../Css/Calendar.scss";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
+import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 
 function AdventureIsland({today}) {
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const [AdventureIslandData, setAdventureIslandData] = useState([]);
+    const [ArrayIndex, setArrayIndex] = useState([false, false, false]);
     
      // 오늘의 모험섬 데이터 가져오기.
      async function getTodayAdventureIsland() {
@@ -49,19 +51,61 @@ function AdventureIsland({today}) {
     return (
         <div className="AdventureIslandBox">
         {AdventureIslandData.length !== 0 ? AdventureIslandData.map((Data, index) => {
+            
+            let Array = [];            
+            const Test = (Array) => {    
+                if(Data.RewardItems.length >= 6)
+                {
+                    let Array1 = [];
+                    for(let i=0; i < 6; i++)
+                    {
+                        Array1.push(Data.RewardItems[i]);
+                    }
+                    Array.push(Array1);
+                    if(Data.RewardItems.length > 6)
+                    {
+                        let Array2 = [];
+                        for(let i=6; i < Data.RewardItems.length; i++)
+                        {
+                            Array2.push(Data.RewardItems[i]);
+                        }
+                        Array.push(Array2);
+                    } 
+                }   
+            }
+            
+            Test(Array);
+
+            const BackClick = () => {
+                const aaa = ArrayIndex; 
+                aaa[index] = false;
+                setArrayIndex(aaa);
+            }
+
+            const FrontClick = () => {
+                const aaa = ArrayIndex; 
+                aaa[index] = true;
+                setArrayIndex(aaa);
+            }
+
+            let pagenumber = ArrayIndex[index] === true ? 1 : 0;
+
+
+            
             return (
                 <div className="MiniIslandBox" key={index}>
                     <img src={Data.ContentsIcon} alt="" className="IslandImage" onClick={() => console.log(Data)} />
                     <div className="TextInfo">
                         <div className="TopInfo">
-                            
                             <span className="IslandName">{Data.ContentsName}</span>
                         </div>
 
                         <div className="BottomInfo">
-
-                            {Data.RewardItems.map((Data2, index) => 
-                                {
+                        
+                        
+                            <FiArrowLeftCircle onClick={() => {BackClick()}} className="Icon" style={ArrayIndex[index] === false ? {display: "none"} : {}}/>
+                            {Array[pagenumber].map((Data2, index2) => 
+                            {
                                     let backgroundColor = '';
                                     switch(Data2.Grade)
                                     {
@@ -88,11 +132,15 @@ function AdventureIsland({today}) {
                     
                                     return (
                                         <>
-                                            <img key={index} style={{background: backgroundColor}} src={Data2.Icon} className="rewardImage"/>
+                                            <img key={index2} style={{background: backgroundColor}} src={Data2.Icon} className="rewardImage"/>
                                         </>
                                     )
                                 }
                             )}
+
+                            <FiArrowRightCircle onClick={() => {FrontClick()}} className="Icon" style={ArrayIndex[index] === true ? {display: "none"} : {}}/>
+                            
+                        
                         </div>
                     </div>
                 </div>
@@ -112,7 +160,7 @@ function ChallengeGuardian() {
             const response = await axios.get(`gamecontents/challenge-guardian-raids`, {
                 headers: {Authorization: `bearer ${Key}`}
             });
-            console.log(response.data)
+
             setChallengeGuardianInfo(response.data.Raids);
             
         
@@ -191,6 +239,10 @@ function Calendar() {
     
     const KorWeek = ['일', '월', '화', '수', '목', '금', '토', '일']; // 요일
     let now = new Date();
+    let lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    
+    
+
     const [today, setToday] = useState(
         {
             "year": now.getFullYear(),
@@ -199,6 +251,7 @@ function Calendar() {
             "korDate": KorWeek[now.getDay()],
         }
     ); // 오늘
+    
     const [ThisMonthlastDay, setThisMonthLastDay] = useState(new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()); // 오늘 기준으로 해당 달에 마지막날
     const [lastMonthFinalDay, setlastMonthFinalDay] = useState(new Date(now.getFullYear(), now.getMonth(), 0).getDate()); // 오늘 기준으로 지난 달에 마지막날
     const [TestArray, setTestArray] = useState([]);
@@ -210,6 +263,13 @@ function Calendar() {
         for(let i = -7; i <= 7; i++)
         {
             let minusDay = now.getDate() + i;
+            
+            if(minusDay > lastDay.getDate())
+            {
+                
+                minusDay = minusDay - lastDay.getDate();
+            }
+
             if(minusDay <= 0)
             {
                 const lastDays = new Date(`${now.getFullYear()}-${now.getMonth()}-${lastMonthFinalDay + minusDay}`).getDay();
@@ -219,11 +279,10 @@ function Calendar() {
                     "date": lastMonthFinalDay + minusDay,
                     "korDate": KorWeek[lastDays],
                 } 
-                
+                console.log(lastMonthInfo)
                 miniarray.push(lastMonthInfo);
                 
             } else {
-                
                 const lastDays = new Date(`${now.getFullYear()}-${now.getMonth() + 1}-${minusDay}`).getDay();
                 const lastMonthInfo = {
                     "year": now.getFullYear(),
@@ -231,6 +290,7 @@ function Calendar() {
                     "date": minusDay,
                     "korDate": KorWeek[lastDays],
                 } 
+                console.log(lastMonthInfo)
                 miniarray.push(lastMonthInfo );       
             }    
         }
@@ -268,103 +328,6 @@ function Calendar() {
     ]
 
     // 모험섬 데이터, 
-    const AdventureIslandImage = [
-        {
-            id: 1,
-            IslandName: "고요한 안식의 섬",
-            IslandImage: '/img/sabbath.png'
-        },
-        {
-            id: 2,
-            IslandName: "잔혹한 장난감 성",
-            IslandImage: '/img/brutaltoycastle.png'
-        },
-        {
-            id: 3,
-            IslandName: "환영 나비의 섬",
-            IslandImage: '/img/phantombutterfly.png'
-        },
-        {
-            id: 4,
-            IslandName: "수라도",
-            IslandImage: '/img/suras.png'
-        },
-        {
-            id: 5,
-            IslandName: "메데이아",
-            IslandImage: '/img/medeia.png'
-        },
-        {
-            id: 6,
-            IslandName: "스노우팡 아일랜드",
-            IslandImage: '/img/snow.png'
-        },
-        {
-            id: 7,
-            IslandName: "기회의 섬",
-            IslandImage: '/img/chance.png'
-        },
-        {
-            id: 8,
-            IslandName: "죽음의 협곡",
-            IslandImage: '/img/deathvalley.png'
-        },
-        {
-            id: 9,
-            IslandName: "우거진 갈대의 섬",
-            IslandImage: '/img/lushreeds.png'
-        },
-        {
-            id: 10,
-            IslandName: "포르페",
-            IslandImage: '/img/forpe.png'
-        },
-        {
-            id: 11,
-            IslandName: "볼라르 섬",
-            IslandImage: '/img/volare.png'
-        },
-        {
-            id: 12,
-            IslandName: "블루홀 섬",
-            IslandImage: '/img/bluehole.png'
-        },
-        {
-            id: 13,
-            IslandName: "하모니 섬",
-            IslandImage: '/img/harmony.png'
-        },
-        {
-            id: 14,
-            IslandName: "몬테 섬",
-            IslandImage: '/img/monte.png'
-        }, 
-    ];
-
-    // 모험섬 보상 데이터
-    // const reward = [
-    //     {
-    //         id: 1,
-    //         rewardName: "카드",
-    //         rewardImage: ["/img/island_cardpack.png", "/img/island_exp.png", "/img/island_heart.png", "/img/island_simbol.png"]
-    //     },
-    //     {
-    //         id: 2,
-    //         rewardName: "주화",
-    //         rewardImage: ["/img/island_coinbox.png", "/img/island_coin1.png", "/img/island_heart.png", "/img/island_simbol.png"]
-    //     },
-    //     {
-    //         id: 3,
-    //         rewardName: "실링",
-    //         rewardImage: ["/img/island_siling.png", "/img/island_heart.png", "/img/island_simbol.png"]
-    //     },
-    //     {
-    //         id: 4,
-    //         rewardName: "골드",
-    //         rewardImage: ["/img/island_gold.png", "/img/island_heart.png", "/img/island_simbol.png"]
-    //     }
-    // ]
-
 
     // 카운트
     const padNumber = (num, length) => {
@@ -400,7 +363,6 @@ function Calendar() {
     const [AdventureIslandTimer, setAdventureIslandTimer] = useState(0);
     const [NextsecTime, setNextsecTime] = useState(NextAdventureIsland[0] * 3600 - NowSecTime); // 다음 시간을 초로 변환
     // 다음 모험섬 시간을 구하는 함수
-    
     const [DayContentsTimer, setDayContentsTimer] = useState("");
   
     // 하루 콘텐츠 1시간
@@ -494,7 +456,7 @@ function Calendar() {
                             <p className="KorDate" style={Data.date == today.date ? {color: "white"} : {}}>{Data.korDate}</p>
                             <p className="Date" style={Data.korDate === "일" ? {color: 'red'} : {}}>{Data.date}</p>
                         </div>
-                        ))}
+                    ))}
                 </div>
 
                 <hr className="Line"/>
