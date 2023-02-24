@@ -15,9 +15,6 @@ function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, Quali
     let test = Object.entries(JSON.parse(Data.Tooltip))
     let filterItemPartBox = test.filter((Test) => Test[1].type === "ItemPartBox")
     
-    console.log(TooltipInfo)
-    
-
     return (
         <div className="ModalBigBox" style={ShowModalArea === true ?{display: "flex"} : {display: "none"}}>
             <div onClick={() => {console.log(TooltipInfo)}}>
@@ -294,7 +291,6 @@ function CharacterEquipment() {
             response.data[5] = response.data[0];
             response.data[0] = tmp;
             setEquipmentData(response.data)
-            
             
         } catch {
             console.log("에러발생")

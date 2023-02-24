@@ -58,13 +58,99 @@
             margin-left: 10px;
             width: calc(60% - 10px);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: space-between;    
             border-radius: 10px;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
+            background-color: none;
             
-          
+            .PropensityAndLevel {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: calc(70% - 30px);
+                height: 100%;
+                margin-right: 10px;
+
+                .Propensity {
+                    margin-top: 10px;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    padding: 2px 10px;
+                    width: calc(100% - 20px);
+                    height: 100%;
+                    border-radius: 10px;
+                    display: flex;
+                    align-items: center;        
+                    justify-content: space-around;
+                    
+                    div {
+                        width: calc(100% / 4 - 30px);
+                        font-size: 14px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-between;
+                    
+                        .Type {
+                            color: #7D8395;
+                            font-weight: 500;
+                        }
+
+                        .Point {
+                            font-size: 18px;
+                            margin-top: 5px;
+                            color: #353945;
+                            font-weight: 700;
+                        }
+                    }
+                }
+            }
+
+            .Equipment {
+                width: calc(100% - calc(70% - 10px));
+                height: 100%;
+                
+                .EquipmentBox {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    justify-content: center;
+                    margin-top: 10px;
+                    border: 1px solid rgba(0, 0, 0, 0.2);
+                    width: 100%;
+                    height: calc(100% - 34px);
+                    border-radius: 10px;
+                    
+                    .EquipmentInfo {
+                        
+                        width: 70%;
+                        display: flex;
+                        margin: 5px 0px 5px 10px;
+                        align-items: center;
+                        
+                        .BackgroundImg {
+                            background-size: contain;
+                            background-color: black;
+                            min-width: 25px;
+                            max-width: 25px;
+                            min-height: 25px;
+                            max-height: 25px;
+                            border-radius: 5px;
+                            margin-right: 10px;
+                            background-color: #ABACB8;
+
+                            img {
+                                border-radius: 5px;
+                                min-width: 25px;
+                                max-width: 25px;
+                                min-height: 25px;
+                                max-height: 25px;
+                                object-fit: contain;
+                            }
+                        }
+                    }
+                }            
+            }
+            
         }
     
     }   

@@ -6,6 +6,35 @@ import "../../Css/CharacterCollection.scss";
 import axios from "axios";
 
 function CharacterInfoTopArea({CharacterInfo}) {
+
+    const [EquipmentInfo, setEquipmentInfo] = useState(null);
+    const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
+    const NickName = useParams();
+    let array = [1, 2, 3];
+    
+    let BackgroundColor = "";
+
+    async function GetEquipment() {
+        try {
+            const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/equipment`, {
+                headers: {Authorization: `bearer ${Key}`}
+            });
+            
+            let filter = response.data.filter((Data) => Data.Type === "나침반" || Data.Type === "부적" || Data.Type === "문장");
+            console.log(filter)
+            setEquipmentInfo(filter)
+            
+        } catch {
+            console.log("에러발생")
+        }
+    }
+
+    useEffect(() => {
+        GetEquipment();
+    }, [])
+
+    
+
     return (
         <div className="CharacterInfoArea">
             {/* 캐릭터 정보 영역. */}
@@ -29,7 +58,81 @@ function CharacterInfoTopArea({CharacterInfo}) {
             </div>
 
             <div className="SecondBox">
-                <h3>아직 준비중입니다.</h3>
+                <div className="PropensityAndLevel">
+                    <h3>캐릭터 성향</h3>
+                    <div className="Propensity">
+                        {CharacterInfo.Tendencies.map((Data) => (
+                            <div>   
+                                <p className="Type">{Data.Type}</p>
+                                <p className="Point">{Data.Point}</p>
+                            </div>
+                        ))}
+                    </div>
+                    
+                </div>
+
+                <div className="Equipment">
+                    <h3>특수 장비</h3>   
+                    <div className="EquipmentBox">
+
+                        
+                        {EquipmentInfo !== null ? array.map((Data,index) => {
+
+                            if(EquipmentInfo[index] !== undefined)
+                            {
+                                let BackgroundColor = "black";
+                                let FontColor = ""
+
+                                if(EquipmentInfo[index].Grade === "유물")
+                                {
+                                    BackgroundColor = "linear-gradient(135deg,#341a09,#a24006)";
+                                    FontColor = "#FA5D00";
+                                } 
+                                else if(EquipmentInfo[index].Grade === "전설")
+                                {
+                                    BackgroundColor = "linear-gradient(135deg,#362003,#9e5f04)";
+                                    FontColor = "#F9AE00";
+                                }
+                                else if(EquipmentInfo[index].Grade === "영웅")
+                                {
+                                    BackgroundColor = "linear-gradient(135deg,#261331,#480d5d)";
+                                    FontColor = "#8045DD";
+                                } 
+                                else if(EquipmentInfo[index].Grade === "희귀")
+                                {
+                                    BackgroundColor = "linear-gradient(135deg,#111f2c,#113d5d)";
+                                    FontColor = "#2AB1F6";
+                                } 
+                                else if(EquipmentInfo[index].Grade === "고급")
+                                {
+                                    BackgroundColor = "linear-gradient(135deg,#18220b,#304911)";
+                                    FontColor = "#93BC46";
+                                }  
+
+                                return (
+                                    <div className="EquipmentInfo" key={index}>
+                                        <div className="BackgroundImg" >
+                                            <img src={ EquipmentInfo[index].Icon} alt="" style={{background: BackgroundColor}}/>
+                                        </div>
+                                        <h5 style={{color: FontColor}}>{EquipmentInfo[index].Name}</h5>
+                                    </div>
+                                )
+                            }
+                            else {
+                                return (
+                                    <div className="EquipmentInfo">
+                                        <div className="BackgroundImg"></div>
+                                        <h5></h5>
+                                    </div>
+                                )
+                            }
+                            
+                            
+                        }) : ""}
+                        
+
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -136,8 +239,6 @@ function CharacterCollection({CharacterInfo}) {
         }
     }
 
-    
-    
     useEffect(() => {
         GetCollectionData();
     }, [])
