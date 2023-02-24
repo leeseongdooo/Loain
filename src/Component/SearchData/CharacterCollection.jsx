@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {GiCrestedHelmet} from 'react-icons/gi';
+import {AiOutlineCheck} from 'react-icons/ai';
 import "../../Css/CharacterCollection.scss";
 import axios from "axios";
 
@@ -35,14 +36,14 @@ function CharacterInfoTopArea({CharacterInfo}) {
     )
 }
 
-function CategoryDesign({Data, setSelectCollectionName}) {
+function CategoryDesign({Data, setSelectCollectionName, ClickStyle}) {
 
     let Percent = ((Data.Point / Data.MaxPoint) * 100).toFixed(1);
     
-    const [Click, setClick] = useState(false);
 
+    
     return (
-        <div className="CategoryMiniBox" onClick={() => {setSelectCollectionName(Data.Type); setClick(!Click)}} style={Click === true ? {backgroundColor: "black", color: "pink"} : {backgroundColor: "white", color: "black"}}>
+        <div className={ClickStyle === true ? "CategoryMiniBox Click" : "CategoryMiniBox NoClick"} onClick={() => {setSelectCollectionName(Data.Type);}} >
             <p className="NumberOfCollection">{Data.Point}</p>
 
             <div className="Info">
@@ -62,7 +63,7 @@ function CategoryDesign({Data, setSelectCollectionName}) {
     )
 }
 
-function SelectedCollection({CollectionData, SelectCollectionName }) {
+function SelectedCollection({CollectionData, SelectCollectionName}) {
 
     const [Click, setClick] = useState(false);
     let Filter = [];
@@ -72,7 +73,7 @@ function SelectedCollection({CollectionData, SelectCollectionName }) {
         Filter = CollectionData.filter((Data) => Data.Type === SelectCollectionName);
     }
    
-
+    
     
     return (
         <div className="SelectedBox">
@@ -90,16 +91,21 @@ function SelectedCollection({CollectionData, SelectCollectionName }) {
             <div className="Contents-List">
                 {Filter.length > 0 ? Filter[0].CollectiblePoints.map((Data, index) => (
                     <>
-                            <div className="TextArea" style={Click === true && Data.Point === 0 ? {} : Click === false && Data.Point === 1 ? {} : {display: "none"}}>
+                            <div className="TextArea" style={Click === true && Data.Point === 0 ? {} : Click === true && Data.Point === Data.MaxPoint ? {display: "none"} : {}}>
                                 <div className="FirstBox">
-                                    <p className="Contents-Number">{index + 1}</p>
-                                    <p className="Contents-Name">{Data.PointName}</p>
-                                    <p style={Data.Point === 1 ? {} : {display: "none"}}>1</p>
+                                    <div style={{display: "flex", alignItems: "center"}}>
+                                        <p className="Contents-Number">{index + 1}</p>
+                                        <p className="Contents-Name">{Data.PointName}</p>
+                                    </div>
+                                    
+                                    <p style={Data.Point === 1 ? {} : {display: "none"}}>
+                                        <AiOutlineCheck className="Icon" />
+                                    </p>
                                 </div>
 
-                                <div className="SecondBox">
-                                    {SelectCollectionName !== "모코코 씨앗" ? <p>{Data.PointName}</p> : <p>{Data.Point} / {Data.MaxPoint}</p>}
-                                    
+                                <div className={SelectCollectionName !== "모코코 씨앗" ? "SecondBox" : "SecondBox YesMokoko"}>
+                                    {SelectCollectionName !== "모코코 씨앗" ? <p>{Data.PointName}</p> : <p className="MokokoLength">{Data.Point} / {Data.MaxPoint}</p>}
+                                    {SelectCollectionName === "모코코 씨앗" && Data.Point === Data.MaxPoint ? <AiOutlineCheck className="Icon" /> : <p className="NoIcon">&nbsp;</p>}
                                 </div>
                             </div>    
                         
@@ -145,7 +151,7 @@ function CharacterCollection({CharacterInfo}) {
             <CharacterInfoTopArea CharacterInfo={CharacterInfo}/>
             <div className="MiddleArea">
                 <div className="Collection-Category">
-                    {CollectionData !== null ? CollectionData.map((Data, index) => <CategoryDesign key={index} setSelectCollectionName={setSelectCollectionName} Data={Data}/>) : ""}
+                    {CollectionData !== null ? CollectionData.map((Data, index) => <CategoryDesign key={index} setSelectCollectionName={setSelectCollectionName} Data={Data} ClickStyle={SelectCollectionName === Data.Type ? true : false}/>) : ""}
                 </div>
 
                 <div className="Select-Collection-List">
