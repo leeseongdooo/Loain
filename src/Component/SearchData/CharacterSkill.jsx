@@ -343,6 +343,7 @@ function SkillArea({data, GemInfo}) {
 
 function CharacterSkill({CharacterInfo}) {
 
+    console.log(CharacterInfo)
     // 검색한 캐릭터의 이름. 
     const NickName = useParams();
     
@@ -360,7 +361,7 @@ function CharacterSkill({CharacterInfo}) {
             // SkillPoint가 1보다 크거나 룬읶져ㅕ 있거나.
             let filterSkill = response.data.filter((Data) => Data.Rune !== null || Data.Level > 1);
             setCharacterSkillInfo(filterSkill);
-            
+            console.log(response)
         } catch(Error) {
             console.log(Error);
         }
@@ -388,8 +389,11 @@ function CharacterSkill({CharacterInfo}) {
 
             <TopArea CharacterInfo={CharacterInfo} CharacterSkillInfo={CharacterSkillInfo !== null ? CharacterSkillInfo : []} />
             <div className="SkillBox">
-                {CharacterSkillInfo !== null ? CharacterSkillInfo.map((Data, index) => <SkillArea key={index} data={Data} GemInfo={CharacterSkillGems !== null ? CharacterSkillGems : ""} />) : "준비중"}
+                {CharacterSkillInfo !== null ? CharacterSkillInfo.map((Data, index) => <SkillArea key={index} data={Data} GemInfo={CharacterSkillGems !== null ? CharacterSkillGems : "스킬정보가 없어용"} />) : ""}
+            
+                {CharacterInfo.TotalSkillPoint === 0 ? <p className="NotSkillPoint">스킬 정보가 없어요! ㅜㅜ</p> : ""}
             </div>
+            
         </div>
     )
 }

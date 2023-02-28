@@ -174,9 +174,8 @@ function SelectedCollection({CollectionData, SelectCollectionName}) {
     if(CollectionData !== "")
     {
         Filter = CollectionData.filter((Data) => Data.Type === SelectCollectionName);
-    }
-   
-    
+        console.log(Filter)
+    }    
     
     return (
         <div className="SelectedBox">
@@ -201,7 +200,7 @@ function SelectedCollection({CollectionData, SelectCollectionName}) {
                                         <p className="Contents-Name">{Data.PointName}</p>
                                     </div>
                                     
-                                    <p style={Data.Point === 1 ? {} : {display: "none"}}>
+                                    <p style={Data.Point === Data.MaxPoint && Filter[0].Type !== "모코코 씨앗" ? {} : {display: "none"}}>
                                         <AiOutlineCheck className="Icon" />
                                     </p>
                                 </div>

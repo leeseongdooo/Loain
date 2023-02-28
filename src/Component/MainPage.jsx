@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Calendar from "./Calendar";
 import {IoIosArrowBack,IoIosArrowForward} from "react-icons/io";
 import "../Css/MainPage.scss";
@@ -7,10 +8,21 @@ import Event from "./Event";
 import SearchCharacter from "./SearchCharacter";
 
 function SearchCharacterInputArea() {
+
+  const [SearchNickName, setSearchNickName] = useState("");
+  const navigate = useNavigate();
+  
+  const SearchEnter = (e) => {
+    if (e.key === "Enter")
+    {
+      navigate(`/Search/${SearchNickName}`)  
+    }
+  }
+
   return (
     <div className="SearchCharacterInputAreaBox">
         <h1>LOA IN</h1>
-        <input type="text" placeholder="캐릭터명" className="InputNickName"/>
+        <input type="text" placeholder="캐릭터명" className="InputNickName" onChange={(e) => {setSearchNickName(e.target.value)}} onKeyPress={(e) => {SearchEnter(e)}} />
     </div>
   )
 }
