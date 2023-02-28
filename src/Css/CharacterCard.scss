@@ -56,6 +56,15 @@
         display: flex;
         justify-content: space-between;
         
+        .NoCardDesignBox {
+            margin: 0px 10px;
+            width: calc(100% / 6);
+            display: flex;
+            height: 150px;
+            background-color: #E6E8EC;
+            border-radius: 5px;
+        }
+
         .CardDesignBox {
             box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);
             display: flex;

@@ -4,9 +4,6 @@ import axios from "axios";
 import Parser from 'html-react-parser';
 import "../../Css/CharacterEquipment.scss";
 
-
-
-
 // 장비 모덜 창
 function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, QualityColor, ShowModalArea}) {
 
@@ -92,20 +89,14 @@ function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, Quali
 
 function EquipentArea({EquipmentData, Data, index}) {
 
-    const [BackColorStyle, setBackColorStyle] = useState(null);
-    const [FontColorStyle, setFontColorStyle] = useState(null);
-    
-    const [LvValue, setLvValue] = useState(null);
-    // 품질 그래프 색상
-    const [QualityValue, setQualityValue] = useState(null)
-    // 품질 문자 색상
-    const [QualityColor, setQualityColor] = useState(null);
-    // Tooltip에 대한 정보
-    const [TooltipInfo, setTooltipInfo] = useState(null);
-    // 마우스 OVER시 true로 변경
-    const [ShowModalArea, setShowModalArea] = useState(false);
-    // 팔찌
-    const [Bracelet, setBracelet] = useState([]);
+    const [BackColorStyle, setBackColorStyle] = useState(null); // 아이템 뒷 배경 
+    const [FontColorStyle, setFontColorStyle] = useState(null); // 아이템 폰트.
+    const [LvValue, setLvValue] = useState(null); // 세트레벨
+    const [QualityValue, setQualityValue] = useState(null) // 품질 그래프 색상
+    const [QualityColor, setQualityColor] = useState(null); // 품질 문자 색상
+    const [TooltipInfo, setTooltipInfo] = useState(null); // 품질 문자 색상
+    const [ShowModalArea, setShowModalArea] = useState(false); // 마우스 OVER시 true로 변경
+    const [Bracelet, setBracelet] = useState([]); // 팔찌
     
     // </img>의 위치를 담아놓는 배열
     const [ImgBasket, setImgBasket] = useState([50, 100, 200, 300, 400]);
@@ -114,9 +105,7 @@ function EquipentArea({EquipmentData, Data, index}) {
     const DataTypeArray = ['어깨', '투구', '상의', '하의', '장갑', '무기', '목걸이', '귀걸이', '귀걸이', '반지', '반지', '어빌리티 스톤', '팔찌'];
     const NickName = useParams();
 
-    
     let ExistAbilityStone = Data.Tooltip.includes("어빌리티 스톤");
-    console.log(ExistAbilityStone);
     
     useEffect(() => {
         setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
@@ -212,7 +201,6 @@ function EquipentArea({EquipmentData, Data, index}) {
         {
             for(let i=0; i < 5; i++)
             {
-                
                 let newNumber = TooltipInfo.Element_004.value.Element_001.indexOf('mg>', ImgBasket[i]);
 
                 setImgLocation([...ImgLocation, newNumber])
@@ -281,6 +269,27 @@ function CharacterEquipment() {
     const [EquipmentData, setEquipmentData] = useState();
     const [EngravingData, setEngravingData] = useState(null);
     
+    const GetEngravings = async () =>  {
+        try {
+            const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/engravings`, {
+                headers: {Authorization: `bearer ${Key}`}
+            });
+            console.log(response.data)
+
+            if(response.data !== null)
+            {
+                setEngravingData(response.data.Engravings);  
+            } else if (response.data === null)
+            {
+                setEngravingData(null);
+            }
+
+            
+        } catch (error) {
+            console.log(error)
+        }
+    };
+    
     const GetEquipment = async () => {
         try {
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/equipment`, {
@@ -297,20 +306,11 @@ function CharacterEquipment() {
         }
     }
 
-    const GetEngravings = async () =>  {
-        try {
-            const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/engravings`, {
-                headers: {Authorization: `bearer ${Key}`}
-            });
-            setEngravingData(response.data.Engravings);  
-        } catch (error) {
-            console.log(error)
-        }
-    };
+   
 
     useEffect(() => {
-       GetEquipment();
-       GetEngravings();
+        GetEngravings();
+        GetEquipment();
     }, [NickName])
     
     return (
@@ -332,13 +332,19 @@ function CharacterEquipment() {
                                 <img src={Data.Icon} alt="각인 아이콘" />
                                 <div>
                                     <h5>{Data.Name}</h5>
-                                    <span onClick={() => {console.log(Data.Tooltip)}}>활성 포인트 
+                                    <span>활성 포인트 
                                         {Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 3).includes("<") ? Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 2) : Data.Tooltip.substr(Data.Tooltip.indexOf("활성 포인트") + 7, 3)}
                                     </span>
                                 </div>
                                 
                             </div>
-                        )) : ""}
+                        )) : 
+                            <div className="NotHaveEngravingInfo">
+                                <div></div>
+                                <div></div>
+                            </div>
+                        
+                        }
                     </div>
                 </div>
 
