@@ -77,7 +77,11 @@ function CharacterCard() {
                 }
                 console.log(Test);
                 setCardInfo(Test);
-            } 
+            } else if (response.data === null)
+            {
+             setEffectInfo(null);
+             setCardInfo(null)
+            }
             
         } catch(Error) {
             console.log(Error)

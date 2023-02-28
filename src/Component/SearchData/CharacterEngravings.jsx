@@ -40,8 +40,15 @@ function CharacterEngravings() {
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/engravings`, {
                 headers: {Authorization: `bearer ${Key}`}
             });
-            setEquipmentData(response.data.Effects);  
-            console.log(response);
+
+            if(response.data !== null)
+            {
+                setEquipmentData(response.data.Effects);  
+            } else if (response.data === null)
+            {
+                setEquipmentData(null);
+            }
+            
         } catch (error) {
             console.log(error)
         }
@@ -62,7 +69,7 @@ function CharacterEngravings() {
                 </div>
                 
                 {EngravingsInfo !== null ? <DescriptionText EngravingsInfo={EngravingsInfo} setEngravingsInfo={setEngravingsInfo}/> : <span></span>}
-            </div> : <div className="EngravingsBox"><p className="GuideText">정보X</p></div> }
+            </div> : <div className="EngravingsBox"><p className="GuideText">각인</p></div> }
         </>
     )
 }

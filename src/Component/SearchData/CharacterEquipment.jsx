@@ -87,8 +87,19 @@ function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, Quali
 } 
 
 
+function NoEquipmentArea() {
+    return (
+        <div className="EquipmentInfo" >
+            <div className="ImageArea">
+                 <img src="" alt="" />
+            </div>
+        </div>
+    )
+}
+
 function EquipentArea({EquipmentData, Data, index}) {
 
+    
     const [BackColorStyle, setBackColorStyle] = useState(null); // 아이템 뒷 배경 
     const [FontColorStyle, setFontColorStyle] = useState(null); // 아이템 폰트.
     const [LvValue, setLvValue] = useState(null); // 세트레벨
@@ -111,7 +122,7 @@ function EquipentArea({EquipmentData, Data, index}) {
         setLvValue(Data.Tooltip.substr(Data.Tooltip.indexOf("세트 효과 레벨") + 66, 4));
         setQualityValue(parseInt(Data.Tooltip.substr(Data.Tooltip.indexOf('qualityValue') + 15, 3)));
         setTooltipInfo(JSON.parse(Data.Tooltip));
-        
+            
         if(Data.Type === "팔찌" && TooltipInfo !== null && TooltipInfo.Element_004.value.Element_001 !== undefined) 
         {
             const Data2 = [];
@@ -194,8 +205,6 @@ function EquipentArea({EquipmentData, Data, index}) {
 
     }, [EquipmentData, NickName, QualityValue]);
     
-
-
     const ClickFunction = () => {
         if(TooltipInfo !== null)
         {
@@ -208,8 +217,6 @@ function EquipentArea({EquipmentData, Data, index}) {
             console.log(ImgLocation)
         }
     }
-
-
 
     return (
         <div className="EquipmentInfo" >
@@ -266,7 +273,7 @@ function CharacterEquipment() {
 
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const NickName = useParams();
-    const [EquipmentData, setEquipmentData] = useState();
+    const [EquipmentData, setEquipmentData] = useState(null);
     const [EngravingData, setEngravingData] = useState(null);
     
     const GetEngravings = async () =>  {
@@ -274,7 +281,6 @@ function CharacterEquipment() {
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/engravings`, {
                 headers: {Authorization: `bearer ${Key}`}
             });
-            console.log(response.data)
 
             if(response.data !== null)
             {
@@ -296,36 +302,68 @@ function CharacterEquipment() {
                 headers: {Authorization: `bearer ${Key}`}
             });
             
-            let tmp =  response.data[5];
-            response.data[5] = response.data[0];
-            response.data[0] = tmp;
-            setEquipmentData(response.data)
+            if(response.data !== null) {
+                let tmp =  response.data[5];
+                response.data[5] = response.data[0];
+                response.data[0] = tmp;
+                setEquipmentData(response.data)
+            } else if (response.data === null)
+            {
+                setEquipmentData(null)
+            }
+            
             
         } catch {
             console.log("에러발생")
         }
     }
 
+    let NoEquipment = [];
    
 
     useEffect(() => {
         GetEngravings();
         GetEquipment();
     }, [NickName])
+
+    if(EquipmentData !== null)
+    {
+        let test = 13 - EquipmentData.length;
+
+        for(let i = 0; i < test; i++)
+        {
+            NoEquipment.push(i);
+        }
+    } else {
+        for(let i = 0; i < 13; i++)
+        {
+            NoEquipment.push(i);
+        }
+    }
     
     return (
         <div className="EquipmentParentBox">
             <div className="EquipmentZone">
                 
                 <div className="FirstBox">
-                    {EquipmentData !== undefined ? EquipmentData.map((Data, index) => {
+                    {EquipmentData !== null ? EquipmentData.map((Data, index) => {
                         if(index < 6)
                         {
                             return (  
                                     <EquipentArea key={index} EquipmentData={EquipmentData} Data={Data} index={index} />
                             )
                         }
-                    } ): "로딩중"}
+                    }) : NoEquipment.map((Data, index) => {    
+                        if(NoEquipment.length > 6 )
+                        {
+                            if(index < 6) {
+                                return (  
+                                    <NoEquipmentArea key={index}  />            
+                                )
+                            }
+                            
+                        }
+                    })}
                     <div className="EngravingBox">
                         {EngravingData !== null ? EngravingData.map((Data) => (
                             <div className="EngravingInfo">
@@ -349,17 +387,31 @@ function CharacterEquipment() {
                 </div>
 
                 <div className="SecondBox">
-                    {EquipmentData !== undefined ? EquipmentData.map((Data, index) => {
+                    {EquipmentData !== null && EquipmentData.length > 6 ? EquipmentData.map((Data, index) => {
                         if(index >= 6 && index < 13)
                         {
                             return (  
                                     <EquipentArea key={index} EquipmentData={EquipmentData} Data={Data} index={index} />
                             )
-                        }
-                    } ): "로딩중"}
-                </div>
+                        } 
+                    }): NoEquipment.length > 1 ? NoEquipment.map((Data, index) => {    
+                            if(NoEquipment.length > 8)
+                            {
+                                if(index >= 6) {
+                                    return (  
+                                        <NoEquipmentArea key={index}  />            
+                                    )
+                                }   
+                            } else {
+                                return (
+                                    <NoEquipmentArea key={index}  />            
+                                )
+                            }
+                            
+                       
+                    }) : "1"}
 
-               
+                </div>
             </div>
             
             
