@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BiSearchAlt2, BiExit } from "react-icons/bi";
 import { RiArrowUpSFill } from "react-icons/ri";
@@ -32,7 +32,12 @@ function Header() {
   const [LoginStates, setLoginState] = useState(window.localStorage.getItem("LoginState"));
   const [SearchNickName, setSearchNickName] = useState("");
   const [SearchFoucs, setSearchFocus] = useState(false);
+  
+  const location = useLocation();
+  
+
   const NickName = useState(window.localStorage.getItem("userNickName"));
+  
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +62,7 @@ function Header() {
       <div className="CenterBox">
         <div className="textBox">
           <div>
-            <Link to="/Guild">길드정보</Link>
+            <Link to="/Guild" style={location.pathname === "/Guild" ? {color: "royalblue"} : {}}>길드정보</Link>
           </div>
           
           <div>

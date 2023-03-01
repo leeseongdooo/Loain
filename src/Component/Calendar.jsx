@@ -16,6 +16,12 @@ function AdventureIsland({today}) {
         try {
         
         let today2 = `${today.year}-0${today.month}-${today.date}`;
+        
+        // today.date가 10보다 작으면 앞에 0 붙여주기
+        if(today.date < 10)
+        {
+            today2 = `${today.year}-0${today.month}-0${today.date}`
+        }
             
         //응답 성공
         const response = await axios.get(`/gamecontents/calendar`, {
@@ -23,8 +29,9 @@ function AdventureIsland({today}) {
         });
         
         let FirstFilter = response.data.filter((data) => data.CategoryName === "모험 섬");
-        
+        console.log(FirstFilter);
         let test = [];
+
         FirstFilter.map((data) => {
             for(let i = 0; i < data.StartTimes.length; i++)
             {
@@ -183,7 +190,7 @@ function ChallengeGuardian() {
                     
                     <div className="TextArea">
                         <p className="Name">{Data.Name}</p>
-                        <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p>
+                        {/* <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p> */}
                     </div>
                 </div>
             )) : ""}
@@ -223,7 +230,7 @@ function ChallengeAbyss() {
                     <img src={Data.Image} alt="가디언 이미지" />
                     <div className="TextArea">
                         <p className="Name">{Data.Name}</p>
-                        <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p>
+                        {/* <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p> */}
                     </div>
                 </div>
             )) : ""}
@@ -279,7 +286,7 @@ function Calendar() {
                     "date": lastMonthFinalDay + minusDay,
                     "korDate": KorWeek[lastDays],
                 } 
-                console.log(lastMonthInfo)
+                
                 miniarray.push(lastMonthInfo);
                 
             } else {
@@ -290,7 +297,7 @@ function Calendar() {
                     "date": minusDay,
                     "korDate": KorWeek[lastDays],
                 } 
-                console.log(lastMonthInfo)
+               
                 miniarray.push(lastMonthInfo );       
             }    
         }

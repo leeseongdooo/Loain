@@ -16,7 +16,6 @@ function GuildRank() {
         const response = await axios.get(`guilds/rankings?serverName=${ChooseServer}`, {
                 headers: {Authorization: `bearer ${Key}`}
           }); 
-        console.log(response.data);
         setGuildData(response.data);
       } catch(Error) {
         console.log(Error);
@@ -29,7 +28,6 @@ function GuildRank() {
 
     return (
         <div className="GuildRankBox">
-            <h3>길드정보</h3>
             <div className="TopArea">
                 {ServerList.map((Data, index) => (
                   <div key={index} className="ServerListStyle" style={ClickNumber === index ? {backgroundColor: "royalblue", color: "white"} : {}}>
@@ -46,8 +44,8 @@ function GuildRank() {
             </div>
 
             <div className="MiddleArea">
-                  {GuildData !== null ? GuildData.map((List) => (
-                    <div className="ListForm">
+                  {GuildData !== null ? GuildData.map((List, index) => (
+                    <div className="ListForm" key={index}>
                         <p>{List.Rank}</p>
                         <p>{List.GuildName}</p>
                         <p>{List.MemberCount}명</p>

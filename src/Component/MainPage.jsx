@@ -28,53 +28,43 @@ function SearchCharacterInputArea() {
 }
 
 function NoticeArea() {
+  const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
+  const [LostArk_NoticeInformation, setLostArk_NoticeInformation] = useState(null);
 
-  const LostArk_NoticeInformation = [
-    {
-      id: 1,
-      Name: "2월 8일(수) 클라이언트 패치 안내",
-      type: "공지",
-      link: "https://lostark.game.onstove.com/News/Notice/Views/2290?page=1&searchtype=0&searchtext=&noticetype=all"
-    },
-    {
-      id: 2,
-      Name: "큐브 및 보스러시 콘텐츠 통합에 따른 기존 콘텐츠 입장권 교환정보 사전 안내",
-      type: "공지",
-      link: "https://lostark.game.onstove.com/News/Notice/Views/2289?page=1&searchtype=0&searchtext=&noticetype=all"
-    },
-    {
-      id: 3,
-      Name: "2월 8일(수) 로스트아크 정기 점검 완료 안내",
-      type: "공지",
-      link: "https://lostark.game.onstove.com/News/Notice/Views/2288?page=1&searchtype=0&searchtext=&noticetype=all"
-    },
-    {
-      id: 4,
-      Name: "2월 8일 신규 캐릭터 생성 가능 수치 적용 안내",
-      type: "공지",
-      link: "https://lostark.game.onstove.com/News/Notice/Views/2287?page=1&searchtype=0&searchtext=&noticetype=all"
-    },
-    {
-      id: 5,
-      Name: "알려진 이슈를 안내해 드립니다. (2/9 수정)",
-      type: "공지",
-      link: "https://lostark.game.onstove.com/News/Notice/Views/2286?page=1&searchtype=0&searchtext=&noticetype=all"
-    },
-  ]
+  async function GetNotice() {
+    try {
+      const response = await axios.get(`/news/notices`, {
+        headers: {Authorization: `Bearer ${Key}`,}
+      });
+      setLostArk_NoticeInformation(response.data);
+    } catch (Error){
+      console.log(Error)
+    }
+  }
+
+  useEffect(() => {
+    GetNotice();  
+  }, [])
+  
 
   return (
     <div className="NoticeAreaBox">
       {/* 로스트아크 공지사항 */}
       <div className="InnerNoticeBox">
-        <a href="/" className="Title">로스트아크 공지사항</a>
+        <a href="https://lostark.game.onstove.com/News/Notice/List" target="_blank" className="Title">로스트아크 공지사항</a>
         <div className="LostArk_Notice">
           <div className="Notice_BasketBox">
-            {LostArk_NoticeInformation.map((Data) => (
-              <div className="MiniNoticeBox">
-                <div style={Data.type === "공지" ? {color: "#222222"} : Data.type === "점검" ? {color: "#687de5"} : Data.type === "상점" ? {color: "#05b9b3"} : {color: "#9c69bf"}}>{Data.type}</div>
-                <a href={Data.link} target="_blank" className="Notice_Name">{Data.Name}</a>
-              </div>
-            ))}
+            {LostArk_NoticeInformation !== null ? LostArk_NoticeInformation.map((Data, index) => {
+              if(index < 5)
+              {
+                return (
+                 <div className="MiniNoticeBox">
+                   <div style={Data.Type === "공지" ? {color: "#222222"} : Data.Type === "점검" ? {color: "#687de5"} : Data.Type === "상점" ? {color: "#05b9b3"} : {color: "#9c69bf"}}>{Data.Type}</div>
+                   <a href={Data.Link} target="_blank" className="Notice_Name">{Data.Title}</a>
+                 </div>
+              )
+              }
+            }) : ""}
           </div>
         </div>
       </div>
@@ -84,12 +74,7 @@ function NoticeArea() {
         <a href="/" className="Title">로아인 공지사항</a>
         <div className="LOAIN_Notice">
           <div className="Notice_BasketBox">
-            {LostArk_NoticeInformation.map((Data) => (
-              <div className="MiniNoticeBox">
-                <div style={Data.type === "공지" ? {color: "#222222"} : Data.type === "점검" ? {color: "#687de5"} : Data.type === "상점" ? {color: "#05b9b3"} : {color: "#9c69bf"}}>{Data.type}</div>
-                <a href={Data.link} target="_blank" className="Notice_Name">{Data.Name}</a>
-              </div>
-            ))}
+           
           </div>
         </div>
       </div>
