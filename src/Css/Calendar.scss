@@ -1,9 +1,11 @@
 // 캘린더 최상위 div
+
+
 .CalenderBigBox {
     display: flex;
     flex-direction: column;
-    min-width: 90%;
-    max-width: 90%;
+    min-width: 70%;
+    max-width: 70%;
     margin-top: 20px;
 
     .TitleAndTimer {
@@ -301,5 +303,12 @@
         }
 
         
+    }
+}
+
+
+@media all and (max-width:420px) {
+    .CalenderBigBox {
+        display: none;
     }
 }

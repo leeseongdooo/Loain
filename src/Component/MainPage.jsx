@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Calendar from "./Calendar";
 import {IoIosArrowBack,IoIosArrowForward} from "react-icons/io";
 import "../Css/MainPage.scss";
-import Event from "./Event";
 import SearchCharacter from "./SearchCharacter";
 
 function SearchCharacterInputArea() {
@@ -85,14 +84,70 @@ function NoticeArea() {
 
 
 function MainPage() {
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
+  const accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
 
   const [EventData, setEventData] = useState([]);
-  const [SlideWidth, setSlideWidth] = useState(0);
+  
+  const [TouchStartWidth, setTouchStartWidth] = useState(0);
+  const [TouchEndWidth, setTouchEndWidth] = useState(0);
+
+  const [NowSlideWidth, setNowSlideWidth] = useState(0);
+
   const [SlideCount, setSlideCount] = useState(0);
   const EventRef = useRef();
+  
+  const TouchStart = (e, scroll) => {
+    setTouchStartWidth(e.touches[0].pageX);
+  
+    console.log(e.touches[0].pageX)
+  }
 
+  const prev = () => {
+    console.log("현재 위치" + NowSlideWidth)
+    if(NowSlideWidth < 0)
+    {
+      setNowSlideWidth(NowSlideWidth + EventRef.current.clientWidth + 10);
+    } 
+
+    if(NowSlideWidth < -100)
+    {
+      setNowSlideWidth(0);
+    }
+    
+  }
+
+  const next = () => {
+    console.log("현재 위치" + NowSlideWidth)
+    if(NowSlideWidth <= 0)
+    {
+      setNowSlideWidth(NowSlideWidth - EventRef.current.clientWidth - 10);
+    }
+    
+  }
+
+  const TouchEnd = (e) => {
+    
+    setTouchEndWidth(e.changedTouches[0].pageX);
+    console.log(e.changedTouches[0].pageX);
+    console.log(EventData.length * 10 + EventData.length * EventRef.current.clientWidth);
+    
+    if(e.changedTouches[0].pageX < TouchStartWidth)
+    {
+      next();
+      if(-(EventData.length * 10 + EventData.length * EventRef.current.clientWidth) > NowSlideWidth)
+      {
+        setNowSlideWidth(0);
+      }
+
+    } else {
+      prev();
+    }
+  }
+
+  const leftClick = () => {
+    setNowSlideWidth(NowSlideWidth + EventRef.current.clientWidth + 10); 
+    setSlideCount(SlideCount - 1)
+  }
 
   useEffect(() => {
     axios
@@ -111,10 +166,7 @@ function MainPage() {
       
   }, []);
 
-  const leftClick = () => {
-    setSlideWidth(SlideWidth + EventRef.current.clientWidth + 10); 
-    setSlideCount(SlideCount - 1)
-  }
+ 
 
   return (
     <div className="MainPageBox">
@@ -124,9 +176,9 @@ function MainPage() {
           <span className="IntroduceEvent">진행중인 이벤트 {EventData.length !== 0 ? EventData.length + "개" : ""}</span>
           
           <div className="EventBox">
-            <IoIosArrowBack className="Icon left" onClick={() => {SlideWidth < 0 ? leftClick() : console.log("NO") }} style={SlideWidth >= 0 ? {color: "gray"} : {color: "black"}}/>
-                <div className="ParentBox">
-                  <div className="InnerBox" style={{left: SlideWidth}}>
+            <IoIosArrowBack className="Icon left" onClick={() => {NowSlideWidth < 0 ? leftClick() : console.log("NO") }} style={NowSlideWidth >= 0 ? {color: "gray"} : {color: "black"}}/>
+                <div className="ParentBox"  onTouchStart={(e) => {TouchStart(e)}} onTouchEnd={(e) => {TouchEnd(e)}}>
+                  <div className="InnerBox" style={{ transform: `translate(${NowSlideWidth}px, 0px)` }}>
                     {EventData.length !== 0 ? EventData.map((Data ,index) => {
                       return (
                         <a href={Data.Link} key={index} target="_blank">
@@ -149,7 +201,7 @@ function MainPage() {
                   }) : ""}
                 </div>
               </div>
-              <IoIosArrowForward className="Icon right" style={EventData.length - 1 === SlideCount && EventData.length !== 0 ? {display: "none"} : {display: "block"}}onClick={() => {setSlideWidth(SlideWidth - EventRef.current.clientWidth - 10); setSlideCount(SlideCount + 1)}}/>
+              <IoIosArrowForward className="Icon right" onClick={() => {setNowSlideWidth(NowSlideWidth - EventRef.current.clientWidth - 10); setSlideCount(SlideCount + 1)}}/>
         </div>
       </div>
     

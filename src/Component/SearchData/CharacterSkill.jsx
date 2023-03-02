@@ -211,8 +211,9 @@ function SkillArea({data, GemInfo}) {
         }
        
 
+        console.log(GemInfo);
         let FilterGems = GemInfo !== "" ? GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)) : undefined;
-        
+       
         if(FilterGems !== undefined)
         {
             FilterGems.map((Icon, index) => {
@@ -389,7 +390,7 @@ function CharacterSkill({CharacterInfo}) {
 
             <TopArea CharacterInfo={CharacterInfo} CharacterSkillInfo={CharacterSkillInfo !== null ? CharacterSkillInfo : []} />
             <div className="SkillBox">
-                {CharacterSkillInfo !== null ? CharacterSkillInfo.map((Data, index) => <SkillArea key={index} data={Data} GemInfo={CharacterSkillGems !== null ? CharacterSkillGems : "스킬정보가 없어용"} />) : ""}
+                {CharacterSkillInfo !== null ? CharacterSkillInfo.map((Data, index) => <SkillArea key={index} data={Data} GemInfo={CharacterSkillGems !== null ? CharacterSkillGems : ""} />) : ""}
             
                 {CharacterInfo.TotalSkillPoint === 0 ? <p className="NotSkillPoint">스킬 정보가 없어요! ㅜㅜ</p> : ""}
             </div>

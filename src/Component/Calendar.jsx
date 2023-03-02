@@ -80,9 +80,8 @@ function AdventureIsland({today}) {
                     } 
                 }   
             }
-            
             Test(Array);
-
+            
             const BackClick = () => {
                 const aaa = ArrayIndex; 
                 aaa[index] = false;
@@ -90,15 +89,17 @@ function AdventureIsland({today}) {
             }
 
             const FrontClick = () => {
-                const aaa = ArrayIndex; 
-                aaa[index] = true;
-                setArrayIndex(aaa);
+                if(Array.length > 6)
+                {
+                    const aaa = ArrayIndex; 
+                    aaa[index] = true;
+                    setArrayIndex(aaa);
+                }
             }
 
             let pagenumber = ArrayIndex[index] === true ? 1 : 0;
+     
 
-
-            
             return (
                 <div className="MiniIslandBox" key={index}>
                     <img src={Data.ContentsIcon} alt="" className="IslandImage" onClick={() => console.log(Data)} />
@@ -145,7 +146,7 @@ function AdventureIsland({today}) {
                                 }
                             )}
 
-                            <FiArrowRightCircle onClick={() => {FrontClick()}} className="Icon" style={ArrayIndex[index] === true ? {display: "none"} : {}}/>
+                            <FiArrowRightCircle onClick={() => {FrontClick()}} className="Icon" style={ArrayIndex[index] === true || Array.length <= 6  ? {display: "none"} : {}}/>
                             
                         
                         </div>

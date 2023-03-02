@@ -1,9 +1,13 @@
+
+// pc-version
+@media all and (min-width: 700px)
+{
 // 헤더에서 가장 큰 부모요소.
 .HeaderParent {
   position: relative;
+  width: calc(100% - 40px);
   background-color: white;
-  width: calc(100% - 80px);
-  padding: 0px 40px;
+  padding: 0px 20px;
   min-height: 80px;
   max-height: 80px;
   display: flex;
@@ -17,64 +21,69 @@
     text-decoration: none; // 폰트 아래 밑줄을 지웁니다.
   }
 
-  .LogoFont {
-    font-size: 24px;
-    font-weight: 700; // 두껍게 설정하기 위해 700으로 지정
-  }
-
-  // 페이지를 이동할 수 있는 메뉴, 캐릭터를 검색하는 input을 담은 div
-  .CenterBox {
-    padding: 3px 0px;
-    width: 85%;
+  .PcVersion {
+    width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-
-    .textBox {
-      width: 40%;
+  
+    .FirstBox {
       display: flex;
       align-items: center;
-     
-      
-      div {
-        transition: .1s;
+
+      .LogoFont {
+        margin-right: 20px;
+        font-size: 24px;
+        font-weight: 700; // 두껍게 설정하기 위해 700으로 지정
+      }
+
+      .textBox {
         display: flex;
         align-items: center;
-        justify-content: center;
-        a {
-          padding: 0px 15px;
-          font-size: 16px;
-          font-weight: bold;
-          color: #7D8395;
-        } 
-
-        a:first-child {
-          margin-left: 0px;
-        }
-      }
-
-      div:hover {
-        a {
-          color: #8045DD;
-        }
-
-        border-bottom: 2px solid #8045DD;
-      }
       
-     
-    }
-    
+        div {
+          transition: .1s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          a {
+            padding: 0px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #7D8395;
+          } 
 
-      // 공격대를 검색하는 div에 대한 Css입니다.
-    .SearchBox {
-      transition: .3s;
-      border-radius: 10px;
-      margin-right: 10px;
-      border: 2px solid #e5e7eb;
-      width: 227px;
-      height: 40px;
+          a:first-child {
+            margin-left: 0px;
+          }
+        }
+
+        div:hover {
+          a {
+            color: #8045DD;
+          }
+
+          border-bottom: 2px solid #8045DD;
+        }
+      }
+    }
+
+    // 페이지를 이동할 수 있는 메뉴, 캐릭터를 검색하는 input을 담은 div
+    .SecondBox {
       display: flex;
+      justify-content: flex-end;
       align-items: center;
+    
+      // 공격대를 검색하는 div에 대한 Css입니다.
+      .SearchBox {
+        transition: .3s;
+        border-radius: 10px;
+        margin-right: 10px;
+        border: 2px solid #e5e7eb;
+        width: 170px;
+        height: 40px;
+        display: flex;
+        align-items: center;
 
       // 돋보기 아이콘에 대한 CSS
       #SearchIcon {
@@ -95,10 +104,11 @@
 
   .utility {
     
+   
     a {
       font-size: 16px;
       font-weight: bold;
-      color: #8045DD;
+      color: royalblue;
       margin: 0px 10px;
     }
 
@@ -153,8 +163,108 @@
         background-color: red;
         color: white;
       }
-
-
+      }
     }
   }
+
 }
+
+}
+
+// Mobile Version
+@media all and (max-width:700px) {
+  
+
+// 헤더에서 가장 큰 부모요소.
+.HeaderParent {
+  position: relative;
+  background-color: white;
+  width: calc(100% - 80px);
+  padding: 0px 40px;
+  min-height: 80px;
+  max-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+
+  // 부모요소안에 있는 모든 a태그에게 적용될 css 입니다.
+  a {
+    color: black;
+    text-decoration: none; // 폰트 아래 밑줄을 지웁니다.
+  }
+
+  .LogoFont {
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 700; // 두껍게 설정하기 위해 700으로 지정
+  }
+
+  .MobileVersion {
+    width: calc(100% + 810px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    .Icon {
+      cursor: pointer;
+      font-size: 24px;
+    }
+
+    // 모바일 메뉴바
+    .ActiveMenu {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      top: 0;
+      right: -1000px;
+      transition: 1s;
+      width: 50%;
+      min-height: 99vh;
+      background-color: white;
+      z-index: 100;
+      border-top-left-radius: 10px;
+      border-bottom-left-radius: 10px;
+      box-shadow: 0px 3px 13px rgba(0, 0, 0, 0.3);
+      
+      // 취소 아이콘
+      .IconBox {
+        width: 80%;
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .Icon {
+          font-size: 24px;
+        }
+      }
+
+      .textBox {
+        margin-top: 100px;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        height: 500px;
+        
+        div {
+          width: 100%;
+          margin: 10px 0px;
+          text-align: right;
+          a {
+            width: 100%;
+            font-size: 20px;
+            font-weight: 700;
+          }
+        }
+        
+      }
+    }
+
+  }
+}
+
+
+}
+
+
+
