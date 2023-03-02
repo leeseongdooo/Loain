@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/Login" element={<Login />}></Route>
           <Route path="/Search/:searchCharacter" element={<SearchCharacter/>}></Route>
-          <Route path="/GuildRank" element={<GuildRank />}/>
+          <Route path="/Guild" element={<GuildRank />}/>
         </Routes>
       </BrowserRouter>
     </div>

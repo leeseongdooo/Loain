@@ -1,0 +1,151 @@
+.CharacterCardBox {
+    padding: 0px 10px;
+    width: calc(56%);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);    
+    height: 270px;
+ 
+    .ShowEffect {
+        padding: 10px 0px 0px 0px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+
+        .Icon {
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    }
+
+    .TopArea {
+        width: calc(100% - 20px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+    
+        .GuideText {
+            width: 70px;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 30px;
+            background-color: rgba(128, 69, 221, 0.149);
+            color: #8045DD;
+            text-align: center;
+            margin: 5px 0px;
+        }
+
+        .TopArea_Text {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            .ActiveEffectName {
+                font-size: 16px;
+                font-weight: 700;
+            }
+        }
+        
+    }
+
+    .BottomArea {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        
+        .NoCardDesignBox {
+            margin: 0px 10px;
+            width: calc(100% / 6);
+            display: flex;
+            height: 150px;
+            background-color: #E6E8EC;
+            border-radius: 5px;
+        }
+
+        .CardDesignBox {
+            box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            
+            .CardImage {
+                margin: 5px;
+                max-width: 95px;
+                max-height: 140px;
+            }   
+
+            .UnAwakeImage {  
+                position: absolute;
+                left: 15px;
+                bottom: 35px;
+                min-width: 74px;
+                max-width: 74px;
+                height: 1.25rem;
+                z-index: 1;
+                background-size: 74px;
+                background-repeat: no-repeat;
+                
+                .AwakeImage {
+                    position: absolute;
+                    background-position: 0 -24px;
+                    background-repeat: no-repeat;
+                    background-size: 74px;
+                    bottom: 0;
+                    left: 0;
+                    min-width: 0px;
+                    max-width: 74px;
+                    min-height: 20px;
+                    max-height: 20px;
+                    z-index: 2;
+                    
+                }
+            }
+
+            .CardName {
+                font-size: 12px;
+                font-weight: 700;
+                margin-bottom: 5px;
+            }
+        }
+
+
+        .Show_CardEffectText {
+            display: flex;
+            height: 150px;
+            margin-left: 10px;
+            flex-direction: column;
+            flex-wrap: wrap;
+            width: 100%;
+            
+            .CardEffectTextZone {
+                display: flex;
+                align-items: center;
+                width: calc(50%);
+                margin: 10px 0px;
+                margin-bottom: 15px;
+                .ActiveSet {
+                    text-align: center;
+                    box-sizing: content-box;
+                    min-width: 40px;
+                    max-width: 40px;
+                    padding: 3px 10px;
+                    font-size: 12px;
+                    background-color: #E6E8EC;
+                    border-radius: 15px;
+                    margin-right: 10px;
+                }
+
+                .SetDescription {
+                    max-width: 230px;
+                    font-size: 14px;
+                    font-weight: 700;
+                }
+            }
+        }
+        
+    }
+}

@@ -6,6 +6,7 @@ import {GiCrestedHelmet} from 'react-icons/gi'
 import CharacterEngravings from "./CharacterEngravings";
 import CharacterEquipment from "./CharacterEquipment";
 import Charactergems from "./Charactergems";
+import CharacterCard from "./CharacterCard";
 
 
 
@@ -84,13 +85,30 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
 
           <div className="Specifications">
             {/* 스탯(전투특성) div와 각인 div를 담고있는  */}
-            <div className="StatBasketBox"> 
-                {CharacterStats !== null ?  
-                    <div className="StatArea MiniBox">
-                        <p className="GuideText">전투 특성</p>
-                            <ul className="BattleStat">
-                                {CharacterStats.map((Data, index) =>  {
-                                    if(index < 6)
+            <div style={{display: "flex"}}> 
+
+                <div className="StatBasketBox">
+                    {CharacterStats !== null ?  
+                        <div className="StatArea MiniBox">
+                            <p className="GuideText">전투 특성</p>
+                                <ul className="BattleStat">
+                                    {CharacterStats.map((Data, index) =>  {
+                                        if(index < 6)
+                                        {
+                                            return (
+                                                <li key={index}>
+                                                    <span id="StatName">{Data.Type}</span>
+                                                    <span id="StatNumber">{Data.Value}</span>
+                                                </li>
+                                            )
+                                        }
+                                    })}                        
+                                </ul> 
+                            <p className="GuideText">기본 특성</p>
+                            
+                            <ul className="BasicStat">
+                            {CharacterStats.map((Data, index) => {
+                                    if(index >= 6)
                                     {
                                         return (
                                             <li key={index}>
@@ -99,38 +117,22 @@ function CharacterInfo({SearchCharacter, CharacterStats}) {
                                             </li>
                                         )
                                     }
-                                })}                        
-                            </ul> 
-                        <p className="GuideText">기본 특성</p>
+                            })} 
+                            </ul>
+
+                        </div> : 
                         
-                        <ul className="BasicStat">
-                        {CharacterStats.map((Data, index) => {
-                                if(index >= 6)
-                                {
-                                    return (
-                                        <li key={index}>
-                                            <span id="StatName">{Data.Type}</span>
-                                            <span id="StatNumber">{Data.Value}</span>
-                                        </li>
-                                    )
-                                }
-                        })} 
-                        </ul>
+                        <div className="StatArea MiniBox"><h2 className="GuideText">정보X</h2></div>
 
-                    </div> : 
-                    
-                    <div className="StatArea MiniBox"><h2 className="GuideText">정보X</h2></div>
-
-                }
-                <div className="AbilityArea MiniBox">
-                    <CharacterEngravings/>
+                    }
+            
+                    <div className="AbilityArea MiniBox">
+                        <CharacterEngravings/>
+                    </div>
                 </div>
+                <CharacterCard />
             </div>
-
-          </div>
-
-          
-
+          </div>          
         </div>
     )
 }

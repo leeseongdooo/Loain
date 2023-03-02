@@ -1,5 +1,5 @@
 {
-  "proxy": "https://apis.data.go.kr/",
+  "proxy": "https://developer-lostark.game.onstove.com", 
   "name": "loaproject",
   "version": "0.1.0",
   "private": true,
