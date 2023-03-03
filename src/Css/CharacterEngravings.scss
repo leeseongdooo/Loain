@@ -5,6 +5,8 @@
     .EngravingsList {
             height: 200px;
             overflow-y: scroll;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none;
             .EngravingTextBox {
                 width: 90%;
                 display: flex;
@@ -34,7 +36,9 @@
             }   
         }
     }
-    
+    .EngravingsList::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera*/
+    }
     .DescriptionBox {
         
         position: absolute;

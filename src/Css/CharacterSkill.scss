@@ -108,12 +108,10 @@
             .SkillAreaParents {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
-                padding: 10px;
+                padding: 5px;
                 width: calc(100% - 20px);
-                margin: 10px 0px;
-                border-bottom: 1px solid #5555554f;
-                
+                margin: 5px 0px;
+            
 
                 // 이미지와 이름
                 .ImageAndName {
@@ -139,7 +137,8 @@
 
                 // 트라이포드와 룬
                 .TripodsAndRune {
-                    min-width: 500px;
+                    margin-right: 10px;
+                    min-width: 410px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -267,7 +266,6 @@
                 .ActiveTripodsInfo {      
                     display: flex;
                     align-items: center;
-                    min-width: 400px;
                     margin-left: 5px;
                     padding-left: 10px;
                     border-left: 2px dashed rgb(193, 193, 193, 0.3);

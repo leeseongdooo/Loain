@@ -122,7 +122,7 @@
                     
                     .EquipmentInfo {
                         
-                        width: 70%;
+                        width: 80%;
                         display: flex;
                         margin: 5px 0px 5px 10px;
                         align-items: center;
@@ -394,6 +394,16 @@
                             }
                         }
                     }
+                }
+
+                .Contents-List::-webkit-scrollbar {
+                    width: 7px;  /* 스크롤바의 너비 */
+                }
+
+                .Contents-List::-webkit-scrollbar-thumb {
+                    height: 30%; /* 스크롤바의 길이 */
+                    background: #b4b4b4; /* 스크롤바의 색상 */
+                    border-radius: 10px;
                 }
             }
         }

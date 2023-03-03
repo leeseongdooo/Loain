@@ -213,7 +213,8 @@ function SkillArea({data, GemInfo}) {
 
         console.log(GemInfo);
         let FilterGems = GemInfo !== "" ? GemInfo.Gems.filter((Data) => Data.Tooltip.includes(data.Name)) : undefined;
-       
+        
+        console.log(FilterGems);
         if(FilterGems !== undefined)
         {
             FilterGems.map((Icon, index) => {

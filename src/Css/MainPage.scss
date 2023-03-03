@@ -195,14 +195,16 @@
           margin-left: 30px;
           // 공지사항 개별 css
           .MiniNoticeBox {
-            margin: 10px;
+            margin: 10px 0px;
             display: flex;
             align-items: center;
             width: 100%;
   
             // 버튼처럼 생긴것.
             div {
-              padding: 5px 20px;
+              width: 100px;
+              text-align: center;
+              padding: 5px 0px;
               border: 1px solid #e5e7eb;
               border-radius: 20px;
               font-weight: bold;
@@ -423,7 +425,6 @@
       min-width: 90%;
       max-width: 90%;
       margin-top: 20px;
-      margin-bottom: 40px;
   
       .LostArk_Notice {
         min-width: 100%;
@@ -434,9 +435,6 @@
         box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
         background-color: white;
         border: 1px solid #e5e7eb;
-        display: flex;
-        justify-content: center;
-        align-items: center;
       } 
 
       .InnerNoticeBox {
@@ -455,10 +453,8 @@
         }
   
         .Notice_BasketBox {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: calc(90% - 20px);
+          margin-left: 10px;
+          width: 90%;
           // 공지사항 개별 css
           .MiniNoticeBox {
             margin: 3px 0px;

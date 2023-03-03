@@ -13,7 +13,9 @@ function App() {
   return (
     <div className="App">
       {/* <Header /> */}
-
+      <style>
+      @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+      </style>
       <BrowserRouter>
         <Header />
         <Routes>
