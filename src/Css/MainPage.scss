@@ -4,254 +4,254 @@
 }
 
 
-  .MainPageBox {
+.MainPageBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: whitesmoke;
+
+  // 메인 페이지 캐릭터 검색 영역.
+  .SearchCharacterInputAreaBox {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    background-color: whitesmoke;
-  
-    // 메인 페이지 캐릭터 검색 영역.
-    .SearchCharacterInputAreaBox {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-width: 50%;
-      max-width: 50%;
-      height: 260px;
-      margin-top: 20px;
-      margin-bottom: 25px;
-  
-      h1 {
-        font-size: 64px;
-        margin-bottom: 30px;
-      }
-      // 캐릭터 검색하는 input 영역.
-      .InputNickName {
-        width: 70%;
-        border: 1px solid #dde3ea;
-        border-radius: 10px;
-        padding: 20px;
-      }
+    justify-content: center;
+    min-width: 50%;
+    max-width: 50%;
+    height: 260px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+
+    h1 {
+      font-size: 64px;
+      margin-bottom: 30px;
     }
-  
-    // 이벤트 영역.
-    .EventBigBox {
-      display: flex;
-      flex-direction: column;
-      min-width: 1120px;
-      max-width: 1120px;
-      margin-top: 20px;
-    }
-  
-    .IntroduceEvent {
-      margin-bottom: 10px;
-      font-size: 20px;
-      font-weight: 700;
-    }
-  
-    .EventBox {
-      position: relative;
-      background-color: white;
-      display: flex;
-      align-items: center;
-      padding: 0px 10px;
-      min-width: calc(100% - 20px);
-      max-width: calc(100% - 20px);
-      min-height: 280px;
-      max-height: 280px;
+    // 캐릭터 검색하는 input 영역.
+    .InputNickName {
+      width: 70%;
+      border: 1px solid #dde3ea;
       border-radius: 10px;
-      
-  
-      // 아이콘 영역
-      .Icon {
-        position: absolute; 
-        font-size: 40px;
-        min-width: 40px;
-        min-height: 40px;
-        color: black;
-        z-index: 10;
+      padding: 20px;
+    }
+  }
+
+  // 이벤트 영역.
+  .EventBigBox {
+    display: flex;
+    flex-direction: column;
+    min-width: 1120px;
+    max-width: 1120px;
+    margin-top: 20px;
+  }
+
+  .IntroduceEvent {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .EventBox {
+    position: relative;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    min-width: calc(100% - 20px);
+    max-width: calc(100% - 20px);
+    min-height: 280px;
+    max-height: 280px;
+    border-radius: 10px;
+    
+
+    // 아이콘 영역
+    .Icon {
+      position: absolute; 
+      font-size: 40px;
+      min-width: 40px;
+      min-height: 40px;
+      color: black;
+      z-index: 10;
+    }
+
+    .left {
+      left: 0;
+    }
+
+    .right {
+      right: 0;
+    }
+
+    // 슬라이드 영역
+    .ParentBox {
+      position: relative;
+      margin-left: 40px;
+      height: 250px;
+      width: calc(100% - 80px);
+      display: inline;
+      overflow: hidden;
+    
+      .InnerBox {      
+        transition: .3s;
+        position: absolute;
+        display: flex;      
       }
-  
-      .left {
-        left: 0;
-      }
-  
-      .right {
-        right: 0;
-      }
-  
-      // 슬라이드 영역
-      .ParentBox {
-        position: relative;
-        margin-left: 40px;
-        height: 250px;
-        width: calc(100% - 80px);
-        display: inline;
-        overflow: hidden;
-      
-        .InnerBox {      
-          transition: .3s;
-          position: absolute;
-          display: flex;      
-        }
-      }
-  
-      .CardStyle {
-        position: relative;
-        cursor: pointer;
-        margin: 0px 5px;
-        height: 250px;
+    }
+
+    .CardStyle {
+      position: relative;
+      cursor: pointer;
+      margin: 0px 5px;
+      height: 250px;
+      border-radius: 10px;
+
+      img {
         border-radius: 10px;
-  
-        img {
-          border-radius: 10px;
-          min-width: 100%;
-          height: 100%;
-        }
-  
-        .EventInfo {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          opacity: 0;
-          transition: .3s;
-          position: absolute;
-          bottom: 0px;
-          min-width: 100%;
-          height: 70px;
-          color: black;
-          background-color: white;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-          
-          .TextArea {
-            padding: 10px;
-          
-            // 이벤트 이름
-            p {
-              font-weight: 700;
-              font-size: 18px;
-              color: #222;
-            }
-  
-            // 이벤트 기간
-            span {
-              font-size: 14px;
-              color: #666;
-            }
-  
-            .EventDate {
-              color: #8045dd;
-              font-weight: 400;
-            }
-          }
-  
-          // 진행중
-          .Nowing {
-            margin-right: 20px;
-            color: #8045dd;
-            font-weight: bold;
-          }
-        }
+        min-width: 100%;
+        height: 100%;
       }
-    }
-  
-    .CardStyle:hover {
+
       .EventInfo {
-        opacity: 1;
-      }
-    }
-  
-    .NoticeAreaBox {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-width: 1120px;
-      max-width: 1120px;
-      margin-top: 20px;
-      margin-bottom: 40px;
-  
-      .InnerNoticeBox {
-        min-width: calc(50% - 10px);
-        max-width: calc(50% - 10px);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0;
+        transition: .3s;
+        position: absolute;
+        bottom: 0px;
+        min-width: 100%;
+        height: 70px;
+        color: black;
+        background-color: white;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
         
-        // a태그
-        .Title {
-          display: block;
-          margin: 0px 0px 14px 20px;
-          text-decoration: none;
-          color: #353945;
-          font-size: 20px;
+        .TextArea {
+          padding: 10px;
+        
+          // 이벤트 이름
+          p {
+            font-weight: 700;
+            font-size: 18px;
+            color: #222;
+          }
+
+          // 이벤트 기간
+          span {
+            font-size: 14px;
+            color: #666;
+          }
+
+          .EventDate {
+            color: #8045dd;
+            font-weight: 400;
+          }
+        }
+
+        // 진행중
+        .Nowing {
+          margin-right: 20px;
+          color: #8045dd;
           font-weight: bold;
         }
-  
-        .Notice_BasketBox {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: calc(90% - 20px);
-          margin-left: 30px;
-          // 공지사항 개별 css
-          .MiniNoticeBox {
-            margin: 10px 0px;
-            display: flex;
-            align-items: center;
-            width: 100%;
-  
-            // 버튼처럼 생긴것.
-            div {
-              width: 100px;
-              text-align: center;
-              padding: 5px 0px;
-              border: 1px solid #e5e7eb;
-              border-radius: 20px;
-              font-weight: bold;
-            }
-  
-            .Notice_Name {
-              margin-left: 10px;
-              color: black;
-              width: 460px;
-              text-decoration: none;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-        }
-        
-      }
-  
-      .LostArk_Notice {
-        min-width: 100%;
-        max-width: 100%;
-        height: 300px;
-        margin-right: 5px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
-        background-color: white;
-        border: 1px solid #e5e7eb;
-        display: flex;
-        align-items: center;
-        
-      } 
-  
-      .LOAIN_Notice {
-        min-width: 100%;
-        max-width: 100%;
-        height: 300px;
-        margin-left: 5px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
-        background-color: white;
-        border: 1px solid #e5e7eb;
-        display: flex;
-        align-items: center;
       }
     }
   }
+
+  .CardStyle:hover {
+    .EventInfo {
+      opacity: 1;
+    }
+  }
+
+  .NoticeAreaBox {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 1120px;
+    max-width: 1120px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+
+    .InnerNoticeBox {
+      min-width: calc(50% - 10px);
+      max-width: calc(50% - 10px);
+      
+      // a태그
+      .Title {
+        display: block;
+        margin: 0px 0px 14px 20px;
+        text-decoration: none;
+        color: #353945;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .Notice_BasketBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: calc(90% - 20px);
+        margin-left: 30px;
+        // 공지사항 개별 css
+        .MiniNoticeBox {
+          margin: 10px 0px;
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          // 버튼처럼 생긴것.
+          div {
+            width: 100px;
+            text-align: center;
+            padding: 5px 0px;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            font-weight: bold;
+          }
+
+          .Notice_Name {
+            margin-left: 10px;
+            color: black;
+            width: 460px;
+            text-decoration: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+        }
+      }
+      
+    }
+
+    .LostArk_Notice {
+      min-width: 100%;
+      max-width: 100%;
+      height: 300px;
+      margin-right: 5px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      
+    } 
+
+    .LOAIN_Notice {
+      min-width: 100%;
+      max-width: 100%;
+      height: 300px;
+      margin-left: 5px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
 
 @media all and (max-width: 700px)
 {
@@ -295,7 +295,7 @@
       max-width: 90%;
       margin-top: 20px;
     
-     
+     // 상단 탑 영역.
       .IntroduceEvent {
         margin-bottom: 10px;
         font-size: 20px;
@@ -303,57 +303,46 @@
       }
 
       .EventBox {
-        height: 200px;
         position: relative;
-        background-color: white;
-        display: flex;
+        min-height: 100px;
+        max-height: 100px;
         justify-content: flex-start;
+        align-items: flex-start;
         max-width: 100%;
         border-radius: 10px;
         
     
         // 아이콘 영역
         .Icon {
-          position: absolute; 
-          font-size: 40px;
-          min-width: 40px;
-          min-height: 40px;
-          color: black;
-          z-index: 10;
+         display: none;
         }
     
-        .left {
-          left: 0;
-          display: none;
-        }
-    
-        .right {
-          right: 0;
-          display: none;
-        }
     
         // 슬라이드 영역
         .ParentBox {
-          position: relative;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          margin: 0;
+          left: 0;
           width: 100%;
-          overflow: hidden;
+          height: 100px;
+          overflow-x: scroll;
           
           .InnerBox { 
-           
             transition: .3s;
-            position: absolute;
-            display: flex;     
-            overflow: hidden; 
+            display: flex;    
+            align-content: center;
+            overflow-y: hidden; 
             transform: translateX(0px);
           }
         }
     
         .CardStyle {
           margin-right: 10px;
-          border: 1px solid black;
           position: relative;
           cursor: pointer;
-          height: 100px;
+          height: 80px;
           border-radius: 10px;
     
           img {

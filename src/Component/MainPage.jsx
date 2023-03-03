@@ -177,7 +177,7 @@ function MainPage() {
           
           <div className="EventBox">
             <IoIosArrowBack className="Icon left" onClick={() => {NowSlideWidth < 0 ? leftClick() : console.log("NO") }} style={NowSlideWidth >= 0 ? {color: "gray"} : {color: "black"}}/>
-                <div className="ParentBox"  onTouchStart={(e) => {TouchStart(e)}} onTouchEnd={(e) => {TouchEnd(e)}}>
+                <div className="ParentBox" >
                   <div className="InnerBox" style={{ transform: `translate(${NowSlideWidth}px, 0px)` }}>
                     {EventData.length !== 0 ? EventData.map((Data ,index) => {
                       return (

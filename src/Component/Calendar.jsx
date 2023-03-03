@@ -42,6 +42,7 @@ function AdventureIsland({today}) {
                 }
             }
         });
+        console.log(test);
         
         setAdventureIslandData(test);
     
@@ -50,6 +51,7 @@ function AdventureIsland({today}) {
           console.error(error);
         }
       }
+    
 
       useEffect(() => {
         getTodayAdventureIsland();
@@ -185,16 +187,20 @@ function ChallengeGuardian() {
     return (
         <div className="ChallengeGuardianBox">
             <h3>도전 가디언 토벌</h3>
-            {ChallengeGuardianInfo.length !== 0 ? ChallengeGuardianInfo.map((Data, index) => (
-                <div className="GuardianInfo" key={index}>
-                    <img src={Data.Image} alt="가디언 이미지" />
-                    
-                    <div className="TextArea">
-                        <p className="Name">{Data.Name}</p>
-                        {/* <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p> */}
+            
+            <div className="GuardianFlexBox">
+                {ChallengeGuardianInfo.length !== 0 ? ChallengeGuardianInfo.map((Data, index) => (
+                    <div className="GuardianInfo" key={index}>
+                        
+                        <div className="TextArea">
+                            <p className="Name">{Data.Name}</p>
+                            <img src={Data.Image} alt="가디언 이미지" />
+                            {/* <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p> */}
+                        </div>
                     </div>
-                </div>
-            )) : ""}
+                )) : ""}
+            </div>
+            
         </div>    
     )
 }
@@ -228,9 +234,10 @@ function ChallengeAbyss() {
             <div className="ChallengeAbyssBox">
             {ChallengeAbyssInfo.length !== 0 ? ChallengeAbyssInfo.map((Data, index) => (
                 <div className="AbyssInfo" key={index}>
-                    <img src={Data.Image} alt="가디언 이미지" />
+                    
                     <div className="TextArea">
                         <p className="Name">{Data.Name}</p>
+                        <img src={Data.Image} alt="가디언 이미지" />
                         {/* <p className="SeeMore" onClick={() => {alert("준비 중 입니다! 빠른 시일 내에 추가할게요!")}}>자세히 보기 <BsFillArrowRightCircleFill className="Icon"/></p> */}
                     </div>
                 </div>
@@ -249,8 +256,12 @@ function Calendar() {
     let now = new Date();
     let lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
     
+    const [NowWidth, setNowWidth] = useState(window.innerWidth);
+    const handleResize = () => {
+        console.log(`브라우전 화면 사이즈 : ${window.innerWidth}`);
+        setNowWidth(window.innerWidth);
+    }
     
-
     const [today, setToday] = useState(
         {
             "year": now.getFullYear(),
@@ -306,7 +317,6 @@ function Calendar() {
         
     }
     
-   
     // 금일 콘텐츠
     const DayContents = [
         {
@@ -334,9 +344,7 @@ function Calendar() {
             ContentsDay: ['월', '목', '토','일']
         }
     ]
-
-    // 모험섬 데이터, 
-
+ 
     // 카운트
     const padNumber = (num, length) => {
         return String(num).padStart(length, '0');
@@ -459,12 +467,27 @@ function Calendar() {
 
             <div className="ContentsBox">
                 <div className="ChooseDayBox">
-                      {TestArray.map((Data, index) => (
-                        <div className="MiniCalendar" key={index} style={Data.date == today.date ? {backgroundColor: "royalblue", color: "white"} : {}}>
-                            <p className="KorDate" style={Data.date == today.date ? {color: "white"} : {}}>{Data.korDate}</p>
-                            <p className="Date" style={Data.korDate === "일" ? {color: 'red'} : {}}>{Data.date}</p>
-                        </div>
-                    ))}
+                      {TestArray.map((Data, index) => {
+                        if(NowWidth < 720)
+                        {
+                            if(index > 6)
+                            {
+                                return  (
+                                    <div className="MiniCalendar" key={index} style={Data.date == today.date ? {backgroundColor: "royalblue", color: "white"} : {}}>
+                                        <p className="KorDate" style={Data.date == today.date ? {color: "white"} : {}}>{Data.korDate}</p>
+                                        <p className="Date" style={Data.korDate === "일" ? {color: 'red'} : {}}>{Data.date}</p>
+                                    </div>
+                                )
+                            }
+                        } else if(NowWidth > 720) {
+                            return  (
+                                <div className="MiniCalendar" key={index} style={Data.date == today.date ? {backgroundColor: "royalblue", color: "white"} : {}}>
+                                    <p className="KorDate" style={Data.date === today.date ? {color: "white"} : {}}>{Data.korDate}</p>
+                                    <p className="Date" style={Data.korDate === "일" ? {color: 'red'} : {}}>{Data.date}</p>
+                                </div>
+                            )
+                        }
+                      })}
                 </div>
 
                 <hr className="Line"/>
