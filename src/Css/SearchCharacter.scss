@@ -31,7 +31,7 @@
         border-radius: 10px;
         padding: 5px 0px;
      
-        li {
+        p {
             cursor: pointer;
             color: #7D8395;
             font-weight: bold;
@@ -55,9 +55,31 @@
     .ShowBox {
         margin-top: 30px;
         min-width: 1120px;
-      max-width: 1120px;
-        height: 70vh;
-        
+        max-width: 1120px;
     }
 
+}
+
+@media all and (max-width: 700px)
+{
+    .SearchPageBox {
+        .CategoryBox {
+            min-width: 95%;
+            max-width: 95%;
+            overflow-x: scroll;
+            display: flex;
+            p {
+                width: 50px;
+                font-size: 11px;
+                margin: 0px 5px;
+                padding: 5px 0px;
+            }
+        
+        }
+
+        .ShowBox {
+            min-width: 95%;
+            max-width: 95%;
+        }
+    }
 }

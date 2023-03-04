@@ -65,13 +65,13 @@ function SearchCharacter() {
         <div className="SearchPageBox">
             {Searchresult === null ? <WrongNickName /> : 
                 <>
-                    <ul className="CategoryBox">
-                        <Link to=""><li className={SearchParams.get("tab") === null ? "focusStyle" : ""}>능력치</li></Link>
-                        <Link to="?tab=skill"><li className={SearchParams.get("tab") === "skill" ? "focusStyle" : ""}>스킬</li></Link>
-                        <Link to="?tab=expedition"><li className={SearchParams.get("tab") === "expedition" ? "focusStyle" : ""}>보유 캐릭터</li></Link>
-                        <Link to="?tab=collection"><li className={SearchParams.get("tab") === "collection" ? "focusStyle" : ""}>수집형 포인트</li></Link>
-                        <Link to="?tab=pvp"><li className={SearchParams.get("tab") === "pvp" ? "focusStyle" : ""}>증명의 전장</li></Link>
-                    </ul>
+                    <div className="CategoryBox">
+                        <Link to=""><p className={SearchParams.get("tab") === null ? "focusStyle" : ""}>능력치</p></Link>
+                        <Link to="?tab=skill"><p className={SearchParams.get("tab") === "skill" ? "focusStyle" : ""}>스킬</p></Link>
+                        <Link to="?tab=expedition"><p className={SearchParams.get("tab") === "expedition" ? "focusStyle" : ""}>보유 캐릭터</p></Link>
+                        <Link to="?tab=collection"><p className={SearchParams.get("tab") === "collection" ? "focusStyle" : ""}>수집형 포인트</p></Link>
+                        <Link to="?tab=pvp"><p className={SearchParams.get("tab") === "pvp" ? "focusStyle" : ""}>증명의 전장</p></Link>
+                    </div>
 
                     <div className="ShowBox">
                         {
