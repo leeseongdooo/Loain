@@ -1,3 +1,4 @@
+
 .CharacterSearchResult {
     width: 100%;
     display: flex;
@@ -98,7 +99,6 @@
             margin-left: 10px;
             min-width: calc(100% - 510px);
             min-height: 500px;
-            max-height: 500px;
             border-radius: 10px;
             box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);    
 
@@ -185,20 +185,100 @@
 @media all and (max-width: 700px)
 {
     .CharacterSearchResult {
-        
+       
         .CharacterInfoArea {
             flex-direction: column;
-
+            align-items: center;
             .NewCharacterInfoBox {
+                border: 1px solid pink;
+                margin-bottom: 10px;
                 min-width: 90%;
                 max-width: 90%;
-                min-height: 350px;
-                max-height: 350px;           
+                min-height: 300px;
 
                 .InformationArea {
-                    display: none;
+                  
+                  // 상단 영역
+                  .TopArea {
+                    margin-left: 5px;
+
+                    // 레벨, 직업, 서버
+                    .SimpleInformation {
+                        margin-bottom: 5px;
+                        font-size: 13px;
+                    }
+
+                    // 닉네임 폰트 사이즈 수정.
+                    h2 {
+                        font-size: 16px;
+                        margin-bottom: 5px;
+                    }
+
+                    // 아이템 레벨 영역. 
+                    .ItemLevelArea {
+                        display: flex;
+                        align-items: center;
+                        .Icon {
+                            font-size: 22px;
+                            margin: 0px;
+                        }
+
+                        h2 {
+                            margin-bottom: 0px;
+                        }
+                    }
+                  }
+                  
+                  // 아래 영역
+                  .BottomArea {
+                    margin: 0px 0px 20px 10px;
+
+                    // 버튼 안에폰트 수정
+                    div {
+                        p {
+                            font-size: 12px;
+                        }
+
+                        .TitleName {
+                            font-size: 10px;
+                        }
+                    }
+                    
+                  }
+                  
+                 
                 }
             }
+
+            .CharacterEquipment {
+                width: 90%;
+                padding: 10px;
+                padding-bottom: 20px;
+                margin-left: 0px;
+                border-radius: 10px; 
+             
+                // 보석 영역
+            }
+        }
+
+        .Specifications > div {
+            flex-direction: column;
+
+            .StatBasketBox {
+                width: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                
+                .MiniBox {
+                    width: 70%;
+                    margin-bottom: 20px;
+                }
+            }
+
+           
+
+
         }
     }
 }

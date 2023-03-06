@@ -118,7 +118,7 @@ function Charactergems() {
             <p className="IntroduceTitle">보석</p>
             <div className="InnerBox">
                {SearchGems !== null ? SearchGems.Gems.map((Data, index) => <Yesgem key={index} Data={Data} Grade={Data.Grade} SkillInfo={SearchGems.Effects}/> ) : ""}
-               {NoJamLength !== null ? NoJamLength.map((Data, index) => <NoJam />) : ""}
+               {NoJamLength !== null ? NoJamLength.map((Data, index) => <NoJam key={index} />) : ""}
             </div>
         </div>
     )

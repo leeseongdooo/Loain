@@ -284,4 +284,41 @@
     
 }
 
+@media all and (max-width: 700px)
+{
+    .CharacterEquipment {
 
+        .EquipmentParentBox {
+            .EquipmentZone {
+                height: auto;
+                flex-direction: column;
+
+                .StickBox {
+                    overflow: hidden;
+                    .StickValue {
+                        top: 0;
+                    }
+                }
+                .FirstBox {  
+                    width: 90%;
+
+                    .EngravingBox {
+                        display: none;
+                    }
+                }
+
+                .SecondBox {
+                    width: 100%;
+
+                    .StickBox {
+                        width: 71%;
+                    }
+                }
+            }
+        }
+
+        .GemBox {
+
+        }
+    }
+}

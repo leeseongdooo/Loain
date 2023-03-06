@@ -45,7 +45,7 @@ function EquipmentModalArea({LvValue, TooltipInfo, Data, BackColor, index, Quali
 
                 {/* 기본스탯  */}
                 {filterItemPartBox.length > 0 ?  
-                    filterItemPartBox.map((FilterData) =>  index < 11  ? <p className="Stat1">{Parser(FilterData[1].value.Element_001)}</p> : "") : ""
+                    filterItemPartBox.map((FilterData, index1) =>  index < 11  ? <p className="Stat1" key={index1}>{Parser(FilterData[1].value.Element_001)}</p> : "") : ""
                 }
                  {/* 어빌리티 스톤 */}
                  
@@ -99,7 +99,6 @@ function NoEquipmentArea() {
 
 function EquipentArea({EquipmentData, Data, index}) {
 
-    
     const [BackColorStyle, setBackColorStyle] = useState(null); // 아이템 뒷 배경 
     const [FontColorStyle, setFontColorStyle] = useState(null); // 아이템 폰트.
     const [LvValue, setLvValue] = useState(null); // 세트레벨
@@ -126,7 +125,7 @@ function EquipentArea({EquipmentData, Data, index}) {
         if(Data.Type === "팔찌" && TooltipInfo !== null && TooltipInfo.Element_004.value.Element_001 !== undefined) 
         {
             const Data2 = [];
-            BraceletEffectArray.map((Data) => {
+            BraceletEffectArray.map((Data, index1) => {
                 if(TooltipInfo.Element_004.value.Element_001.includes(Data))
                 {
                     Data2.push(Data);
@@ -320,7 +319,6 @@ function CharacterEquipment() {
 
     let NoEquipment = [];
    
-
     useEffect(() => {
         GetEngravings();
         GetEquipment();
@@ -365,8 +363,8 @@ function CharacterEquipment() {
                         }
                     })}
                     <div className="EngravingBox">
-                        {EngravingData !== null ? EngravingData.map((Data) => (
-                            <div className="EngravingInfo">
+                        {EngravingData !== null ? EngravingData.map((Data, index1) => (
+                            <div className="EngravingInfo" key={index1}>
                                 <img src={Data.Icon} alt="각인 아이콘" />
                                 <div>
                                     <h5>{Data.Name}</h5>
@@ -413,8 +411,6 @@ function CharacterEquipment() {
 
                 </div>
             </div>
-            
-            
         </div>
     )
 }

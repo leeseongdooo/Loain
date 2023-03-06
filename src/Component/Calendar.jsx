@@ -9,19 +9,18 @@ import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 function AdventureIsland({today}) {
     const Key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDAwMDExODYifQ.dp5Rwt6qAxGWBF6L00JpgQ8FRk0LC2McvjnYrcIdaVmlW1lcMOhWfDEuQ3d8PBB_bUevh03dw6Shx3sc8_X_B_cUja3eONQ0MWPPa9ZRvHYBjaBn4RPl4pe_M5quBOaQVhTBhcxNYJoCxVQhHfwf_0K0rmAEDHYdSICEIpeD-Ve8WaEBm7JXa36RBP-vefRtcIZh1O35knWa4bXCjuT4rodTYx4WiE_bt4sCUGfaPfzriAe6P5OjlkGx1YEkk3nYGJCVX-cfdIA5qPAc7612BrjV_YuXx5Qh8XzsPL6m5N9v-h-_GAEW10OWSYvxJabPYV8KhPMKanaEpdrpS6i6jA";
     const [AdventureIslandData, setAdventureIslandData] = useState([]);
+    const [TodayItem, setTodayItem] = useState([]);
     const [ArrayIndex, setArrayIndex] = useState([false, false, false]);
-    
+    let today2 = `${today.year}-0${today.month}-${today.date}`;
+
+    if(today.date < 10)
+    {
+        today2 = `${today.year}-0${today.month}-0${today.date}`
+    }
+
      // 오늘의 모험섬 데이터 가져오기.
      async function getTodayAdventureIsland() {
         try {
-        
-        let today2 = `${today.year}-0${today.month}-${today.date}`;
-        
-        // today.date가 10보다 작으면 앞에 0 붙여주기
-        if(today.date < 10)
-        {
-            today2 = `${today.year}-0${today.month}-0${today.date}`
-        }
             
         //응답 성공
         const response = await axios.get(`/gamecontents/calendar`, {
@@ -51,71 +50,49 @@ function AdventureIsland({today}) {
           console.error(error);
         }
       }
-    
 
       useEffect(() => {
         getTodayAdventureIsland();
-      }, [])
+      }, []);
 
     return (
         <div className="AdventureIslandBox">
         {AdventureIslandData.length !== 0 ? AdventureIslandData.map((Data, index) => {
             
-            let Array = [];            
-            const Test = (Array) => {    
-                if(Data.RewardItems.length >= 6)
-                {
-                    let Array1 = [];
-                    for(let i=0; i < 6; i++)
-                    {
-                        Array1.push(Data.RewardItems[i]);
-                    }
-                    Array.push(Array1);
-                    if(Data.RewardItems.length > 6)
-                    {
-                        let Array2 = [];
-                        for(let i=6; i < Data.RewardItems.length; i++)
-                        {
-                            Array2.push(Data.RewardItems[i]);
-                        }
-                        Array.push(Array2);
-                    } 
-                }   
-            }
-            Test(Array);
-            
+            // 필요한건 아래 보상 리워드
+            let RewardArray = Data.RewardItems;
+
             const BackClick = () => {
-                const aaa = ArrayIndex; 
+                const aaa = ArrayIndex;
                 aaa[index] = false;
                 setArrayIndex(aaa);
             }
 
             const FrontClick = () => {
-                if(Array.length > 6)
-                {
                     const aaa = ArrayIndex; 
                     aaa[index] = true;
+                    console.log(aaa);
                     setArrayIndex(aaa);
-                }
             }
-
-            let pagenumber = ArrayIndex[index] === true ? 1 : 0;
-     
-
+           
             return (
                 <div className="MiniIslandBox" key={index}>
                     <img src={Data.ContentsIcon} alt="" className="IslandImage" onClick={() => console.log(Data)} />
                     <div className="TextInfo">
+                        
                         <div className="TopInfo">
                             <span className="IslandName">{Data.ContentsName}</span>
                         </div>
 
                         <div className="BottomInfo">
                         
-                        
-                            <FiArrowLeftCircle onClick={() => {BackClick()}} className="Icon" style={ArrayIndex[index] === false ? {display: "none"} : {}}/>
-                            {Array[pagenumber].map((Data2, index2) => 
+                            {/* <FiArrowLeftCircle onClick={() => {BackClick()}} className="Icon" style={ArrayIndex[index] === true ? {} : {display: "none"}}/> */}
+                            
+                            {/* {RewardArray.length > 0 ? RewardArray.map((Data2, index2) => 
                             {
+                                    
+                                  
+
                                     let backgroundColor = '';
                                     switch(Data2.Grade)
                                     {
@@ -139,16 +116,21 @@ function AdventureIsland({today}) {
                                             backgroundColor = "linear-gradient(135deg,#18220b,#304911)";
                                             break;
                                     }
-                    
-                                    return (
-                                        <>
-                                            <img key={index2} style={{background: backgroundColor}} src={Data2.Icon} className="rewardImage"/>
-                                        </>
-                                    )
-                                }
-                            )}
 
-                            <FiArrowRightCircle onClick={() => {FrontClick()}} className="Icon" style={ArrayIndex[index] === true || Array.length <= 6  ? {display: "none"} : {}}/>
+                                  
+                                    if(index2 < 6)
+                                    {
+                                        return (
+                                            <>
+                                                <img key={index2} style={{background: backgroundColor}} src={Data2.Icon} className="rewardImage"/>
+                                            </>
+                                        )
+                                    } 
+                                
+                            }
+                            ) : ""} */}
+
+                            <FiArrowRightCircle onClick={() => {FrontClick()}} className="Icon"/>
                             
                         
                         </div>
