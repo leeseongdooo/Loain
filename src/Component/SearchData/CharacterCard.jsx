@@ -6,7 +6,6 @@ import { MdOutlineArrowForwardIos } from "react-icons/md"
 import { AiOutlineClose } from "react-icons/ai";
 import { calculateNewValue } from "@testing-library/user-event/dist/utils";
 
-
 function NoCardDesign({})
 {
     return (
@@ -18,15 +17,46 @@ function NoCardDesign({})
 }
 
 function CardDesign({Data}) {
+
+    console.log(Data.Grade);
+
+    let GradeNumber = 0;
+    // 카드 등급에 따라 GradeNumber를 지정해줍니다.
+    switch(Data.Grade)
+    {
+        case "일반" : 
+            GradeNumber = 0;
+            break;
+        case "고급" :
+            GradeNumber = 1;
+            break;
+        case "희귀" : 
+            GradeNumber = 2;
+            break;
+        case "영웅" : 
+            GradeNumber = 3;
+            break;
+        case "전설" : 
+            GradeNumber = 4;
+            break;
+        default: 
+            GradeNumber = 0;
+            break;
+    }
+
     return (
-        <div className="CardDesignBox">
-            <img src={Data.Icon} className="CardImage"/>
-            {/* <img src="/img/img_profile_awake.png" alt="" className="UnAwakeImage"/> */}
-            
-            <div className="UnAwakeImage" style={{backgroundImage:`url(/img/img_profile_awake.png)`}}>
-                   <div className="AwakeImage" style={{backgroundImage:`url(/img/img_profile_awake.png)`, width: `${Data.AwakeCount * 14}px` }} onClick={() => {console.log(Data.AwakeCount * 12)}}></div>
-            </div>                
-            <span className="CardName">{Data.Name}</span>
+        <div className="CardBox">
+            <div className="CardDesignBox">
+                <div className="CardGrade" style={{backgroundPosition: `-${107 * GradeNumber}px 0`}}></div>
+                <img src={Data.Icon} className="CardImage"/>
+                {/* <img src="/img/img_profile_awake.png" alt="" className="UnAwakeImage"/> */}
+                
+                <div className="UnAwakeImage" style={{backgroundImage:`url(/img/img_profile_awake.png)`}}>
+                    <div className="AwakeImage" style={{backgroundImage:`url(/img/img_profile_awake.png)`, width: `${Data.AwakeCount * 14}px` }} onClick={() => {console.log(Data.AwakeCount * 12)}}></div>
+                </div>                
+            </div>
+
+             <p className="CardName">{Data.Name}</p>
         </div>
     )
 }
@@ -61,7 +91,7 @@ function CharacterCard() {
             const response = await axios.get(`https://developer-lostark.game.onstove.com/armories/characters/${NickName.searchCharacter}/cards`, {
                 headers: {Authorization: `bearer ${Key}`}
             })
-
+            console.log(response.data);
             if(response.data !== null)
             {
                 setEffectInfo(response.data.Effects);
