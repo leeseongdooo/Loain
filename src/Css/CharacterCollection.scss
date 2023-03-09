@@ -527,15 +527,24 @@
                             font-size: 12px;
 
                             .FirstBox {
-                                
+                                width: 60%;
                                 .Contents-Number { 
                                     max-width: 20px;
                                     max-height: 20px;
                                 }
+
+                                .Contents-Name {
+                                    font-size: 12px;
+                                }
+
+                                .Icon {
+                                    margin-right: 2px;
+                                    font-size: 12px;
+                                }
                             }
 
                             .SecondBox {
-                                
+                                width: 48%;
                                 p {
                                     font-size: 12px;
                                 }
