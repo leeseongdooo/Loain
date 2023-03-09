@@ -5,6 +5,10 @@ import "../../Css/CharacterPoss.scss";
 import axios from "axios";
 
 function CharacterInfoTopArea({CharacterInfo}) {
+    console.log(CharacterInfo.CharacterClassName);
+
+
+
     return (
         <div className="CharacterInfoArea">
             {/* 캐릭터 정보 영역. */}

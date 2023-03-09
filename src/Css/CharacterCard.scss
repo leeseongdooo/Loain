@@ -1,6 +1,6 @@
 .CharacterCardBox {
     padding: 0px 10px;
-    width: calc(56%);
+    width: 56%;
     border-radius: 10px;
     box-shadow: 0px 0px 5px rgb(0 0 0 / 30%);    
     height: 270px;
@@ -175,5 +175,104 @@
             }
         }
         
+    }
+}
+
+@media all and (max-width: 700px)
+{
+    .CharacterCardBox {
+        width: 90%;
+        height: auto;
+        margin-left: 10px;
+        margin-bottom: 100px;
+        // 상단 영역
+        .TopArea {
+            width: calc(100% - 20px);
+            display: flex;
+            
+            align-items: center;
+            padding: 10px;
+        
+            .GuideText {
+                width: 70px;
+                font-weight: 700;
+                font-size: 14px;
+                padding: 5px 10px;
+                border-radius: 30px;
+                background-color: rgba(128, 69, 221, 0.149);
+                color: #8045DD;
+                text-align: center;
+                margin: 5px 0px;
+            }
+    
+            .TopArea_Text {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                cursor: pointer;
+
+                .ActiveEffectName {
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+
+                svg {
+                    width: 15px;
+                    height: 15px;
+                    margin-left: 10px;
+                }
+            }   
+        }    
+
+        .BottomArea {
+            flex-wrap: wrap;
+            
+            .NoCardDesignBox {
+                margin: 0px 10px;
+                width: calc(100% / 6);
+                display: flex;
+                flex-wrap: wrap;
+                height: 150px;
+                background-color: #E6E8EC;
+                border-radius: 5px;
+            }
+    
+            .CardBox {
+                margin-bottom: 10px;
+            }
+          
+    
+    
+            .Show_CardEffectText {
+                height: auto;
+                margin-bottom: 20px;
+                .CardEffectTextZone {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    margin: 10px 0px;
+                    
+                    .ActiveSet {
+                        text-align: center;
+                        box-sizing: content-box;
+                        min-width: 40px;
+                        max-width: 40px;
+                        padding: 3px 10px;
+                        font-size: 12px;
+                        background-color: #E6E8EC;
+                        border-radius: 15px;
+                        margin-right: 10px;
+                    }
+    
+                    .SetDescription {
+                        max-width: 230px;
+                        font-size: 14px;
+                        font-weight: 700;
+                    }
+                }
+            }
+            
+        }
+
     }
 }

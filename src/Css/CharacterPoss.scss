@@ -1,5 +1,4 @@
 .CharacterPossArea {
-    
     .CharacterInfoArea {        
         display: flex;
         width: 100%;
@@ -8,10 +7,10 @@
         max-height: 200px;
                 
         .TopArea {
+            position: relative;
             width: 40%;
             box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
             border-radius: 10px;
-            position: relative;
             background-color: black;
             overflow: hidden;
     
@@ -22,7 +21,7 @@
                 z-index: 1;
                 
                 img {
-                    width: 100;
+                    width: 100%;
                     object-fit: cover;
                 }
             }
@@ -175,5 +174,86 @@
 
     .MarginArea {
         height: 100px;
+    }
+}
+
+@media all and (max-width: 700px)
+{
+    .CharacterPossArea {
+
+        // 상단 탑 영역
+        .CharacterInfoArea  {
+            flex-direction: column;
+            max-height: 2000px;
+            
+            .TopArea  {
+                min-height: 100px;
+                max-height: 100px;
+                margin-bottom: 10px;
+                width: 100%;
+                overflow: hidden;
+                
+                .ImageArea {
+                    position: absolute;
+                    left: 0;
+                    top: -70px;
+                    border-radius: 10px;
+                    z-index: 1;
+                    width: 100%;
+                    img {        
+                        min-width: 150%;
+                        object-fit: cover;
+                    }
+                }
+
+                .TextArea { 
+                    left: 10px;
+
+                    .SimpleInformation {
+                        margin-top: 20px;
+                        margin-bottom: 2px;
+                        font-size: 12px;
+                    }
+        
+                    .CharacterName {
+                        margin-bottom: 2px;
+                        font-size: 16px;
+                    }
+        
+                    .ItemLevelArea {        
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .SecondBox {
+                margin: 0px;
+                width: 100%;
+                min-height: 60px;
+            }
+        }
+
+        // 서버별 캐릭터 수 
+        .ServerBox {
+            .TopArea {
+                .ServerName {
+                    margin-left: 10px;
+                }
+
+                .CharacterLength {
+                    margin-right: 10px;
+                }
+            }
+
+            .CharacterList {
+                flex-direction: column;
+
+                .CharacterInfoMiniver {
+                    width: 90%;
+                }
+            }
+        }
     }
 }

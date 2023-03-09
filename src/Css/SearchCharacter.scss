@@ -66,13 +66,22 @@
         .CategoryBox {
             min-width: 95%;
             max-width: 95%;
-            overflow-x: scroll;
+            max-height: 30px;
             display: flex;
-            p {
-                width: 50px;
+            justify-content: space-between;
+            a {
+                min-width: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 font-size: 11px;
                 margin: 0px 5px;
                 padding: 5px 0px;
+
+                p {
+                    width: 100%;
+                    padding: 5px 0px;
+                }
             }
         
         }

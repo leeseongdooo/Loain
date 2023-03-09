@@ -21,7 +21,7 @@
                 z-index: 1;
                 
                 img {
-                    width: 100;
+                    width: 100%;
                     object-fit: cover;
                 }
             }
@@ -152,7 +152,6 @@
             }
             
         }
-    
     }   
 
     .MiddleArea {
@@ -261,7 +260,6 @@
             box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.287);
         
             .SelectedBox {
-                
                 margin-top: 10px;
                 width: 95%;
                 
@@ -412,5 +410,140 @@
 
     .MarginArea {
         height: 200px;
+    }
+}
+
+
+@media all and (max-width: 700px)
+{
+    .CollectionBox {
+        .CharacterInfoArea  {
+            flex-direction: column;
+            max-height: 500px;
+            
+            .TopArea  {
+                min-height: 100px;
+                max-height: 100px;
+                margin-bottom: 10px;
+                width: 100%;
+                overflow: hidden;
+                
+                .ImageArea {
+                    position: absolute;
+                    right: 0;
+                    border-radius: 10px;
+                    z-index: 1;
+                    width: 100%;
+                    img {        
+                        min-width: 150%;
+                        object-fit: cover;
+                    }
+                }
+
+                .TextArea { 
+                    left: 10px;
+
+                    .SimpleInformation {
+                        margin-top: 20px;
+                        margin-bottom: 2px;
+                        font-size: 12px;
+                    }
+        
+                    .CharacterName {
+                        margin-bottom: 2px;
+                        font-size: 16px;
+                    }
+        
+                    .ItemLevelArea {        
+                        display: flex;
+                        align-items: center;
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .SecondBox {
+                flex-direction: column;
+                align-items: flex-start;
+                margin: 0px;
+                width: 100%;
+                min-height: 60px;
+
+                h3 {
+                    display: none;
+                }
+
+                //
+                .PropensityAndLevel {
+                    width: 100%;
+
+                    .Propensity {
+                        padding: 10px;
+                    }
+                }
+
+                .Equipment {
+                    width: 100%;
+                }
+
+            }
+        }
+
+        .MiddleArea {
+            flex-direction: column;
+
+            // 내실 카테고리 선택.
+            .Collection-Category
+            {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            // 선택한 내실의 현황
+            .Select-Collection-List
+            {
+                width: 100%;
+
+                .SelectedBox {
+                    // 상단영역
+                    .TopArea {
+
+                        // 선택한 카테고리 이름 
+                        .Name {
+                            font-size: 16px;
+                        }
+
+                        // Filter영역 
+                        .FilterArea {
+                            p {
+                                font-size: 12px;
+                            }
+                        }
+
+                    }
+                    
+                    .Contents-List {
+                        .TextArea {
+                            font-size: 12px;
+
+                            .FirstBox {
+                                
+                                .Contents-Number { 
+                                    max-width: 20px;
+                                    max-height: 20px;
+                                }
+                            }
+
+                            .SecondBox {
+                                
+                                p {
+                                    font-size: 12px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
