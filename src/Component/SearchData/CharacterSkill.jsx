@@ -254,91 +254,105 @@ function SkillArea({data, GemInfo}) {
     return (
         <div className="SkillAreaParents">
             {Show === true ? <SkillModalArea Data={data} /> : "" }
-            <div className="ImageAndName">
-                <img src={data.Icon} alt="스킬 이미지" onMouseEnter={() => {setShow(true)}} onMouseOut={() => {setShow(false)}} />
-                <p>{data.Name}</p>
-            </div>
+            {/* 첫번째 박스 입니다. [스킬 이미지부터 룬까지]*/}
+            <div className="FirstBox">
+                <div className="ImageAndName">
+                    <img src={data.Icon} alt="스킬 이미지" onMouseEnter={() => {setShow(true)}} onMouseOut={() => {setShow(false)}} />
+                    <p>{data.Name}</p>
+                </div>
 
-            <div className="TripodsAndRune">
-                <p className="SkillLevel">{data.Level}레벨</p>
-                
-                <div className="TripodsOrder">
+                <div className="TripodsAndRune">
+                    <p className="SkillLevel">{data.Level}레벨</p>
+                    
+                    <div className="TripodsOrder">
+                        {ActiveTripods.map((Data, index) => (
+                            <div key={index}>
+                                {Data.Slot}
+                            </div>
+                        ))}
+                    </div>
+                    
+                    
+                    <div className="RuneArea">
+                        {data.Rune !== null ? 
+                            <>
+                                <div className="RuneBackground">
+                                    <img src={data.Rune.Icon} alt="룬 이미지" style={{background: RuneBackColor}}/>
+                                </div>
+                                <p>{data.Rune.Name}</p>
+                            </> : ""
+                        }
+                    </div>
+                </div>
+            </div>
+          
+
+            {/* 두번째 박스 입니다. [보석부터 트라이포드까지] */}
+            <div className="SecondBox">
+                <div className="JemArea">
+                        <div className="JemBackground">
+                            {CharacterGems !== null ? CharacterGems.map((Icon, index) => 
+                                {
+                                    let backgroundColor = ""
+                                    let FilterTest = GemInfo.Effects.filter((Effect) => Effect.GemSlot === Icon.Slot);
+                                    console.log(FilterTest);
+                                    switch(Icon.Grade)
+                                    {
+                                        case "에스더" :
+                                            backgroundColor = 'linear-gradient(135deg,#0c2e2c,#2faba8)';
+                                            break;
+                                        case "고대" : 
+                                            backgroundColor = 'linear-gradient(135deg,#3d3325,#dcc999)';
+                                            break;
+                                        case "유물" : 
+                                            backgroundColor = 'linear-gradient(135deg,#341a09,#a24006)';
+                                            break;
+                                        case "전설" : 
+                                            backgroundColor = 'linear-gradient(135deg,#362003,#9e5f04)';
+                                            break;
+                                        case "영웅" : 
+                                            backgroundColor = 'linear-gradient(135deg,#261331,#480d5d)';
+                                            break;
+                                        case "희귀" :
+                                            backgroundColor = 'linear-gradient(135deg,#111f2c,#113d5d)';
+                                            break;
+                                        case "고급" : 
+                                            backgroundColor = 'linear-gradient(135deg,#18220b,#304911)';
+                                            break;
+                                        default: 
+                                            break;
+                                    }
+                                    
+                                    return (
+                                        <div className="JemBox">
+                                            <img src={Icon.Icon} key={index} style={{background: backgroundColor}} />
+                                            <span className="JemLevel">{Icon.Level}</span>
+                                            <div className="TextArea">
+                                                {Parser(Icon.Name)}
+                                                <p>{FilterTest[0].Description}</p>
+                                            </div>
+                                            
+                                        </div>
+                                    )
+                                }
+                            ) : ""}
+                            
+                        </div>
+                </div>
+
+                <div className="ActiveTripodsInfo">
                     {ActiveTripods.map((Data, index) => (
-                        <div key={index}>
-                            {Data.Slot}
+                        <div className="ActiveTripodsArea" key={index}>
+                            <img src={Data.Icon} alt="" />
+                            <div className="NameAndLevel">
+                                <p>{Data.Name}</p>
+                                <p>Lv.{Data.Level}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
-                
-                
-                <div className="RuneArea">
-                    {data.Rune !== null ? 
-                        <>
-                            <div className="RuneBackground">
-                                <img src={data.Rune.Icon} alt="룬 이미지" style={{background: RuneBackColor}}/>
-                            </div>
-                            <p>{data.Rune.Name}</p>
-                        </> : ""
-                    }
-                </div>
-
-                <div className="JemArea">
-                    <div className="JemBackground">
-                        {CharacterGems !== null ? CharacterGems.map((Icon, index) => 
-                            {
-                                let backgroundColor = ""
-                                
-                                switch(Icon.Grade)
-                                {
-                                    case "에스더" :
-                                        backgroundColor = 'linear-gradient(135deg,#0c2e2c,#2faba8)';
-                                        break;
-                                    case "고대" : 
-                                        backgroundColor = 'linear-gradient(135deg,#3d3325,#dcc999)';
-                                        break;
-                                    case "유물" : 
-                                        backgroundColor = 'linear-gradient(135deg,#341a09,#a24006)';
-                                        break;
-                                    case "전설" : 
-                                        backgroundColor = 'linear-gradient(135deg,#362003,#9e5f04)';
-                                        break;
-                                    case "영웅" : 
-                                        backgroundColor = 'linear-gradient(135deg,#261331,#480d5d)';
-                                        break;
-                                    case "희귀" :
-                                        backgroundColor = 'linear-gradient(135deg,#111f2c,#113d5d)';
-                                        break;
-                                    case "고급" : 
-                                        backgroundColor = 'linear-gradient(135deg,#18220b,#304911)';
-                                        break;
-                                    default: 
-                                        break;
-                                }
-
-                                return (
-                                    <div className="JemBox">
-                                        <img src={Icon.Icon} key={index} style={{background: backgroundColor}} />
-                                        <span className="JemLevel">7</span>
-                                    </div>
-                                )
-                            }
-                        ) : ""}
-                        
-                    </div>
-                </div>
             </div>
-
-            <div className="ActiveTripodsInfo">
-                {ActiveTripods.map((Data, index) => (
-                    <div className="ActiveTripodsArea" key={index}>
-                        <img src={Data.Icon} alt="" />
-                        <div className="NameAndLevel">
-                            <p>{Data.Name}</p>
-                            <p>Lv.{Data.Level}</p>
-                        </div>
-                    </div>
-                ))}
-            </div>
+          
         </div>
     )
 }
