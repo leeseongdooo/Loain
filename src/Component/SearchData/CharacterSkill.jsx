@@ -271,9 +271,14 @@ function SkillArea({data, GemInfo}) {
                             </div>
                         ))}
                     </div>
-                    
-                    
-                    <div className="RuneArea">
+                </div>
+            </div>
+          
+
+            {/* 두번째 박스 입니다. [보석부터 트라이포드까지] */}
+            <div className="SecondBox">
+
+                <div className="RuneArea">
                         {data.Rune !== null ? 
                             <>
                                 <div className="RuneBackground">
@@ -282,13 +287,8 @@ function SkillArea({data, GemInfo}) {
                                 <p>{data.Rune.Name}</p>
                             </> : ""
                         }
-                    </div>
                 </div>
-            </div>
-          
 
-            {/* 두번째 박스 입니다. [보석부터 트라이포드까지] */}
-            <div className="SecondBox">
                 <div className="JemArea">
                         <div className="JemBackground">
                             {CharacterGems !== null ? CharacterGems.map((Icon, index) => 

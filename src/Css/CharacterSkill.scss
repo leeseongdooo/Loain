@@ -115,7 +115,6 @@
             .FirstBox {
                 display: flex;
                 align-items: center;
-                
                 // 스킬 이미지와 스킬 이름
                 .ImageAndName {
                     min-width: 190px;
@@ -141,7 +140,7 @@
                 // 트라이포드와 룬
                 .TripodsAndRune {
                     margin-right: 10px;
-                    min-width: 350px;
+                    min-width: 200px;
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
@@ -181,38 +180,7 @@
                             background-color: #FFB00E;
                         }
                     }
-    
-                    // 룬 영역
-                    .RuneArea {
-                        display: flex;
-                        align-items: center;
-                        min-width: 100px;
-    
-                        .RuneBackground {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            min-width: 40px;
-                            max-width: 40px;
-                            min-height: 40px;
-                            max-height: 40px;
-                            border-radius: 100%;
-                            
-                            
-                            img {
-                                min-width: 40px;
-                                max-width: 40px;
-                                min-height: 40px;
-                                max-height: 40px;
-                                border-radius: 100%;
-                            }
-                        }
-                        p {
-                            margin-left: 5px;
-                            font-weight: 700;
-                        }
-                    }
-    
+        
                     // 착용중인 보석 영역
                 }
             }
@@ -274,6 +242,38 @@
                             }
                         }
                         
+                    }
+                }
+
+                // 룬 영역
+                .RuneArea {
+                    display: flex;
+                    align-items: center;
+                    min-width: 100px;
+
+                    .RuneBackground {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 40px;
+                        max-width: 40px;
+                        min-height: 40px;
+                        max-height: 40px;
+                        border-radius: 100%;
+                        
+                        
+                        img {
+                            min-width: 40px;
+                            max-width: 40px;
+                            min-height: 40px;
+                            max-height: 40px;
+                            border-radius: 100%;
+                        }
+                    }
+                    p {
+                        font-size: 14px;
+                        margin-left: 5px;
+                        font-weight: 500;
                     }
                 }
 
@@ -447,6 +447,7 @@
                 align-items: flex-start;
                 margin: 0px;
                 width: 100%;
+                font-size: 10px;
                 min-height: 60px;
                 text-align: center;
 
@@ -483,8 +484,10 @@
             .SkillAreaParents {
                 flex-wrap: wrap;
                 .FirstBox {
+                    width: 100%;
+            
                     .ImageAndName {
-                        min-width: 130px;
+                        min-width: 0px;
                         img {
                             min-width: 30px;
                             max-width: 30px;
@@ -499,15 +502,18 @@
                     }
     
                     .TripodsAndRune {
-                        min-width: 200px;
+                        min-width: 0px;
+                        margin-left: 10px;
+                        justify-content: space-between;
                         .SkillLevel {
                             min-width: 40px;
                             font-size: 12px;
-                            margin-right: 0px;
+                            margin-right: 10px;
                         }
     
                         .TripodsOrder {
-                            min-width: 60px;
+                            min-width: 60%;
+                            
                             margin-right: 10px;
                             div {
                                 width: 10px;
@@ -515,18 +521,6 @@
                                 color: white;
                                 font-size: 8px;
                                 font-weight: bold;
-                            }
-                        }
-    
-                        .RuneArea {
-                            font-size: 12px;
-                            .RuneBackground {
-                                img {
-                                    min-width: 30px;
-                                    max-width: 30px;
-                                    min-height: 30px;
-                                    max-height: 30px;
-                                }
                             }
                         }
                     }    
@@ -539,6 +533,25 @@
                     flex-direction: column;
                     border-bottom-right-radius: 10px;
                     border-bottom-left-radius: 10px;
+
+                    .RuneArea {
+                        width: 100%;
+                        .RuneBackground {
+                            img {
+                                min-width: 30px;
+                                max-width: 30px;
+                                min-height: 30px;
+                                max-height: 30px;
+                            }
+                        }
+
+                        p {
+                            margin-left: 0px;
+                            font-size: 10px;
+                            font-weight: bold;
+                        }
+                    }
+
                     // 보석 영역.
                     .JemArea {
                         width: 100%;
