@@ -28,7 +28,7 @@ function AdventureIsland({today}) {
         });
         
         let FirstFilter = response.data.filter((data) => data.CategoryName === "모험 섬");
-        console.log(FirstFilter);
+        
         let test = [];
 
         FirstFilter.map((data) => {
@@ -59,9 +59,28 @@ function AdventureIsland({today}) {
         <div className="AdventureIslandBox">
         {AdventureIslandData.length !== 0 ? AdventureIslandData.map((Data, index) => {
             
-            // 필요한건 아래 보상 리워드
-            let RewardArray = Data.RewardItems;
+            let RewordItems = [];
 
+            // 필요한건 아래 보상 리워드
+            Data.RewardItems.map((Data2, index) => {
+                if(Data2.StartTimes === null)
+                {
+                    RewordItems.push({id: index, Data: Data2});
+                } 
+                if(Data2.StartTimes !== null)
+                {
+                    for(let i=0; i < Data2.StartTimes.length; i++)
+                    {
+                        if(Data2.StartTimes[i].includes(today2))
+                        {
+                            RewordItems.push({id: index, Data: Data2});
+                            i = 10; // break를 하기 위해 넣었습니다.
+                        }
+                    }
+                }
+            })
+
+            
             const BackClick = () => {
                 const aaa = ArrayIndex;
                 aaa[index] = false;
@@ -85,52 +104,9 @@ function AdventureIsland({today}) {
                         </div>
 
                         <div className="BottomInfo">
-                        
-                            {/* <FiArrowLeftCircle onClick={() => {BackClick()}} className="Icon" style={ArrayIndex[index] === true ? {} : {display: "none"}}/> */}
-                            
-                            {/* {RewardArray.length > 0 ? RewardArray.map((Data2, index2) => 
-                            {
-                                    
-                                  
-
-                                    let backgroundColor = '';
-                                    switch(Data2.Grade)
-                                    {
-                                        case "유물" : 
-                                            backgroundColor = "linear-gradient(135deg,#341a09,#a24006)";
-                                            break;
-                                        case "전설" : 
-                                            backgroundColor = "linear-gradient(135deg,#362003,#9e5f04)";
-                                            break;
-                                        case "영웅" : 
-                                            backgroundColor = "linear-gradient(135deg,#261331,#480d5d)";
-                                            break;
-                                        case "희귀" :
-                                            backgroundColor = "linear-gradient(135deg,#111f2c,#113d5d)";
-                                            
-                                            break;
-                                        case "고급" : 
-                                            backgroundColor = "linear-gradient(135deg,#18220b,#304911)";
-                                            break;
-                                        default: 
-                                            backgroundColor = "linear-gradient(135deg,#18220b,#304911)";
-                                            break;
-                                    }
-
-                                  
-                                    if(index2 < 6)
-                                    {
-                                        return (
-                                            <>
-                                                <img key={index2} style={{background: backgroundColor}} src={Data2.Icon} className="rewardImage"/>
-                                            </>
-                                        )
-                                    } 
-                                
+                            {RewordItems.length !== 0 ? 
+                                RewordItems.map((icon, index) => <img src={icon.Data.Icon} key={icon.id} className="rewardImage"></img>) : ""
                             }
-                            ) : ""} */}
-
-                            <FiArrowRightCircle onClick={() => {FrontClick()}} className="Icon"/>
                             
                         
                         </div>
@@ -358,6 +334,7 @@ function Calendar() {
     }); 
 
     // NextAdventureIsland[0] * 3600 - NowSecTime
+    // 모험섬 타이머
     const [AdventureIslandTimer, setAdventureIslandTimer] = useState(0);
     const [NextsecTime, setNextsecTime] = useState(NextAdventureIsland[0] * 3600 - NowSecTime); // 다음 시간을 초로 변환
     // 다음 모험섬 시간을 구하는 함수
